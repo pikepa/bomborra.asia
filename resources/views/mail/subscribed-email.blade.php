@@ -19,9 +19,8 @@ If this was not you, then please ignore this email and your address will be dele
 
 Thanks,<br>
 {{ config('app.name') }}
-
 <div class="mx-auto">
-    <a href="{{ url('unsubscribe', ['id' => $ID]) }}"  >
+    <a href="{{ Illuminate\Support\Facades\URL::signedRoute('unsubscribe', ['id' => $ID]) }}"  >
         To completely unsubscribe, click here.
     </a>
     <br/>
