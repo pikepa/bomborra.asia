@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subscriber;
 use Illuminate\Http\Request;
 
 class UnsubscribeController extends Controller
 {
-    
     /**
      * Handle the incoming request.
      */
     public function __invoke(Request $request)
     {
-        public $url;
+        $subscriber = Subscriber::findOrFail($request->id);
+        $subscriber->delete();
 
-        dd($request);
+        //Send confirmation email
     }
 }

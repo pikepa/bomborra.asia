@@ -23,7 +23,7 @@ Route::get('home', HomeController::class)->name('home');
 
 Route::resource('subscribers', ManageSubscriberController::class);
 Route::post('/subscribers/{id}/unsubscribe', UnsubscribeController::class)
-                        ->name('unsubscribe'); // ->middleware('signed');
+            ->middleware('signed')->name('unsubscribe');
 
 Route::post('verifyOTP/{id}/{otp}', VerifySubscriber::class);
 Route::get('posts/{slug}', ShowPost::class)->name('showpost');
