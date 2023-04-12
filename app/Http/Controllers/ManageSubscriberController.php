@@ -25,8 +25,6 @@ class ManageSubscriberController extends Controller
     {
         $subscriber = $registerSubscriber($request->all());
 
-        //  $subscriber->sendOTP;
-
         return redirect('subscribers/thankyou');
     }
 

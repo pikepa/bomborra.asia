@@ -17,7 +17,14 @@ If this was not you, then please ignore this email and your address will be dele
 </div>
 
 
-
 Thanks,<br>
 {{ config('app.name') }}
+
+<div class="mx-auto">
+    <a href="{{ url('unsubscribe', ['id' => $ID]) }}"  >
+        To completely unsubscribe, click here.
+    </a>
+    <br/>
+    <br/>
+</div>
 @endcomponent
