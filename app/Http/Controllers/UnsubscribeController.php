@@ -16,5 +16,7 @@ class UnsubscribeController extends Controller
         $subscriber->delete();
 
         //Send confirmation email
-        return view('livewire.subscriber.thank-you');    }
+
+        return view('livewire.subscriber.sorry-youre-leaving');
+    }
 }

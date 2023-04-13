@@ -21,9 +21,8 @@ use App\Http\Controllers\ManageSubscriberController;
 Route::get('/', WelcomeController::class)->name('welcome');
 Route::get('home', HomeController::class)->name('home');
 
-Route::resource('subscribers', ManageSubscriberController::class);
-Route::Any('/subscribers/{id}/unsubscribe', UnsubscribeController::class)
-            ->middleware('signed')->name('unsubscribe');
+Route::resource('/subscribers', ManageSubscriberController::class)->only(['create', 'store']);
+Route::Any('/subscribers/{id}/unsubscribe', UnsubscribeController::class)->middleware('signed')->name('unsubscribe');
 
 Route::post('verifyOTP/{id}/{otp}', VerifySubscriber::class);
 Route::get('posts/{slug}', ShowPost::class)->name('showpost');
