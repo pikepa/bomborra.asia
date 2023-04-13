@@ -25,16 +25,8 @@ class ManageSubscriberController extends Controller
     {
         $subscriber = $registerSubscriber($request->all());
 
-        //  $subscriber->sendOTP;
-
-        return redirect('subscribers/thankyou');
-    }
-
-    /**
-     * Display the specified thank you screen.
-     */
-    public function show()
-    {
         return view('livewire.subscriber.thank-you');
     }
+
+    
 }
