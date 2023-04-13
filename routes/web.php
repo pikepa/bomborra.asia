@@ -24,7 +24,7 @@ Route::get('home', HomeController::class)->name('home');
 Route::resource('/subscribers', ManageSubscriberController::class)->only(['create', 'store']);
 Route::Any('/subscribers/{id}/unsubscribe', UnsubscribeController::class)->middleware('signed')->name('unsubscribe');
 
-Route::post('verifyOTP/{id}/{otp}', VerifySubscriber::class);
+Route::Any('verifyOTP/{id}/{otp}', VerifySubscriber::class);
 Route::get('posts/{slug}', ShowPost::class)->name('showpost');
 Route::get('category/posts/{cat_slug}', ShowCategoryPosts::class)->name('categoryposts');
 Route::get('channel/posts/{chan_slug}', ShowChannelPosts::class)->name('channelposts');
