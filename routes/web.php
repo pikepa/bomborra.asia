@@ -22,7 +22,7 @@ Route::get('/', WelcomeController::class)->name('welcome');
 Route::get('home', HomeController::class)->name('home');
 
 Route::resource('subscribers', ManageSubscriberController::class);
-Route::post('/subscribers/{id}/unsubscribe', UnsubscribeController::class)
+Route::Any('/subscribers/{id}/unsubscribe', UnsubscribeController::class)
             ->middleware('signed')->name('unsubscribe');
 
 Route::post('verifyOTP/{id}/{otp}', VerifySubscriber::class);
