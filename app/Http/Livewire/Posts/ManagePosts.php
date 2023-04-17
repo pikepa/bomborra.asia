@@ -37,7 +37,7 @@ class ManagePosts extends Component
 
     public $meta_description;
 
-    public $published_at;
+    public $published_at =null;
 
     public $showAddForm = 0;
 
