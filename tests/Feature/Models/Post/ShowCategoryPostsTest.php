@@ -14,7 +14,7 @@ test('any user can view published posts by category', function () {
     $category = Category::factory()->create();
     Channel::factory()->create();
 
-    $post = Post::factory()->create(['published_at' => now()]);
+    $post = Post::factory()->create(['published_at' => now()->subMonth()]);
 
     Livewire::test(ShowCategoryPosts::class, ['cat_slug' => $category->slug])
     ->assertStatus(200)

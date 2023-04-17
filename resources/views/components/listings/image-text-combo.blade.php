@@ -9,11 +9,11 @@
             <div class="w-4/5 ml-4 flex flex-col justify-between overflow-hidden">
                 <div>
                     <p class="font-bold text-2xl pt-2">{{ $post->title }}</p>
-                    @isset($post->published_at) <p class="text-xs font-bold text-gray-600">
-                        Published on {{$post->published_at->toFormattedDateString()}} by
-                        {{$post->author->name}}</p>@endisset
-                    @empty($post->published_at) <p class="text-xs font-bold text-gray-600">Not
-                        Published - Draft by {{$post->author->name}}</p>@endempty
+                    @if($post->published_status == 'Published') <p class="text-xs font-bold text-gray-600">Published on
+                        {{$post->display_published_at }} by {{$post->author->name}}</p>
+                    @else <p class="text-xs font-bold text-gray-600">Not Published - Draft
+                        by {{$post->author->name}}</p>
+                    @endif
                     <p class="mt-2 text-gray-600">{!! $post->trimmed_body !!}.</p>
                 </div>
                 <div class="pt-2 font-semibold text-xl">

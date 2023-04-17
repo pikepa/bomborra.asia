@@ -19,7 +19,7 @@ test('A guest can view a published post on the home page', function () {
     Channel::factory()->create(['sort' => 1, 'status' => 1]);
     User::factory()->create();
 
-    $post = Post::factory()->create(['published_at' => now(), 'channel_id' => 1]);
+    $post = Post::factory()->create(['published_at' => now()->subDay(), 'channel_id' => 1]);
 
     $this->get('/home')
     ->assertStatus(200)

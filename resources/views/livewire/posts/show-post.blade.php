@@ -18,10 +18,11 @@
                     <div class="flex flex-row justify-between items-center">
                         <div class="ml-4 text-3xl pt-4  text-gray-700 font-bold">
                             {{$post->title}}
-                            @isset($post->published_at) <p class="text-xs font-bold text-gray-600">Published on
-                                {{$post->published_at->toFormattedDateString()}} by {{$post->author->name}}</p>@endisset
-                            @empty($post->published_at) <p class="text-xs font-bold text-gray-600">Not Published - Draft
-                                by {{$post->author->name}}</p>@endempty
+                            @if($post->published_status == 'Published') <p class="text-xs font-bold text-gray-600">Published on
+                                {{$post->display_published_at }} by {{$post->author->name}}</p>
+                            @else <p class="text-xs font-bold text-gray-600">Not Published - Draft
+                                by {{$post->author->name}}</p>
+                            @endif
                         </div>
                         <div class="flex text-right mr-4 font-bold text-xl">
                             @if(Auth::user())
