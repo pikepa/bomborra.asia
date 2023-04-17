@@ -8,13 +8,13 @@ use App\Models\User;
 use Livewire\Livewire;
 
 test('any user can view published posts by channel', function () {
-    $this->withoutExceptionHandling();
+  //  $this->withoutExceptionHandling();
 
     $user = User::factory()->create();
     $category = Category::factory()->create();
     $channel = Channel::factory()->create();
 
-    $post = Post::factory()->create(['published_at' => now(), 'channel_id' => $channel->id]);
+    $post = Post::factory()->create(['published_at' => now()->subMonth(), 'channel_id' => $channel->id]);
 
     Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
     ->assertStatus(200)

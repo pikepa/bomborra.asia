@@ -45,14 +45,15 @@
                 </x-input.group>
             </div>
 
-            <!-- Schedule Post -->
-
-            <label class="block">
-                <span class="text-gray-700  font-bold">Published </span>
-                <input wire:model='published_at' type="text" placeholder="DD-MM-YYYY" name="published_at"
-                    class="form-input rounded mt-1 block w-full">
-            </label>
-
+            <!-- Publish Post -->
+            @if($post)
+                <label class="block">
+                    <span class="text-gray-700  font-bold">Published </span>
+                    <input wire:model='published_at' type="text" placeholder="DD-MM-YYYY" name="published_at"
+                        class="form-input rounded mt-1 block w-full">
+                </label>
+            @endif
+            
             <!-- Checkbox for Featured Image-->
             @isset($cover_image)
             <div>
