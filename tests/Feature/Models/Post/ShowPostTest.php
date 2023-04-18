@@ -49,7 +49,6 @@ test('An Auth User can view an unpublished post', function () {
 });
 
 test('An Auth User can view a future published post', function () {
-
     $post = Post::factory()->create(['published_at' => now()->addMonth()]);
     $this->signIn();
 

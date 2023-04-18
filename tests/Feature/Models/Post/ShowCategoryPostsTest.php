@@ -27,13 +27,12 @@ test('any user can view published posts by category', function () {
 });
 
 test('a signed in user can view published posts by category', function () {
-
     $user = User::factory()->create();
     $category = Category::factory()->create();
     Channel::factory()->create();
 
     $post = Post::factory()->create(['published_at' => now()->subMonth()]);
-    
+
     $this->signIn();
 
     Livewire::test(ShowCategoryPosts::class, ['cat_slug' => $category->slug])
@@ -47,13 +46,12 @@ test('a signed in user can view published posts by category', function () {
 });
 
 test('a signed in user can view unpublished future posts by category', function () {
-
     $user = User::factory()->create();
     $category = Category::factory()->create();
     Channel::factory()->create();
 
     $post = Post::factory()->create(['published_at' => now()->addMonth()]);
-    
+
     $this->signIn();
 
     Livewire::test(ShowCategoryPosts::class, ['cat_slug' => $category->slug])
@@ -66,7 +64,6 @@ test('a signed in user can view unpublished future posts by category', function 
 });
 
 test('a signed in user can view unpublished posts by category', function () {
-
     $user = User::factory()->create();
     $category = Category::factory()->create();
     Channel::factory()->create();

@@ -8,7 +8,7 @@ use App\Models\User;
 use Livewire\Livewire;
 
 test('any user can view published posts by channel', function () {
-  //  $this->withoutExceptionHandling();
+    //  $this->withoutExceptionHandling();
 
     $user = User::factory()->create();
     $category = Category::factory()->create();
@@ -26,18 +26,16 @@ test('any user can view published posts by channel', function () {
     ->assertSee($post->body);
 });
 
-
 test('a signed in user can view published posts by channel', function () {
+    $user = User::factory()->create();
+    Category::factory()->create();
+    $channel = Channel::factory()->create();
 
-  $user = User::factory()->create();
-  Category::factory()->create();
-  $channel =Channel::factory()->create();
+    $post = Post::factory()->create(['published_at' => now()->subMonth()]);
 
-  $post = Post::factory()->create(['published_at' => now()->subMonth()]);
-  
-  $this->signIn();
+    $this->signIn();
 
-  Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
+    Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
   ->assertStatus(200)
   ->assertSee($post->title)
   ->assertSee('Published on')
@@ -48,16 +46,15 @@ test('a signed in user can view published posts by channel', function () {
 });
 
 test('a signed in user can view unpublished future posts by channel', function () {
+    $user = User::factory()->create();
+    $category = Category::factory()->create();
+    $channel = Channel::factory()->create();
 
-  $user = User::factory()->create();
-  $category = Category::factory()->create();
-  $channel = Channel::factory()->create();
+    $post = Post::factory()->create(['published_at' => now()->addMonth()]);
 
-  $post = Post::factory()->create(['published_at' => now()->addMonth()]);
-  
-  $this->signIn();
+    $this->signIn();
 
-  Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
+    Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
   ->assertStatus(200)
   ->assertSee($post->title)
   ->assertSee('Draft')
@@ -67,16 +64,15 @@ test('a signed in user can view unpublished future posts by channel', function (
 });
 
 test('a signed in user can view unpublished posts by channel', function () {
+    $user = User::factory()->create();
+    Category::factory()->create();
+    $channel = Channel::factory()->create();
 
-  $user = User::factory()->create();
-  Category::factory()->create();
-  $channel = Channel::factory()->create();
+    $post = Post::factory()->create(['published_at' => null]);
 
-  $post = Post::factory()->create(['published_at' => null]);
+    $this->signIn();
 
-  $this->signIn();
-
-  Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
+    Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
   ->assertStatus(200)
   ->assertSee($post->title)
   ->assertSee('Draft')
