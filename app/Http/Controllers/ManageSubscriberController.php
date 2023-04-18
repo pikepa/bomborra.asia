@@ -27,6 +27,4 @@ class ManageSubscriberController extends Controller
 
         return view('livewire.subscriber.thank-you');
     }
-
-    
 }

@@ -65,13 +65,12 @@ class Post extends Model implements HasMedia
 
     public function getPublishedStatusAttribute($value)
     {
-        if(!empty($this->published_at) && $this->published_at < now()){
-            return "Published";
+        if (! empty($this->published_at) && $this->published_at < now()) {
+            return 'Published';
         }
-        if($this->published_at > now() | empty($this->published_at )){
-            return "Draft";
+        if ($this->published_at > now() | empty($this->published_at)) {
+            return 'Draft';
         }
-       
     }
 
     public function getTrimmedBodyAttribute($value)
@@ -81,12 +80,11 @@ class Post extends Model implements HasMedia
 
     public function getDisplayPublishedAtAttribute($value)
     {
-            if($this->published_at <> null)
-            {
-                return $this->published_at->toFormattedDateString();
-            }
+        if ($this->published_at != null) {
+            return $this->published_at->toFormattedDateString();
+        }
 
-            return '';
+        return '';
     }
 
     public function getWordcountAttribute($value)

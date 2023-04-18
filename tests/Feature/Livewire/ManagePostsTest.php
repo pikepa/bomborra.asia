@@ -28,7 +28,7 @@ test('A guest can view a published post', function () {
     Livewire::test(ShowPost::class, ['slug' => $post->slug])
        ->assertStatus(200)
         ->assertSee($post->category->name)
-        ->assertSee(env('APP_NAME', ),)
+        ->assertSee(env('APP_NAME', ), )
         ->assertSee($post->title)
         ->assertSee($post->body);
 });
@@ -129,9 +129,7 @@ test('An authorised User can mark a post as being in the vault', function () {
         'meta_description' => 'this is a new meta_description', ]);
 });
 
-
 test('When a user hits the add button the create form is shown', function () {
-
     $this->signIn();
 
     Livewire::test(ManagePosts::class)
@@ -140,9 +138,7 @@ test('When a user hits the add button the create form is shown', function () {
       ->assertSee('Save');
 });
 
-
 test('When a user hits the show table button the main table is shown', function () {
-
     $this->signIn();
 
     Livewire::test(ManagePosts::class)
@@ -151,4 +147,3 @@ test('When a user hits the show table button the main table is shown', function 
     ->assertDontSee('Edit Post')
     ->assertSee('Add Post');
 });
-

@@ -54,13 +54,13 @@ class EditPost extends Component
         return view('livewire.posts.edit-post');
     }
 
-        protected $listeners = [
-            'refreshComponent' => '$refresh',
-            'category_selected',
-            'channel_selected',
-            'photoAdded' => '$refresh',
-            'editPost' => 'render',
-        ];
+    protected $listeners = [
+        'refreshComponent' => '$refresh',
+        'category_selected',
+        'channel_selected',
+        'photoAdded' => '$refresh',
+        'editPost' => 'render',
+    ];
 
     protected $rules =
     [
