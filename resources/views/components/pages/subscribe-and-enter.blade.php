@@ -3,7 +3,7 @@
         <a href="/subscribers/create">
             <div
                 class="rounded-lg text-xl font-bold text-teal-900">
-                Subscribe for Updates here.
+                Subscribe for Updates
             </div>
         </a>
     </div>

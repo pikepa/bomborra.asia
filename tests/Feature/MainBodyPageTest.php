@@ -1,11 +1,12 @@
 <?php
 
-use App\Models\Category;
-use App\Models\Channel;
 use App\Models\Link;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Channel;
+use App\Models\Category;
 use function Pest\Laravel\get;
+use Illuminate\Support\Facades\Auth;
 
 it('can load the home page', function () {
     get('/home')
@@ -44,15 +45,20 @@ test(' A guest can see an Active channel on the home page', function () {
     //Setup
     $channel = Channel::factory()->create(['status' => true]);
 
-    $this->get('/home')
-    ->assertSee($channel->name);
+    expect($this->get('/home'))->assertSee($channel->name);
 });
+
 test(' A guest can see an Active link on the home page', function () {
     //Setup
     $this->signIn();
     $link = Link::factory()->create(['status' => true]);
+    Auth::logout();
+    
+    //Act and Assert
+    expect($this->get('/home'))->assertSee($link->title);
+});
+test(' A guest can see a subscribe link on the home page', function () {
 
     //Act and Assert
-    $this->get('/home')
-    ->assertSee($link->title);
+    expect($this->get('/home'))->assertSee('Subscribe');
 });
