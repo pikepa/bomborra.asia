@@ -60,12 +60,31 @@ class Post extends Model implements HasMedia
 
     public function scopePublished($query)
     {
-        return $query->where('published_at', '!=', null);
+        return $query->where('published_at', '<', now());
+    }
+
+    public function getPublishedStatusAttribute($value)
+    {
+        if (! empty($this->published_at) && $this->published_at < now()) {
+            return 'Published';
+        }
+        if ($this->published_at > now() | empty($this->published_at)) {
+            return 'Draft';
+        }
     }
 
     public function getTrimmedBodyAttribute($value)
     {
         return Str::words(strip_tags($this->body), 120);
+    }
+
+    public function getDisplayPublishedAtAttribute($value)
+    {
+        if ($this->published_at != null) {
+            return $this->published_at->toFormattedDateString();
+        }
+
+        return '';
     }
 
     public function getWordcountAttribute($value)

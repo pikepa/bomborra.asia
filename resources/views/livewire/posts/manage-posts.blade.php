@@ -43,6 +43,7 @@
                 <x-table.heading class="text-left">Channel</x-table.heading>
                 <x-table.heading class="text-left">Category</x-table.heading>
                 <x-table.heading class="text-left">Author</x-table.heading>
+                <x-table.heading class="text-left">Status</x-table.heading>
                 <x-table.heading class="text-left">Published</x-table.heading>
                 <x-table.heading class="text-left"></x-table.heading>
                 <x-table.heading class="text-left"></x-table.heading>
@@ -56,6 +57,7 @@
                 <x-table.cell>{{$post->channel->name}}</x-table.cell>
                 <x-table.cell>{{$post->category->name}}</x-table.cell>
                 <x-table.cell>{{$post->author->name}}</x-table.cell>
+                <x-table.cell>{{$post->published_status}}</x-table.cell>
                 @isset($post->published_at)<x-table.cell
                   class="text-left">{{$post->published_at->toFormattedDateString()}}</x-table.cell>@endisset
                 @empty($post->published_at)<x-table.cell class="text-left">Draft</x-table.cell>@endempty

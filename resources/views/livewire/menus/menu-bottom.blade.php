@@ -12,6 +12,8 @@
                 </a>
                 @endforeach
                 <div class="">
+                    <a class="uppercase text-gray-100 pr-4 " href="/subscribers/create">Subscribe</a>
+
                     @auth
                     <a class="uppercase text-gray-100 pr-4 " href="{!! route('dashboard')!!}">Dashboard</a>
                     @endauth

@@ -46,7 +46,7 @@
                 </a>
                 @endforeach
                 <div class="collapse sm:visible">
-                    <input class='text-gray-700 p-2 rounded' type="text" placeholder="Search">
+                    <!-- <input class='text-gray-700 p-2 rounded' type="text" placeholder="Search"> -->
                 </div>
             </div>
         </div>

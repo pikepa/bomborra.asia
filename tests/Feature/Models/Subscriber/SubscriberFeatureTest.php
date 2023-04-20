@@ -1,13 +1,13 @@
 <?php
 
-use App\Models\Post;
-use App\Models\User;
-use Livewire\Livewire;
-use App\Models\Channel;
-use App\Models\Category;
-use App\Models\Subscriber;
-use Illuminate\Support\Facades\URL;
 use App\Http\Livewire\Subscriber\ManageSubscribers;
+use App\Models\Category;
+use App\Models\Channel;
+use App\Models\Post;
+use App\Models\Subscriber;
+use App\Models\User;
+use Illuminate\Support\Facades\URL;
+use Livewire\Livewire;
 
 test('a newsletter subscribe button appears on the welcome screen', function () {
     User::factory()->create();
@@ -51,15 +51,13 @@ test('an authorised user can see a list of subscribers', function () {
         ->assertSee($subsc2->email);
 });
 
-test('a subscriber can unsubscribe and remove themselves from the list', function(){
+test('a subscriber can unsubscribe and remove themselves from the list', function () {
+    $subscriber = Subscriber::factory()->create();
 
-        $subscriber= Subscriber::factory()->create();
-    
-        $url = URL::signedRoute('unsubscribe', ['id' => $subscriber->id]);
-       
-        $this->post($url)->assertOk()
+    $url = URL::signedRoute('unsubscribe', ['id' => $subscriber->id]);
+
+    $this->post($url)->assertOk()
             ->assertViewIs('livewire.subscriber.sorry-youre-leaving');
-        
-        $this->assertDatabaseCount('subscribers', 0);
 
+    $this->assertDatabaseCount('subscribers', 0);
 });

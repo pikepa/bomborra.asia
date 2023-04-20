@@ -28,7 +28,7 @@ test('A guest can view a published post', function () {
     Livewire::test(ShowPost::class, ['slug' => $post->slug])
        ->assertStatus(200)
         ->assertSee($post->category->name)
-        ->assertSee('Bomborra')
+        ->assertSee(env('APP_NAME', ), )
         ->assertSee($post->title)
         ->assertSee($post->body);
 });
@@ -74,6 +74,23 @@ test('An authorised user can add a post', function () {
         'is_in_vault' => false, ]);
 });
 
+test('When a user hits the add button the published date is not shown', function () {
+    $this->actingAs(User::factory()->create());
+
+    Livewire::test(ManagePosts::class)
+      ->call('showAddForm')
+      ->assertDontSee('Published');
+});
+
+test('When a user hits the edit button the published date is shown', function () {
+    $this->actingAs(User::factory()->create());
+
+    $post = Post::factory()->create();
+
+    Livewire::test(EditPost::class, ['slug' => $post->slug, 'origin' => 'P'])
+      ->assertSee('Published');
+});
+
 test('An authorised user can delete a post', function () {
     $this->actingAs(User::factory()->create());
 
@@ -110,4 +127,23 @@ test('An authorised User can mark a post as being in the vault', function () {
 
     $this->assertDatabaseHas('posts', ['is_in_vault' => true,
         'meta_description' => 'this is a new meta_description', ]);
+});
+
+test('When a user hits the add button the create form is shown', function () {
+    $this->signIn();
+
+    Livewire::test(ManagePosts::class)
+      ->call('showAddForm')
+      ->assertSee('Add Post')
+      ->assertSee('Save');
+});
+
+test('When a user hits the show table button the main table is shown', function () {
+    $this->signIn();
+
+    Livewire::test(ManagePosts::class)
+    ->call('showTable')
+    ->assertSee('Posts')
+    ->assertDontSee('Edit Post')
+    ->assertSee('Add Post');
 });
