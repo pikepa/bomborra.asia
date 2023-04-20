@@ -4173,6 +4173,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/034260c6b383bdbca7df1f18b06898036a5273f1",
                 "reference": "034260c6b383bdbca7df1f18b06898036a5273f1",
+
                 "shasum": ""
             },
             "require": {
@@ -4257,6 +4258,7 @@
             "support": {
                 "issues": "https://github.com/spatie/laravel-medialibrary/issues",
                 "source": "https://github.com/spatie/laravel-medialibrary/tree/10.9.0"
+
             },
             "funding": [
                 {
@@ -4269,6 +4271,7 @@
                 }
             ],
             "time": "2023-04-20T06:49:40+00:00"
+
         },
         {
             "name": "spatie/laravel-missing-page-redirector",
