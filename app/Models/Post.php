@@ -25,6 +25,7 @@ class Post extends Model implements HasMedia
         'published_at' => 'date',
     ];
 
+
     protected $fillable = [
         'title',
         'cover_image',

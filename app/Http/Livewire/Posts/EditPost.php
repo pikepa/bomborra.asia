@@ -40,7 +40,7 @@ class EditPost extends Component
 
     public $meta_description;
 
-    public $published_at;
+    public $published_at = null;
 
     public function mount($slug, $origin)
     {
@@ -115,8 +115,13 @@ class EditPost extends Component
 
     public function update($id)
     {
+        if(! $this->published_at)
+        {
+            $this->published_at = NULL;
+        }
+        
         $data = $this->validate();
-
+// dd($data);
         $post = Post::findOrFail($id);
 
         $post->update($data);
