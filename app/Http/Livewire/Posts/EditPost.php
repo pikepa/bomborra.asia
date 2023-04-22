@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Livewire\Posts;
 
@@ -42,7 +43,7 @@ class EditPost extends Component
 
     public $published_at = null;
 
-    public function mount($slug, $origin)
+    public function mount(string $slug, string $origin)
     {
         $this->origin = $origin;
         $this->post = Post::where('slug', $slug)->first();
