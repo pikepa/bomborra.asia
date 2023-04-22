@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Livewire\Posts;
@@ -116,11 +117,10 @@ class EditPost extends Component
 
     public function update($id)
     {
-        if(! $this->published_at)
-        {
-            $this->published_at = NULL;
+        if (! $this->published_at) {
+            $this->published_at = null;
         }
-        
+
         $data = $this->validate();
 // dd($data);
         $post = Post::findOrFail($id);
