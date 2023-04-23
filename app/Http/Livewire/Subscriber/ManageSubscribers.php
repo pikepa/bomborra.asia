@@ -11,6 +11,8 @@ class ManageSubscribers extends Component
 
     public $search;
 
+    public $selectInvalid = false;
+
     public $showTable = true;
 
     public $showEditForm = false;

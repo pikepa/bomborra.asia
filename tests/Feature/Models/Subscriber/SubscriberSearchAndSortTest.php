@@ -14,6 +14,16 @@ test('An authorised User can search for a subscriber in the dashboard', function
         ->assertSee($subsc->name)
         ->assertDontSee($subsc1->name);
 });
+test('An authorised User can select non validdated subscribers in the dashboard', function () {
+    $this->signIn();
+    $subsc1 = Subscriber::factory()->create();
+    $subsc = Subscriber::factory()->create(['validated_at' => now(), 'validation_key' => '']);
+
+    Livewire::test(ManageSubscribers::class)
+        ->set('selectInvalid', true)
+        ->assertSee($subsc1->name)
+        ->assertDontSee($subsc->name);
+});
 
 test('An authorised User sees no Subscriber found when too many chars in the search', function () {
     $this->signIn();
