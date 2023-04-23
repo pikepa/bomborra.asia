@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Posts;
 
 use App\Models\Post;
@@ -40,9 +42,9 @@ class EditPost extends Component
 
     public $meta_description;
 
-    public $published_at;
+    public $published_at = null;
 
-    public function mount($slug, $origin)
+    public function mount(string $slug, string $origin)
     {
         $this->origin = $origin;
         $this->post = Post::where('slug', $slug)->first();
@@ -115,8 +117,12 @@ class EditPost extends Component
 
     public function update($id)
     {
-        $data = $this->validate();
+        if (! $this->published_at) {
+            $this->published_at = null;
+        }
 
+        $data = $this->validate();
+// dd($data);
         $post = Post::findOrFail($id);
 
         $post->update($data);

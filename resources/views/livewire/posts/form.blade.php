@@ -49,7 +49,10 @@
             @if($post)
                 <label class="block">
                     <span class="text-gray-700  font-bold">Published </span>
-                    <input wire:model='published_at' type="text" placeholder="DD-MM-YYYY" name="published_at"
+                    <input wire:model='published_at' type="text" 
+                        placeholder="DD-MM-YYYY" 
+                        name="published_at"
+                        format="DD-MM-YYYY"
                         class="form-input rounded mt-1 block w-full">
                 </label>
             @endif

@@ -37,7 +37,7 @@ class ManagePosts extends Component
 
     public $meta_description;
 
-    public $published_at = null;
+    public $published_at = NULL;
 
     public $showAddForm = 0;
 
@@ -69,7 +69,7 @@ class ManagePosts extends Component
         'author_id' => 'required|integer',
         'category_id' => 'required|integer',
         'channel_id' => 'required|integer',
-        'published_at' => '',
+        'published_at' => 'nullable',
         'cover_image' => 'nullable|url',
     ];
 
