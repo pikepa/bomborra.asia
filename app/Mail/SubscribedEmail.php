@@ -15,6 +15,8 @@ class SubscribedEmail extends Mailable
 
     public $ID;
 
+    public $subj = 'Please confirm your subscription to Bomborra Media';
+
     /**
      * Create a new message instance.
      *
@@ -24,6 +26,7 @@ class SubscribedEmail extends Mailable
     {
         $this->OTP = $OTP;
         $this->ID = $ID;
+
     }
 
     /**
@@ -33,6 +36,6 @@ class SubscribedEmail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.subscribed-email', ['OTP' => $this->OTP, 'ID' => $this->ID]);
+        return $this->subject($this->subj)->markdown('mail.subscribed-email', ['OTP' => $this->OTP, 'ID' => $this->ID]);
     }
 }
