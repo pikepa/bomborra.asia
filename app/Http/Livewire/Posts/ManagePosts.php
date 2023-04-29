@@ -37,7 +37,7 @@ class ManagePosts extends Component
 
     public $meta_description;
 
-    public $published_at = NULL;
+    public $published_at = null;
 
     public $showAddForm = 0;
 
@@ -88,7 +88,7 @@ class ManagePosts extends Component
 
     public function render()
     {
-        $this->posts = Post::search('title', $this->search)->with('author')->orderBy('created_at', 'desc')->get();
+        $this->posts = Post::search('title', $this->search)->with('author')->orderBy('published_at', 'desc')->get();
 
         return view('livewire.posts.manage-posts');
     }
