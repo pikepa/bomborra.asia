@@ -102,7 +102,7 @@ class ManagePosts extends Component
     public function render()
     {
         $this->posts = Post::when($this->search != '', function ($query) {
-            $query->where('name', 'like', '%'.$this->search.'%');
+            $query->where('title', 'like', '%'.$this->search.'%');
         })
             ->when($this->categoryQuery != '', function ($query) {
                 $query->where('category_id', $this->categoryQuery);
