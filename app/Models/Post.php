@@ -25,7 +25,6 @@ class Post extends Model implements HasMedia
         'published_at' => 'date',
     ];
 
-
     protected $fillable = [
         'title',
         'cover_image',
@@ -94,7 +93,7 @@ class Post extends Model implements HasMedia
         $whole = floor($n);
         $fraction = $n - $whole;
         if (($whole + (round($fraction * 60) > 30 ? 1 : 0)) > 1) {
-            return  ' : '.($whole + (round($fraction * 60) > 30 ? 1 : 0)).' - min read.';
+            return ' : '.($whole + (round($fraction * 60) > 30 ? 1 : 0)).' - min read.';
         } else {
             return;
         }
@@ -116,12 +115,12 @@ class Post extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-        ->width(200)
+            ->width(200)
             ->height(200)
             ->sharpen(10);
 
         $this->addMediaConversion('full')
-        ->width(800)
+            ->width(800)
             ->height(800)
             ->sharpen(10);
     }

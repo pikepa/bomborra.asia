@@ -11,8 +11,8 @@ it('a post belongs to a channel', function () {
     Channel::factory()->create();
 
     $post = Post::factory()
-     ->has(Channel::factory())
-     ->create();
+        ->has(Channel::factory())
+        ->create();
 
     expect($post->channel)
         ->toBeInstanceOf(Channel::class);

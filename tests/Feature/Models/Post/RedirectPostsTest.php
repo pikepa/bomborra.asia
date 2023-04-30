@@ -14,6 +14,6 @@ test('a guest gets redirected when using an old url', function () {
     $post = Post::factory()->create(['title' => 'Peter Pike']);
 
     $this->followingRedirects()->get('/$post->slug')
-                               ->assertSee('Peter Pike')
-                               ->assertSee('Back');
+        ->assertSee('Peter Pike')
+        ->assertSee('Back');
 });

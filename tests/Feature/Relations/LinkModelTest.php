@@ -7,12 +7,12 @@ test('a link belongs to a user', function () {
     $user = $this->signIn();
 
     $link = Link::factory()
-     ->create(['owner_id' => $user->id]);
+        ->create(['owner_id' => $user->id]);
 
     // $link = Link::factory()
     //  ->has(User::factory())
     //  ->create();
 
     expect($link->owner)
-       ->toBeInstanceOf(User::class);
+        ->toBeInstanceOf(User::class);
 });

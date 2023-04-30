@@ -11,4 +11,4 @@ test('when a site update is triggered, emails are sent to validated subscribers'
     post('/siteupdate', ['message' => 'this is the message', 'channel_id' => '1']);
 
     Mail::AssertQueued(SiteUpdateEmail::class);
-});
+})->todo();

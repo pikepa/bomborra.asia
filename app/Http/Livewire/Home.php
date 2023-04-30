@@ -12,7 +12,7 @@ class Home extends Component
     public function render()
     {
         $channels = Channel::where('status', true)
-        ->orderBy('sort', 'asc')->get();
+            ->orderBy('sort', 'asc')->get();
 
         return view('livewire.home')->with(['channels' => $channels]);
     }

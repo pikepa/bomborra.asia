@@ -11,7 +11,7 @@ beforeEach(function () {
 
 test('a guest cannot access the category index', function () {
     $this->get('/dashboard')
-            ->assertRedirect('/login');
+        ->assertRedirect('/login');
 });
 
 test('an authorised user can see a channel listing', function () {
@@ -19,8 +19,8 @@ test('an authorised user can see a channel listing', function () {
     $channel = Channel::factory()->create(['status' => true]);
 
     Livewire::test(ManageChannels::class)
-    ->assertSee($channel->name)
-    ->assertSee('Active');
+        ->assertSee($channel->name)
+        ->assertSee('Active');
 
     $this->assertDatabaseCount('channels', 1);
 });
@@ -29,14 +29,14 @@ test('an authorised user can create a channel', function () {
     $this->signIn($this->user);
 
     Livewire::test(ManageChannels::class)
-    ->call('create')
-    ->assertSee('Add Channel')
-    ->set('name', 'My Channel')
-    ->set('status', true)
-    ->set('sort', 1)
-    ->call('save')
-    ->assertSuccessful()
-    ->assertSee('Channel Successfully added.');
+        ->call('create')
+        ->assertSee('Add Channel')
+        ->set('name', 'My Channel')
+        ->set('status', true)
+        ->set('sort', 1)
+        ->call('save')
+        ->assertSuccessful()
+        ->assertSee('Channel Successfully added.');
 
     $this->assertDatabaseCount('channels', 1);
 
@@ -48,12 +48,12 @@ test('an authorised user can update a channel', function () {
     $channel = Channel::factory()->create();
 
     Livewire::test(ManageChannels::class)
-    ->call('edit', $channel->id)
-    ->set('name', 'My Channel')
-    ->set('status', 1)
-    ->call('update', $channel->id)
-    ->assertSuccessful()
-    ->assertSee('Channel Successfully updated.');
+        ->call('edit', $channel->id)
+        ->set('name', 'My Channel')
+        ->set('status', 1)
+        ->call('update', $channel->id)
+        ->assertSuccessful()
+        ->assertSee('Channel Successfully updated.');
 
     expect(Channel::latest()->first()->name)->toBe('My Channel');
 });
@@ -63,9 +63,9 @@ test('an authorised user can delete a channel', function () {
     $channel = Channel::factory()->create();
 
     Livewire::test(ManageChannels::class)
-    ->call('delete', $channel->id)
-    ->assertSuccessful()
-    ->assertSee('Channel Successfully deleted.');
+        ->call('delete', $channel->id)
+        ->assertSuccessful()
+        ->assertSee('Channel Successfully deleted.');
 
     $this->assertDatabaseCount('channels', 0);
 });

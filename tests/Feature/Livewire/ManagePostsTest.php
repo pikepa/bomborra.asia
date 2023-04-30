@@ -17,7 +17,7 @@ beforeEach(function () {
 test('An authorised user sees the Manage Posts page', function () {
     $this->signIn();
     Livewire::test(ManagePosts::class)->assertSee('Posts')
-    ->assertSee('A list of all the posts in your account.');
+        ->assertSee('A list of all the posts in your account.');
 });
 
 test('A guest can view a published post', function () {
@@ -26,9 +26,9 @@ test('A guest can view a published post', function () {
     $post = Post::factory()->create();
 
     Livewire::test(ShowPost::class, ['slug' => $post->slug])
-       ->assertStatus(200)
+        ->assertStatus(200)
         ->assertSee($post->category->name)
-        ->assertSee(env('APP_NAME', ), )
+        ->assertSee(env('APP_NAME'))
         ->assertSee($post->title)
         ->assertSee($post->body);
 });
@@ -70,16 +70,16 @@ test('An authorised user can add a post', function () {
         ->assertSuccessful();
 
     $this->assertDatabaseCount('posts', 1)
-    ->assertDatabaseHas('posts', ['title' => 'this is a post',
-        'is_in_vault' => false, ]);
+        ->assertDatabaseHas('posts', ['title' => 'this is a post',
+            'is_in_vault' => false, ]);
 });
 
 test('When a user hits the add button the published date is not shown', function () {
     $this->actingAs(User::factory()->create());
 
     Livewire::test(ManagePosts::class)
-      ->call('showAddForm')
-      ->assertDontSee('Published');
+        ->call('showAddForm')
+        ->assertDontSee('Published');
 });
 
 test('When a user hits the edit button the published date is shown', function () {
@@ -88,7 +88,7 @@ test('When a user hits the edit button the published date is shown', function ()
     $post = Post::factory()->create();
 
     Livewire::test(EditPost::class, ['slug' => $post->slug, 'origin' => 'P'])
-      ->assertSee('Published');
+        ->assertSee('Published');
 });
 
 test('An authorised user can delete a post', function () {
@@ -133,17 +133,17 @@ test('When a user hits the add button the create form is shown', function () {
     $this->signIn();
 
     Livewire::test(ManagePosts::class)
-      ->call('showAddForm')
-      ->assertSee('Add Post')
-      ->assertSee('Save');
+        ->call('showAddForm')
+        ->assertSee('Add Post')
+        ->assertSee('Save');
 });
 
 test('When a user hits the show table button the main table is shown', function () {
     $this->signIn();
 
     Livewire::test(ManagePosts::class)
-    ->call('showTable')
-    ->assertSee('Posts')
-    ->assertDontSee('Edit Post')
-    ->assertSee('Add Post');
+        ->call('showTable')
+        ->assertSee('Posts')
+        ->assertDontSee('Edit Post')
+        ->assertSee('Add Post');
 });

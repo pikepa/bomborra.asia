@@ -24,9 +24,9 @@ class MainBody extends Component
     public function render()
     {
         $this->posts = Post::published()
-        ->where('channel_id', $this->channel->id)
-        ->orderBy('published_at', 'desc')
-        ->get();
+            ->where('channel_id', $this->channel->id)
+            ->orderBy('published_at', 'desc')
+            ->get();
 
         $this->postCount = $this->posts->count();
 

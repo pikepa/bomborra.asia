@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Posts;
 
+use App\Models\Category;
+use App\Models\Channel;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -47,11 +49,19 @@ class ManagePosts extends Component
 
     public $channels;
 
-    public $selectedChannel;
+    public $selectedChannel; // form selected channel
+
+    public $channelQuery = '';    // dropdown selected channel
+
+    public $queryChannels;   // all channels for select dropdown
 
     public $categories;
 
     public $selectedCategory;
+
+    public $categoryQuery = '';
+
+    public $queryCategories;
 
     public $post;
 
@@ -83,12 +93,18 @@ class ManagePosts extends Component
 
     public function mount()
     {
+        $this->queryCategories = Category::orderBy('name', 'asc')->get();
+        $this->queryChannels = Channel::orderBy('name', 'asc')->get();
         $this->author_id = auth()->user()->id;
+
     }
 
     public function render()
     {
-        $this->posts = Post::search('title', $this->search)->with('author')->orderBy('published_at', 'desc')->get();
+        $this->posts = Post::search('title', $this->search)
+            ->search('category_id', $this->categoryQuery)
+            ->search('channel_id', $this->channelQuery)
+            ->with('author')->orderBy('published_at', 'desc')->get();
 
         return view('livewire.posts.manage-posts');
     }
@@ -101,6 +117,13 @@ class ManagePosts extends Component
     public function updatedNewImage()
     {
         $this->validate(['newImage' => 'image|max:5000']);
+    }
+
+    public function clearFilter()
+    {
+        $this->categoryQuery = '';
+        $this->channelQuery = '';
+        $this->search = '';
     }
 
     public function showAddForm()
