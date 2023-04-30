@@ -101,9 +101,15 @@ class ManagePosts extends Component
 
     public function render()
     {
-        $this->posts = Post::search('title', $this->search)
-            ->search('category_id', $this->categoryQuery)
-            ->search('channel_id', $this->channelQuery)
+        $this->posts = Post::when($this->search != '', function ($query) {
+            $query->where('name', 'like', '%'.$this->search.'%');
+        })
+            ->when($this->categoryQuery != '', function ($query) {
+                $query->where('category_id', $this->categoryQuery);
+            })
+            ->when($this->channelQuery != '', function ($query) {
+                $query->where('channel_id', $this->channelQuery);
+            })
             ->with('author')->orderBy('published_at', 'desc')->get();
 
         return view('livewire.posts.manage-posts');
