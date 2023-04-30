@@ -53,7 +53,7 @@ class ManagePosts extends Component
 
     public $channelQuery = '';    // dropdown selected channel
 
-    public $queryChannels;   // all channels for select dropdown
+    public $queryChannels = [];   // all channels for select dropdown
 
     public $categories;
 
@@ -61,7 +61,7 @@ class ManagePosts extends Component
 
     public $categoryQuery = '';
 
-    public $queryCategories;
+    public $queryCategories = [];
 
     public $post;
 

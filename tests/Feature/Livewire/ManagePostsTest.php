@@ -147,3 +147,41 @@ test('When a user hits the show table button the main table is shown', function 
         ->assertDontSee('Edit Post')
         ->assertSee('Add Post');
 });
+
+test('An authorised user can filter posts by category in the dashboard', function () {
+    $this->signIn();
+    $category2 = Category::factory()->create();
+    $post = Post::factory()->create(['category_id' => $this->category->id]);
+    $post2 = Post::factory()->create(['category_id' => $category2->id]);
+
+    Livewire::test(ManagePosts::class)
+        ->call('showTable')
+        ->set('categoryQuery', '')
+        ->assertSee('Posts')
+        ->assertSee('Select Channel')
+        ->assertSee('Select Category')
+        ->assertSee($post->title)
+        ->assertSee($post2->title)
+        ->set('categoryQuery', $this->category->id)
+        ->assertSee($post->title)
+        ->assertDontSee($post2->title);
+});
+
+test('An authorised user can filter posts by channel in the dashboard', function () {
+    $this->signIn();
+    $channel2 = Channel::factory()->create();
+    $post = Post::factory()->create(['channel_id' => $this->channel->id]);
+    $post2 = Post::factory()->create(['channel_id' => $channel2->id]);
+
+    Livewire::test(ManagePosts::class)
+        ->call('showTable')
+        ->set('channelQuery', '')
+        ->assertSee('Posts')
+        ->assertSee('Select Channel')
+        ->assertSee('Select Category')
+        ->assertSee($post->title)
+        ->assertSee($post2->title)
+        ->set('channelQuery', $this->channel->id)
+        ->assertSee($post->title)
+        ->assertDontSee($post2->title);
+});
