@@ -122,7 +122,7 @@ class EditPost extends Component
         }
 
         $data = $this->validate();
-// dd($data);
+        // dd($data);
         $post = Post::findOrFail($id);
 
         $post->update($data);

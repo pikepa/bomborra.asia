@@ -9,12 +9,12 @@ test('a subscriber can submit an OTP and be verified', function () {
     $OTP = $subscriber->cacheTheOTP();
 
     post('/verifyOTP/'.$subscriber->id.'/'.$subscriber->OTP())
-    ->assertOk()
-    ->assertSee('Thank you, your subscription has been verified.');
+        ->assertOk()
+        ->assertSee('Thank you, your subscription has been verified.');
 
     post('/verifyOTP/'.$subscriber->id.'/'.$subscriber->OTP())
-    ->assertOk()
-    ->assertSee('Sorry validation can not be repeated or the validation code is incorrect.');
+        ->assertOk()
+        ->assertSee('Sorry validation can not be repeated or the validation code is incorrect.');
 
     $subscriber = Subscriber::get()->first();
 
@@ -27,8 +27,8 @@ test('a successful validation is shown to the user.', function () {
     $OTP = $subscriber->cacheTheOTP();
 
     post('/verifyOTP/'.$subscriber->id.'/'.$subscriber->OTP())
-    ->assertOk()
-    ->assertSee('Thank you, your subscription has been verified.');
+        ->assertOk()
+        ->assertSee('Thank you, your subscription has been verified.');
 });
 
 test('an unsuccessful or duplicate validation is shown to the user.', function () {
@@ -37,10 +37,10 @@ test('an unsuccessful or duplicate validation is shown to the user.', function (
     $OTP = $subscriber->cacheTheOTP();
 
     post('/verifyOTP/'.$subscriber->id.'/'.$subscriber->OTP())
-    ->assertOk()
-    ->assertSee('Thank you, your subscription has been verified.');
+        ->assertOk()
+        ->assertSee('Thank you, your subscription has been verified.');
 
     post('/verifyOTP/'.$subscriber->id.'/'.$subscriber->OTP())
-    ->assertOk()
-    ->assertSee('Sorry validation can not be repeated or the validation code is incorrect.');
+        ->assertOk()
+        ->assertSee('Sorry validation can not be repeated or the validation code is incorrect.');
 });

@@ -21,7 +21,7 @@ class Profile extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(
-            related:User::class,
+            related: User::class,
             foreignKey: 'user_id',
         );
     }

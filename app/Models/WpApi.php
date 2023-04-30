@@ -54,7 +54,7 @@ class WpApi
         $posts = Post::where('id', '>', 4000)->get();
         foreach ($posts as $post) {
             $post->addMediaFromUrl($post->temp_url)
-            ->toMediaCollection('photos', 's3');
+                ->toMediaCollection('photos', 's3');
 
             $temp = Post::find($post->id)->getFirstMediaUrl('photos');
             $post->cover_image = $temp;

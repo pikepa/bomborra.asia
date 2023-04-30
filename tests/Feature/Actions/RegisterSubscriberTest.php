@@ -13,8 +13,8 @@ test('anyone can subscribe to the Newsletter', function () {
     ]);
 
     expect($subscriber->refresh())
-            ->email->toBe('foo@foobar.com')
-            ->name->toBe('Peter Piper');
+        ->email->toBe('foo@foobar.com')
+        ->name->toBe('Peter Piper');
 });
 
 test('an new email must be unique on the subscribers table', function () {

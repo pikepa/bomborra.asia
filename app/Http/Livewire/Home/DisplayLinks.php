@@ -19,7 +19,7 @@ class DisplayLinks extends Component
     public function render()
     {
         $this->links = Link::wherePosition($this->position)
-                            ->whereStatus(true)->orderBy('sort', 'asc')->get();
+            ->whereStatus(true)->orderBy('sort', 'asc')->get();
 
         return <<<'blade'
             <div>

@@ -18,21 +18,21 @@ test('A guest can view a published post', function () {
     $post = Post::factory()->create(['published_at' => now()->subMonth()]);
 
     Livewire::test(ShowPost::class, [$post->slug])
-    ->assertStatus(200)
-    ->assertSee($post->title)
-    ->assertSee('Published on')
-    ->assertSee($post->published_at->toFormattedDateString())
-    ->assertSee('by')
-    ->assertSee($post->author->name)
-    ->assertSee($post->body)
-    ->assertSeeLivewire(DisplayPostGallery::class);
+        ->assertStatus(200)
+        ->assertSee($post->title)
+        ->assertSee('Published on')
+        ->assertSee($post->published_at->toFormattedDateString())
+        ->assertSee('by')
+        ->assertSee($post->author->name)
+        ->assertSee($post->body)
+        ->assertSeeLivewire(DisplayPostGallery::class);
 });
 
 test('A guest can not view an unpublished post', function () {
     $post = Post::factory()->create(['published_at' => null]);
 
     Livewire::test(ShowPost::class, [$post->slug])
-    ->assertRedirect('/login');
+        ->assertRedirect('/login');
 });
 
 test('An Auth User can view an unpublished post', function () {
@@ -40,12 +40,12 @@ test('An Auth User can view an unpublished post', function () {
     $this->signIn();
 
     Livewire::test(ShowPost::class, [$post->slug])
-    ->assertStatus(200)
-    ->assertSee($post->title)
-    ->assertSee('Not Published - Draft')
-    ->assertSee('by')
-    ->assertSee($post->author->name)
-    ->assertSee($post->body);
+        ->assertStatus(200)
+        ->assertSee($post->title)
+        ->assertSee('Not Published - Draft')
+        ->assertSee('by')
+        ->assertSee($post->author->name)
+        ->assertSee($post->body);
 });
 
 test('An Auth User can view a future published post', function () {
@@ -53,12 +53,12 @@ test('An Auth User can view a future published post', function () {
     $this->signIn();
 
     Livewire::test(ShowPost::class, [$post->slug])
-    ->assertStatus(200)
-    ->assertSee($post->title)
-    ->assertSee('Not Published - Draft')
-    ->assertSee('by')
-    ->assertSee($post->author->name)
-    ->assertSee($post->body);
+        ->assertStatus(200)
+        ->assertSee($post->title)
+        ->assertSee('Not Published - Draft')
+        ->assertSee('by')
+        ->assertSee($post->author->name)
+        ->assertSee($post->body);
 });
 
 test('An Auth User can view a published post', function () {
@@ -66,12 +66,12 @@ test('An Auth User can view a published post', function () {
     $this->signIn();
 
     Livewire::test(ShowPost::class, [$post->slug])
-    ->assertStatus(200)
-    ->assertSee($post->title)
-    ->assertSee('Published on')
-    ->assertSee($post->published_at->toFormattedDateString())
-    ->assertSee('by')
-    ->assertSee($post->author->name)
-    ->assertSee($post->body)
-    ->assertSeeLivewire(DisplayPostGallery::class);
+        ->assertStatus(200)
+        ->assertSee($post->title)
+        ->assertSee('Published on')
+        ->assertSee($post->published_at->toFormattedDateString())
+        ->assertSee('by')
+        ->assertSee($post->author->name)
+        ->assertSee($post->body)
+        ->assertSeeLivewire(DisplayPostGallery::class);
 });

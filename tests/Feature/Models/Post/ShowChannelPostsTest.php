@@ -17,13 +17,13 @@ test('any user can view published posts by channel', function () {
     $post = Post::factory()->create(['published_at' => now()->subMonth(), 'channel_id' => $channel->id]);
 
     Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
-    ->assertStatus(200)
-    ->assertSee($post->title)
-    ->assertSee('Published on')
-    ->assertSee($post->published_at->toFormattedDateString())
-    ->assertSee('by')
-    ->assertSee($post->author->name)
-    ->assertSee($post->body);
+        ->assertStatus(200)
+        ->assertSee($post->title)
+        ->assertSee('Published on')
+        ->assertSee($post->published_at->toFormattedDateString())
+        ->assertSee('by')
+        ->assertSee($post->author->name)
+        ->assertSee($post->body);
 });
 
 test('a signed in user can view published posts by channel', function () {
@@ -36,13 +36,13 @@ test('a signed in user can view published posts by channel', function () {
     $this->signIn();
 
     Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
-  ->assertStatus(200)
-  ->assertSee($post->title)
-  ->assertSee('Published on')
-  ->assertSee($post->published_at->toFormattedDateString())
-  ->assertSee('by')
-  ->assertSee($post->author->name)
-  ->assertSee($post->body);
+        ->assertStatus(200)
+        ->assertSee($post->title)
+        ->assertSee('Published on')
+        ->assertSee($post->published_at->toFormattedDateString())
+        ->assertSee('by')
+        ->assertSee($post->author->name)
+        ->assertSee($post->body);
 });
 
 test('a signed in user can view unpublished future posts by channel', function () {
@@ -55,12 +55,12 @@ test('a signed in user can view unpublished future posts by channel', function (
     $this->signIn();
 
     Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
-  ->assertStatus(200)
-  ->assertSee($post->title)
-  ->assertSee('Draft')
-  ->assertSee('by')
-  ->assertSee($post->author->name)
-  ->assertSee($post->body);
+        ->assertStatus(200)
+        ->assertSee($post->title)
+        ->assertSee('Draft')
+        ->assertSee('by')
+        ->assertSee($post->author->name)
+        ->assertSee($post->body);
 });
 
 test('a signed in user can view unpublished posts by channel', function () {
@@ -73,12 +73,12 @@ test('a signed in user can view unpublished posts by channel', function () {
     $this->signIn();
 
     Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
-  ->assertStatus(200)
-  ->assertSee($post->title)
-  ->assertSee('Draft')
-  ->assertSee('by')
-  ->assertSee($post->author->name)
-  ->assertSee($post->body);
+        ->assertStatus(200)
+        ->assertSee($post->title)
+        ->assertSee('Draft')
+        ->assertSee('by')
+        ->assertSee($post->author->name)
+        ->assertSee($post->body);
 });
 
 test('displays "No Posts within this Channel" if colllection is empty', function () {
@@ -91,6 +91,6 @@ test('displays "No Posts within this Channel" if colllection is empty', function
 
     //act and Assert
     Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
-    ->assertStatus(200)
-    ->assertSee('Sorry, there are currently no Articles within this Channel');
+        ->assertStatus(200)
+        ->assertSee('Sorry, there are currently no Articles within this Channel');
 });

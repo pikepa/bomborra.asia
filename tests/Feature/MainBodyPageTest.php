@@ -1,12 +1,12 @@
 <?php
 
+use App\Models\Category;
+use App\Models\Channel;
 use App\Models\Link;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Channel;
-use App\Models\Category;
-use function Pest\Laravel\get;
 use Illuminate\Support\Facades\Auth;
+use function Pest\Laravel\get;
 
 it('can load the home page', function () {
     get('/home')
@@ -23,10 +23,10 @@ test('A guest can view a published post on the home page', function () {
     $post = Post::factory()->create(['published_at' => now()->subDay(), 'channel_id' => 1]);
 
     $this->get('/home')
-    ->assertStatus(200)
-    ->assertSee($post->title)
-    ->assertSee('... more')
-    ->assertSee(substr($post->description. 0, 50));
+        ->assertStatus(200)
+        ->assertSee($post->title)
+        ->assertSee('... more')
+        ->assertSee(substr($post->description. 0, 50));
 });
 
 test('A guest can not view an unpublished post on the home page', function () {
@@ -37,8 +37,8 @@ test('A guest can not view an unpublished post on the home page', function () {
     $post = Post::factory()->create(['published_at' => null]);
 
     $response = $this->get('/home')
-    ->assertStatus(200)
-    ->assertDontSee($post->title);
+        ->assertStatus(200)
+        ->assertDontSee($post->title);
 });
 
 test(' A guest can see an Active channel on the home page', function () {
@@ -53,7 +53,7 @@ test(' A guest can see an Active link on the home page', function () {
     $this->signIn();
     $link = Link::factory()->create(['status' => true]);
     Auth::logout();
-    
+
     //Act and Assert
     expect($this->get('/home'))->assertSee($link->title);
 });

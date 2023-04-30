@@ -25,13 +25,13 @@ class ShowChannelPosts extends Component
             return view(
                 'livewire.posts.show-channel-posts',
                 ['posts' => Post::with('author')->where('channel_id', $this->channel->id)
-                        ->orderBy('published_at', 'desc')->paginate(10), ]
+                    ->orderBy('published_at', 'desc')->paginate(10), ]
             );
         } else {
             return view(
                 'livewire.posts.show-channel-posts',
                 ['posts' => Post::published()->with('author')->where('channel_id', $this->channel->id)
-                        ->orderBy('published_at', 'desc')->paginate(10), ]
+                    ->orderBy('published_at', 'desc')->paginate(10), ]
             );
         }
     }
