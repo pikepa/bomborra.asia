@@ -56,7 +56,9 @@
                 <option value="{{ $category_item->id }}">{{ $category_item->name }}</option>
             @endforeach
           </select>
-
+        </div>
+        <div class=" mb-2 ml-4">
+          <button wire:click='clearFilter()' class="p-1 rounded-lg bg-teal-400">Clear</button>
         </div>
       </div>
       <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">

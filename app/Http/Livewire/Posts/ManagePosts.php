@@ -119,6 +119,13 @@ class ManagePosts extends Component
         $this->validate(['newImage' => 'image|max:5000']);
     }
 
+    public function clearFilter()
+    {
+        $this->categoryQuery = '';
+        $this->channelQuery = '';
+        $this->search = '';
+    }
+
     public function showAddForm()
     {
         $this->showTable = false;
