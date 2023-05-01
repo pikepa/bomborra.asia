@@ -11,7 +11,7 @@ class ManageSubscribers extends Component
 
     public $search;
 
-    public $selectInvalid = false;
+    public $isNotValidated = false;
 
     public $showTable = true;
 
@@ -26,6 +26,9 @@ class ManageSubscribers extends Component
         $this->subscribers = Subscriber::when($this->search != '', function ($query) {
             $query->where('name', 'like', '%'.$this->search.'%');
         })
+            ->when($this->isNotValidated == true, function ($query) {
+                $query->where('validated_at', null);
+            })
             ->orderBy('created_at', 'desc')
             ->get();
 

@@ -34,7 +34,7 @@
           <x-input wire:model="search" class=" p-1 border-2 border-gray-600 " placeholder="Search Title"></x-input>
         </div>
         <div class=" mb-2 ml-4 ">
-<p>Channel Filter:</p>
+        <p>Channel Filter:</p>
         </div>
         <div class=" mb-2 ">
           <select wire:model="channelQuery" class=" ml-2 rounded-lg p-1 border-2 border-gray-600 "

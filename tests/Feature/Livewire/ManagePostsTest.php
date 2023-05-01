@@ -185,3 +185,22 @@ test('An authorised user can filter posts by channel in the dashboard', function
         ->assertSee($post->title)
         ->assertDontSee($post2->title);
 });
+
+test('The posts dashboard page has a clear button which clears filters', function () {
+    $this->signIn();
+
+    Livewire::test(ManagePosts::class)
+        ->call('showTable')
+        ->assertSee('Clear')
+        ->assertSee('Select Channel')
+        ->assertSee('Select Category')
+        ->set('channelQuery', $this->channel->id)
+        ->set('categoryQuery', $this->channel->id)
+        ->set('search', 'abc')
+        ->assertSee($this->channel->name)
+        ->call('clearFilter')
+        ->assertSet('channelQuery', '')
+        ->assertSet('categoryQuery', '')
+        ->assertSet('search', '');
+
+});
