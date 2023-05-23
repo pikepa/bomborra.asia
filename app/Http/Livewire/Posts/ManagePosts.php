@@ -39,6 +39,8 @@ class ManagePosts extends Component
 
     public $meta_description;
 
+    public $notifiable = true;
+
     public $published_at = null;
 
     public $showAddForm = 0;
@@ -80,6 +82,7 @@ class ManagePosts extends Component
         'category_id' => 'required|integer',
         'channel_id' => 'required|integer',
         'published_at' => 'nullable',
+        'notifiable' => 'required|boolean',
         'cover_image' => 'nullable|url',
     ];
 
@@ -96,7 +99,6 @@ class ManagePosts extends Component
         $this->queryCategories = Category::orderBy('name', 'asc')->get();
         $this->queryChannels = Channel::orderBy('name', 'asc')->get();
         $this->author_id = auth()->user()->id;
-
     }
 
     public function render()

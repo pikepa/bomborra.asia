@@ -34,6 +34,7 @@ class Post extends Model implements HasMedia
         'meta_description',
         'channel_id',
         'published_at',
+        'notifiable',
         'author_id',
         'category_id',
     ];

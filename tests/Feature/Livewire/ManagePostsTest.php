@@ -71,7 +71,8 @@ test('An authorised user can add a post', function () {
 
     $this->assertDatabaseCount('posts', 1)
         ->assertDatabaseHas('posts', ['title' => 'this is a post',
-            'is_in_vault' => false, ]);
+            'is_in_vault' => false,
+            'notifiable' => true, ]);
 });
 
 test('When a user hits the add button the published date is not shown', function () {
@@ -202,5 +203,4 @@ test('The posts dashboard page has a clear button which clears filters', functio
         ->assertSet('channelQuery', '')
         ->assertSet('categoryQuery', '')
         ->assertSet('search', '');
-
 });
