@@ -8,6 +8,10 @@
                     <livewire:subscriber.manage-subscribers />
                     @endif
 
+                    @if($show =='compose')
+                    <livewire:emails.create-update-email />
+                    @endif
+
                     @if($show =='posts')
                     <livewire:posts.manage-posts />
                     @endif

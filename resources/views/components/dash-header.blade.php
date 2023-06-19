@@ -7,6 +7,7 @@
         <div class="inline p-2 cursor-pointer" wire:click="setShow('posts') "> Posts </div>
         <div class="inline p-2 cursor-pointer" wire:click="setShow('links') "> Links </div>
         <div class="inline p-2 cursor-pointer" wire:click="setShow('subs') "> Subscribers </div>
+        <div class="inline p-2 cursor-pointer" wire:click="setShow('compose') "> Compose </div>
     </div>
 
     @auth

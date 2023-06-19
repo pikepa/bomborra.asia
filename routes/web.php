@@ -5,6 +5,7 @@ use App\Http\Controllers\ManageSubscriberController;
 use App\Http\Controllers\UnsubscribeController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\WpApiController;
+use App\Http\Livewire\Emails\CreateUpdateEmail;
 use App\Http\Livewire\Links\ManageLinks;
 use App\Http\Livewire\Pages\DashStandardPage;
 use App\Http\Livewire\Posts\EditPost;
@@ -37,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard', DashStandardPage::class)->name('dashboard');
     Route::get('posts/edit/{slug}/{origin}', EditPost::class)->name('edit.post');
     Route::get('links', ManageLinks::class)->name('links');
+    Route::get('email/composeandsendupdate', CreateUpdateEmail::class)->name('email.compose');
 });
 
 // ---------
