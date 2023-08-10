@@ -30,5 +30,7 @@ test('an authorised user can click on the compose button and see the entry form'
         ->assertSee('Compose Update Email')
         ->assertSee('From')
         ->assertSee('Subject')
-        ->assertSee('Content');
+        ->assertSee('Content')
+        ->assertSee('Add Link')
+        ->assertSee('Add Subscribers');
 });
