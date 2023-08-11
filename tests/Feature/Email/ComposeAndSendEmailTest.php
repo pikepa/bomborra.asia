@@ -20,7 +20,6 @@ test('an authorised user can see the SendEmailPage', function () {
 test('a guest can not the SendEmailPage', function () {
     $this->get('/email/composeandsendupdate')->assertRedirect('/login')
         ->assertDontSeeLivewire(CreateUpdateEmail::class);
-
 });
 
 test('an authorised user can click on the compose button and see the entry form', function () {

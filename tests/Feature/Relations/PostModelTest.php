@@ -13,7 +13,6 @@ beforeEach(function () {
 });
 
 it('a post belongs to a channel', function () {
-
     $post = Post::factory()
         ->has(Channel::factory())
         ->create();
@@ -23,7 +22,6 @@ it('a post belongs to a channel', function () {
 });
 
 test('a post belongs to a SiteUpdate', function () {
-
     $this->withoutExceptionHandling();
 
     // set up
