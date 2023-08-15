@@ -36,10 +36,10 @@ Route::get('vault/', ShowVaultPosts::class)->name('posts.vault');
 * App Routes
 */
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard', DashStandardPage::class)->name('dashboard');
+    Route::get('dashboard/{page?}', DashStandardPage::class)->name('dashboard');
+    Route::get('siteupdates', ShowUpdateEmails::class)->name('site-updates');
     Route::get('posts/edit/{slug}/{origin}', EditPost::class)->name('edit.post');
     Route::get('links', ManageLinks::class)->name('links');
-    Route::get('siteupdates', ShowUpdateEmails::class)->name('site-updates');
     Route::get('email/composeandsendupdate', CreateUpdateEmail::class)->name('email.compose');
 });
 

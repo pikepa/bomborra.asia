@@ -9,11 +9,6 @@
                     <livewire:subscriber.manage-subscribers />
                     @endif
 
-                    @if($show =='compose')
-                        <div >
-                            <livewire:emails.show-update-emails  />
-                        </div>                    
-                    @endif
 
                     @if($show =='posts')
                     <livewire:posts.manage-posts />
