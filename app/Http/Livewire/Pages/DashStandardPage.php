@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class DashStandardPage extends Component
 {
-    public $show = 'posts';
+    public $show = 'dash';
 
     public function render()
     {
@@ -16,5 +16,6 @@ class DashStandardPage extends Component
     public function setShow($item)
     {
         $this->show = $item;
+
     }
 }

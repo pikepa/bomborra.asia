@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('site_updates', function (Blueprint $table) {
             $table->id();
+            $table->timestamp('date');
+            $table->string('from')->required();
+            $table->string('subject')->required()->unique();
+            $table->string('slug')->required();
+            $table->text('content');
+            $table->string('status')->required()->default('draft');
             $table->timestamps();
         });
     }

@@ -1,7 +1,6 @@
 <div>
     <x-app-layout>
         <x-pages.standard-page>
-
                 <div class="max-w-7xl min-h-screen mx-auto">
                         <div class=" text-5xl text-center p-8 rounded-lg border-b-2 text-gray-100 bg-teal-800 font-bold">
                             {{$post->title}}

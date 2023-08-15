@@ -10,6 +10,13 @@ class SiteUpdate extends Model
 {
     use HasFactory;
 
+    protected $casts = ['date' => 'date'];
+
+    public function getDateForHumansAttribute()
+    {
+        return $this->date->format('M d, Y');
+    }
+
     public function posts(): BelongsToMany
     {
         return $this->BelongsToMany(Post::class, 'post_site_update');
