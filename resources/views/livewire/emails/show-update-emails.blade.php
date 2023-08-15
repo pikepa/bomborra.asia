@@ -10,7 +10,7 @@
     
         <div class="flex justify-between">
             <div>
-                <h1 class="text-2xl font-semibold text-gray-900">Site Updates</h1>
+                <h1 class="text-2xl font-semibold text-gray-900">Site Update Emails</h1>
             </div>
             <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                 <button wire:click="create" type="button"
@@ -31,12 +31,17 @@
         </x-slot>
         <x-slot name="body">
           @foreach($siteUpdates as $siteupdate)
-          <x-table.row wire:key="siteupdate-{{ $siteupdate->id }}">
+          <x-table.row >
             <x-table.cell>{{ $siteupdate->subject }}</x-table.cell>
-            <x-table.cell>{{ $siteupdate->from }}</x-table.cell>
-            <x-table.cell>{{ $siteupdate->status }}</x-table.cell>
+            <x-table.cell >{{ $siteupdate->from }}</x-table.cell>
+            <x-table.cell >
+                <span class="font-semibold p-1 rounded bg-{{ $siteupdate->status_color }}-100">{{ $siteupdate->status }}</span></x-table.cell>
             <x-table.cell  class="whitespace-nowrap">{{ $siteupdate->date_for_humans}}</x-table.cell>
-            <x-table.cell>Edit</x-table.cell>
+            @if($siteupdate->status !== 'Sent')
+            <x-table.cell>
+                <x-button.link wire:click="edit({{ $siteupdate->id }})">Edit</x-button.link> 
+            </x-table.cell>
+            @endif
           </x-table.row>
           @endforeach
         </x-slot>
@@ -46,31 +51,42 @@
       </div>
      </div>
     <!-- This is the modal form  -->
-    
+    <form wire:submit.prevent="save">
         <x-modal.dialog wire:model.defer="showEditModal">
             <x-slot name="title">Compose Update Email</x-slot>
             <x-slot name="content">
                 <div class=" space-y-2 ">
-                    <x-input.group for="email" label="From" width="full">
-                        <x-input.text wire:model='email' type="text" placeholder="Enter Sender's Email"
+                    <x-input.group for="from" label="From" width="full" 
+                    :error="$errors->first('editing.from')" >
+                        <x-input.text wire:model="editing.from" type="text" placeholder="Enter Sender's Email"
                             class="form-input w-full rounded" />
                     </x-input.group>
-                    <x-input.group for="subject" label="Subject" width="full">
-                        <x-input.text wire:model='subject' type="text" placeholder="Enter the subject of the email"
+                    <x-input.group for="subject" label="Subject" width="full"  :error="$errors->first('editing.subject')">
+                        <x-input.text wire:model='editing.subject' type="text" placeholder="Enter the subject of the email"
                             class="form-input w-full rounded" />
                     </x-input.group>
-                    <x-input.group for="content" label="Content" width="full">
-                        <x-input.textarea wire:model='content' type="text" placeholder="Enter the message here"
+                    <x-input.group for="slug" label="Slug" width="full" 
+                    :error="$errors->first('editing.slug')">
+                        <x-input.text wire:model='editing.slug' type="text" placeholder="Enter the slug of the subject"
+                            class="form-input w-full rounded" />
+                    </x-input.group>
+                    <x-input.group for="content" label="Content" width="full" :error="$errors->first('editing.content')">
+                        <x-input.textarea wire:model='editing.content' type="text" placeholder="Enter the message here"
                             class="form-input w-full rounded" />
                     </x-input.group>
     
             </x-slot>
     
-            <x-slot name="footer">
-                <x-button.secondary>Cancel</x-button.secondary>
+            <x-slot  name="footer">
+                <div class="space-x-4">
+                <x-button.secondary wire:click="$set('showEditModal',false)">Cancel</x-button.secondary>
                 
-                <x-button.primary class="p-2 rounded-lg">Save</x-button.primary>
+                <x-button.primary type='submit' class="p-2 rounded-lg">Save</x-button.primary>
+                </div>
+                
+            
             </x-slot>
         </x-modal.dialog>
+    </form>
     </div>
 </x-pages.dash-standard-template>

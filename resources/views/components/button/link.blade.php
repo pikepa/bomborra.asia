@@ -5,4 +5,4 @@
     ]) }}
 >
     {{ $slot }}
-    </button>
+</button>

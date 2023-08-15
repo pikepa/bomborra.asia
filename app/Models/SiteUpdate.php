@@ -10,11 +10,28 @@ class SiteUpdate extends Model
 {
     use HasFactory;
 
+    const STATUSES = [
+        'Draft' => 'Draft',
+        'Submitted' => 'Submitted',
+        'Sent' => 'Sent',
+    ];
+
     protected $casts = ['date' => 'date'];
+
+    protected $guarded = [];
 
     public function getDateForHumansAttribute()
     {
         return $this->date->format('M d, Y');
+    }
+
+    public function getStatusColorAttribute()
+    {
+        return
+        [
+            'Draft' => 'indigo',
+            'Sent' => 'green',
+        ][$this->status] ?? 'cool-gray';
     }
 
     public function posts(): BelongsToMany

@@ -14,18 +14,26 @@ class ShowUpdateEmails extends Component
 
     public SiteUpdate $editing;
 
-    public $rules = [
-        '$editing.email' => 'email|required',
-        '$editing.subject' => 'required|min:6|max:150',
-        '$editing.content' => 'required|min:10',
-        '$editing.slug' => 'required',
-        '$editing.status' => 'required',
-    ];
+    public function rules()
+    {
+        return [
+            'editing.from' => 'email|required',
+            'editing.subject' => 'required|min:6|max:150',
+            'editing.content' => 'required|min:10',
+            'editing.slug' => 'required',
+            'editing.status' => 'required:in:'.collect(SiteUpdate::STATUSES)->keys()->implode(','),
+        ];
+    }
+
+    public function mount()
+    {
+        $this->editing = SiteUpdate::make(['date' => now()]);
+    }
 
     public function render()
     {
         return view('livewire.emails.show-update-emails', [
-            'siteUpdates' => SiteUpdate::paginate(5),
+            'siteUpdates' => SiteUpdate::paginate(9),
         ]);
     }
 
@@ -34,8 +42,17 @@ class ShowUpdateEmails extends Component
         $this->showEditModal = true;
     }
 
-    public function edit()
+    public function edit(SiteUpdate $siteupdate)
     {
+        $this->editing = $siteupdate;
         $this->showEditModal = true;
+    }
+
+    public function save()
+    {
+        $this->validate();
+        $this->editing->save();
+        $this->showEditModal = false;
+
     }
 }
