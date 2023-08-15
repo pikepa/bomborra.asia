@@ -3,6 +3,7 @@
 use App\Mail\SubscribedEmail;
 use App\Models\Subscriber;
 use Illuminate\Support\Facades\Mail;
+
 use function Pest\Laravel\post;
 
 test('an email is sent when a subscriber is created', function () {
