@@ -23,10 +23,10 @@
         <div class="flex-col space-y-4">
             <x-table>
                 <x-slot name="head">
-                    <x-table.heading class="w-full" sortable wire:click="sortBy('subject')"  > Subject</x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('from')" >From</x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('status')" >Status</x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('date')" >Date</x-table.heading>
+                    <x-table.heading class="w-full" sortable wire:click="sortBy('subject')" :direction="$sortField === 'subject' ? $sortDirection :null" > Subject</x-table.heading> 
+                    <x-table.heading sortable wire:click="sortBy('from')" :direction="$sortField === 'from' ? $sortDirection :null" >From</x-table.heading>
+                    <x-table.heading sortable wire:click="sortBy('status')" :direction="$sortField === 'status' ? $sortDirection :null" >Status</x-table.heading>
+                    <x-table.heading sortable wire:click="sortBy('date')" :direction="$sortField === 'date' ? $sortDirection :null" >Date</x-table.heading>
                     <x-table.heading></x-table.heading>
                 </x-slot>
                 <x-slot name="body">
