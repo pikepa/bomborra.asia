@@ -21,6 +21,8 @@ class ShowUpdateEmails extends Component
 
     public $sortDirection = 'desc';
 
+    protected $queryString = ['sortField', 'sortDirection'];
+
     public function mount()
     {
         $this->sortField = 'date';
@@ -47,14 +49,24 @@ class ShowUpdateEmails extends Component
         ];
     }
 
+    public function updatingSearch(&$value)
+    {
+        if ($value == '') {
+            $value = null;
+        }
+        $this->resetPage();
+    }
+
     public function sortBy($field)
     {
+
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
         } else {
             $this->sortField = $field;
             $this->sortDirection = 'asc';
         }
+
     }
 
     public function makeBlankTransaction()
@@ -83,6 +95,5 @@ class ShowUpdateEmails extends Component
         $this->validate();
         $this->editing->save();
         $this->showEditModal = false;
-
     }
 }

@@ -13,7 +13,7 @@ test('an authorised user can see the ComposeEmail button on the dashboard', func
 test('an authorised user can click on the compose button and see the site update listing', function () {
     $this->signIn();
     Livewire::test(ShowUpdateEmails::class)
-        ->assertSee('Site Updates')
+        ->assertSee('Site Update Emails')
         ->assertSee('Add New')
         ->assertSee('Date')
         ->assertSee('Subject')
