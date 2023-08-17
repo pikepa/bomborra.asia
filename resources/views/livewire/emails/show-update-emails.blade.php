@@ -20,8 +20,6 @@
                     <i class="fa-solid fa-plus"></i>&nbspAdd New </button>
             </div>
         </div>
-
-{{ $sortField }} {{ $sortDirection }}
         <div class="flex-col space-y-4">
             <x-table>
                 <x-slot name="head">

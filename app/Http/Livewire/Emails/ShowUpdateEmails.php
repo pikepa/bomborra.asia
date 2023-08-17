@@ -19,7 +19,7 @@ class ShowUpdateEmails extends Component
 
     public $sortField;
 
-    public $sortDirection = 'asc';
+    public $sortDirection = 'desc';
 
     public function mount()
     {
