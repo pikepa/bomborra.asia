@@ -49,7 +49,7 @@ class ShowUpdateEmails extends Component
         ];
     }
 
-    public function updatingSearch(&$value)
+    public function updatedSearch(&$value)
     {
         if ($value == '') {
             $value = null;
