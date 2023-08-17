@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Emails;
 
 use App\Models\SiteUpdate;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,10 +15,31 @@ class ShowUpdateEmails extends Component
 
     public SiteUpdate $editing;
 
+    public $search = '';
+
+    public $sortField;
+
+    public $sortDirection = 'asc';
+
+    public function mount()
+    {
+        $this->sortField = 'date';
+        $this->editing = $this->makeBlankTransaction();
+    }
+
+    public function render()
+    {
+        return view('livewire.emails.show-update-emails', [
+            'siteUpdates' => SiteUpdate::search('subject', $this->search)
+                ->orderBy($this->sortField, $this->sortDirection)->paginate(9),
+        ]);
+    }
+
     public function rules()
     {
         return [
             'editing.from' => 'email|required',
+            'editing.date' => 'required',
             'editing.subject' => 'required|min:6|max:150',
             'editing.content' => 'required|min:10',
             'editing.slug' => 'required',
@@ -25,26 +47,34 @@ class ShowUpdateEmails extends Component
         ];
     }
 
-    public function mount()
+    public function sortBy($field)
     {
-        $this->editing = SiteUpdate::make(['date' => now()]);
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
     }
 
-    public function render()
+    public function makeBlankTransaction()
     {
-        return view('livewire.emails.show-update-emails', [
-            'siteUpdates' => SiteUpdate::paginate(9),
-        ]);
+        return SiteUpdate::make(['date' => Carbon::now(), 'status' => 'Draft', 'from' => 'pikepeter@gmail.com']);
     }
 
     public function create()
     {
+        if ($this->editing->getKey()) {
+            $this->editing = $this->makeBlankTransaction();
+        }
         $this->showEditModal = true;
     }
 
     public function edit(SiteUpdate $siteupdate)
     {
-        $this->editing = $siteupdate;
+        if ($this->editing->isNot($siteupdate)) {
+            $this->editing = $siteupdate;
+        }
         $this->showEditModal = true;
     }
 
