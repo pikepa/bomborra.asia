@@ -23,6 +23,11 @@ class ShowUpdateEmails extends Component
 
     protected $queryString = ['sortField', 'sortDirection'];
 
+    public function paginationView()
+    {
+        return 'pagination';
+    }
+
     public function mount()
     {
         $this->sortField = 'date';
