@@ -57,7 +57,7 @@
                 </x-slot>
             </x-table>
             <div>
-                {{ $siteUpdates->links() }}
+                {{ $siteUpdates->links('pagination') }}
             </div>
         </div>
         <!-- This is the modal form  -->
