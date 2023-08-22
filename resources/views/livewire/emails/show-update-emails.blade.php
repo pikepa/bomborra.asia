@@ -16,9 +16,9 @@
             </div>
             <div class="mr-2 space-x-2 flex items-center">
                 <x-dropdown label="Bulk Actions" >
-                    <x-dropdown.item type='button' wire:click='exportSelected' class="flex items-center space-x-2">
+                    <!-- <x-dropdown.item type='button' wire:click='' class="flex items-center space-x-2">
                         <x-icons.download class="text-cool-gray-200"/><span>Download</span>
-                    </x-dropdown.item>
+                    </x-dropdown.item> -->
                     <x-dropdown.item type='button' wire:click='deleteSelected' class="flex items-center space-x-2">
                         <x-icons.trash class="text-cool-gray-200"/><span>Delete</span>
                     </x-dropdown.item>
@@ -30,7 +30,7 @@
             <x-table>
                 <x-slot name="head">
                     <x-table.heading class="pr-0 w-8">
-                        <x-input.checkbox></x-input.checkbox>
+                            <!-- <x-input.checkbox></x-input.checkbox> -->
                     </x-table.heading>
                     <x-table.heading class="w-full" sortable wire:click="sortBy('subject')" :direction="$sortField === 'subject' ? $sortDirection :null" > Subject</x-table.heading> 
                     <x-table.heading sortable wire:click="sortBy('from')" :direction="$sortField === 'from' ? $sortDirection :null" >From</x-table.heading>

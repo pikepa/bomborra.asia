@@ -64,11 +64,6 @@ class ShowUpdateEmails extends Component
         $this->resetPage();
     }
 
-    public function exportSelected()
-    {
-
-    }
-
     public function deleteSelected()
     {
         $siteupdates = SiteUpdate::whereKey($this->selected);
