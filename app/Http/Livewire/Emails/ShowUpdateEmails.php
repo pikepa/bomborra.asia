@@ -11,15 +11,17 @@ class ShowUpdateEmails extends Component
 {
     use WithPagination;
 
+    public $sortDirection = 'desc';
+
     public $showEditModal = false;
 
     public SiteUpdate $editing;
 
+    public $selected = [];
+
     public $search = '';
 
     public $sortField;
-
-    public $sortDirection = 'desc';
 
     protected $queryString = ['sortField', 'sortDirection'];
 
@@ -60,6 +62,17 @@ class ShowUpdateEmails extends Component
             $value = null;
         }
         $this->resetPage();
+    }
+
+    public function exportSelected()
+    {
+
+    }
+
+    public function deleteSelected()
+    {
+        $siteupdates = SiteUpdate::whereKey($this->selected);
+        $siteupdates->delete();
     }
 
     public function sortBy($field)

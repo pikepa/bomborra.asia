@@ -117,6 +117,11 @@ class ManagePosts extends Component
         return view('livewire.posts.manage-posts');
     }
 
+    public function paginationView()
+    {
+        return 'pagination';
+    }
+
     public function updatedTitle($value)
     {
         $this->slug = Str::slug($value);

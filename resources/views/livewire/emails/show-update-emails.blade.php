@@ -10,19 +10,28 @@
         <div>
             <h1 class="ml-2 text-2xl font-semibold text-gray-900">Site Update Emails</h1>
         </div>
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center">
             <div class="ml-2 w-1/4">
                 <x-input.text wire:model="search" placeholder="Search Subject .."></x-input.text>
             </div>
-            <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                <button wire:click="create" type="button"
-                    class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
-                    <i class="fa-solid fa-plus"></i>&nbspAdd New </button>
+            <div class="mr-2 space-x-2 flex items-center">
+                <x-dropdown label="Bulk Actions" >
+                    <x-dropdown.item type='button' wire:click='exportSelected' class="flex items-center space-x-2">
+                        <x-icons.download class="text-cool-gray-200"/><span>Download</span>
+                    </x-dropdown.item>
+                    <x-dropdown.item type='button' wire:click='deleteSelected' class="flex items-center space-x-2">
+                        <x-icons.trash class="text-cool-gray-200"/><span>Delete</span>
+                    </x-dropdown.item>
+                </x-dropdown>
+                <x-button.primary wire:click="create"><x-icons.plus /> <span>Add New</span></x-button.primary>
             </div>
         </div>
         <div class="flex-col space-y-4">
             <x-table>
                 <x-slot name="head">
+                    <x-table.heading class="pr-0 w-8">
+                        <x-input.checkbox></x-input.checkbox>
+                    </x-table.heading>
                     <x-table.heading class="w-full" sortable wire:click="sortBy('subject')" :direction="$sortField === 'subject' ? $sortDirection :null" > Subject</x-table.heading> 
                     <x-table.heading sortable wire:click="sortBy('from')" :direction="$sortField === 'from' ? $sortDirection :null" >From</x-table.heading>
                     <x-table.heading sortable wire:click="sortBy('status')" :direction="$sortField === 'status' ? $sortDirection :null" >Status</x-table.heading>
@@ -31,7 +40,10 @@
                 </x-slot>
                 <x-slot name="body">
                     @forelse($siteUpdates as $siteupdate)
-                    <x-table.row wire.loading.class.delay="opacity-50">
+                    <x-table.row wire.loading.class.delay="opacity-50" wire:key="row-{{ $siteupdate->id }}">
+                        <x-table.cell class="pr-0 w-8">
+                            <x-input.checkbox  wire:model='selected' value="{{ $siteupdate->id }}"></x-input.checkbox>
+                        </x-table.cell>
                         <x-table.cell>{{ $siteupdate->subject }}</x-table.cell>
                         <x-table.cell>{{ $siteupdate->from }}</x-table.cell>
                         <x-table.cell>
@@ -81,7 +93,7 @@
                         </x-input.group>
                         <x-input.group for="content" label="Content" width="full"
                             :error="$errors->first('editing.content')">
-                            <x-input.textarea wire:model='editing.content' type="text"
+                            <x-input.textarea wire:model='editing.content' rows=10 type="text"
                                 placeholder="Enter the message here" class="form-input w-full rounded" />
                         </x-input.group>
 
