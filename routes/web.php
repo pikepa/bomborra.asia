@@ -14,6 +14,7 @@ use App\Http\Livewire\Posts\ShowCategoryPosts;
 use App\Http\Livewire\Posts\ShowChannelPosts;
 use App\Http\Livewire\Posts\ShowPost;
 use App\Http\Livewire\Posts\ShowVaultPosts;
+use App\Http\Livewire\Subscriber\ManageSubscribers;
 use App\Http\Livewire\Subscriber\VerifySubscriber;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,7 @@ Route::get('vault/', ShowVaultPosts::class)->name('posts.vault');
 Route::middleware('auth')->group(function () {
     Route::get('dashboard/{page?}', DashStandardPage::class)->name('dashboard');
     Route::get('siteupdates', ShowUpdateEmails::class)->name('site-updates');
+    Route::get('manage/subscribers', ManageSubscribers::class)->name('manage.subscribers');
     Route::get('posts/edit/{slug}/{origin}', EditPost::class)->name('edit.post');
     Route::get('links', ManageLinks::class)->name('links');
     Route::get('email/composeandsendupdate', CreateUpdateEmail::class)->name('email.compose');

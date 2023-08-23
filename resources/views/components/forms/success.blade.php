@@ -1,6 +1,6 @@
 <div class="flex justify-end">
     @if(session('alertType') == 'success')
-    <div class="flex justify-around w-1/2 bg-green-700 rounded-lg p-2 pl-4 text-gray-100 text-xl space-x-4">
+    <div class="flex justify-around items-center bg-green-700 rounded-lg p-2 pl-4 text-gray-100 text-xl space-x-4">
         <div>
             <i class="fa fa-check-circle  font-light text-gray-200"></i>
         </div>

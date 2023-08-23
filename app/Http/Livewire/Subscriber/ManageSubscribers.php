@@ -4,10 +4,11 @@ namespace App\Http\Livewire\Subscriber;
 
 use App\Models\Subscriber;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ManageSubscribers extends Component
 {
-    public $subscribers;
+    use WithPagination;
 
     public $search;
 
@@ -21,18 +22,25 @@ class ManageSubscribers extends Component
 
     public $showAlert = false;
 
+    public $sortField;
+
+    public function paginationView()
+    {
+        return 'pagination';
+    }
+
     public function render()
     {
-        $this->subscribers = Subscriber::when($this->search != '', function ($query) {
-            $query->where('name', 'like', '%'.$this->search.'%');
-        })
-            ->when($this->isNotValidated == true, function ($query) {
-                $query->where('validated_at', null);
+        return view('livewire.subscriber.manage-subscribers', [
+            'subscribers' => Subscriber::when($this->search != '', function ($query) {
+                $query->where('name', 'like', '%'.$this->search.'%');
             })
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return view('livewire.subscriber.manage-subscribers');
+                ->when($this->isNotValidated == true, function ($query) {
+                    $query->where('validated_at', null);
+                })
+                ->orderBy('created_at', 'desc')
+                ->paginate(9),
+        ]);
     }
 
     /*

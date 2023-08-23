@@ -21,6 +21,8 @@ class ShowUpdateEmails extends Component
 
     public $search = '';
 
+    public $showAlert = false;
+
     public $sortField;
 
     protected $queryString = ['sortField', 'sortDirection'];
@@ -68,6 +70,12 @@ class ShowUpdateEmails extends Component
     {
         $siteupdates = SiteUpdate::whereKey($this->selected);
         $siteupdates->delete();
+
+        $recs = count($this->selected);
+
+        session()->flash('message', $recs.' Notification Emails successfully deleted.');
+        session()->flash('alertType', 'success');
+
     }
 
     public function sortBy($field)
@@ -108,5 +116,12 @@ class ShowUpdateEmails extends Component
         $this->validate();
         $this->editing->save();
         $this->showEditModal = false;
+    }
+
+    public function resetBanner()
+    {
+        $this->showAlert = false;
+        session()->flash('message', '');
+        session()->flash('alertType', '');
     }
 }
