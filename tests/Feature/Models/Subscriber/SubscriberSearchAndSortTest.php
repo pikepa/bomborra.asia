@@ -21,7 +21,6 @@ test('an authorised user can select unvalidated subscribers', function () {
     $subsc2 = Subscriber::factory()->create(['validated_at' => null]);
 
     Livewire::test(ManageSubscribers::class)
-        ->set('showTable', true)
         ->assertSee($subsc1->name)
         ->assertSee($subsc2->name)
         ->set('isNotValidated', true)

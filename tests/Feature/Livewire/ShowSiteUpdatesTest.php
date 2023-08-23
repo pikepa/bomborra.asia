@@ -7,13 +7,13 @@ use Livewire\Livewire;
 test('an authorised user can see the ComposeEmail button on the dashboard', function () {
     $this->signIn();
     $this->get('/dashboard')->assertStatus(200)
-        ->assertSee('Compose');
+        ->assertSee('Notifications');
 });
 
 test('an authorised user can click on the compose button and see the site update listing', function () {
     $this->signIn();
     Livewire::test(ShowUpdateEmails::class)
-        ->assertSee('Site Update Emails')
+        ->assertSee('Notification Emails')
         ->assertSee('Add New')
         ->assertSee('Date')
         ->assertSee('Subject')

@@ -43,7 +43,6 @@ test('an authorised user can see a list of subscribers', function () {
     $subsc2 = Subscriber::factory()->create();
 
     Livewire::test(ManageSubscribers::class)
-        ->set('showTable', true)
         ->call('render')
         ->assertSee($subsc1->name)
         ->assertSee($subsc1->email)
