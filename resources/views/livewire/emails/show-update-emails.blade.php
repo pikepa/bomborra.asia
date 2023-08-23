@@ -18,18 +18,16 @@
             </div>
 
             <div class="mr-2 space-x-2 flex items-center">
+                @if($selected)
                 <x-dropdown label="Bulk Actions">
-                    <!-- <x-dropdown.item type='button' wire:click='deleteSelected' class="flex items-center space-x-2">
-                        <x-icons.download class="text-cool-gray-200" /><span>Download</span>
-                    </x-dropdown.item> -->
-                    <x-dropdown.item type='button' wire:click='deleteSelected' class="flex items-center space-x-2">
-                        <x-icons.trash class="text-cool-gray-200" /><span>Delete</span>
-                    </x-dropdown.item>
+                        <x-dropdown.item type='button' wire:click='deleteSelected' class="flex items-center space-x-2">
+                            <x-icons.trash class="text-cool-gray-200" /><span>Delete</span>
+                        </x-dropdown.item>
                 </x-dropdown>
+                @endif
                 <x-button.primary wire:click="create"><x-icons.plus /> <span>Add New</span></x-button.primary>
             </div>
         </div>
-
         <x-table wire:loading.class="opacity-50">
             <x-slot name="head">
                 <x-table.heading class="pr-0 w-8">

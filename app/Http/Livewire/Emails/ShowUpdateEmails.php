@@ -72,6 +72,7 @@ class ShowUpdateEmails extends Component
         $siteupdates->delete();
 
         $recs = count($this->selected);
+        $this->selected = [];
 
         session()->flash('message', $recs.' Notification Emails successfully deleted.');
         session()->flash('alertType', 'success');
