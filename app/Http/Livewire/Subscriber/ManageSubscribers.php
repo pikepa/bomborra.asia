@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Subscriber;
 
+use App\Jobs\Subscribers\SendWebUpdate;
 use App\Models\Subscriber;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -52,6 +53,19 @@ class ManageSubscribers extends Component
         $this->selected = [];
 
         session()->flash('message', $recs.' Subscribers successfully deleted.');
+        session()->flash('alertType', 'success');
+    }
+
+    public function sendEmails()
+    {
+        foreach ($this->selected as $value) {
+            dispatch(new SendWebUpdate($value));
+        }
+
+        $recs = count($this->selected);
+        $this->selected = [];
+
+        session()->flash('message', $recs.' Subscriber email jobs submitted.');
         session()->flash('alertType', 'success');
     }
 

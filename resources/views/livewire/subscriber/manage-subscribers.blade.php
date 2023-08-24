@@ -24,6 +24,9 @@
           <div class="mr-2 space-x-2 flex items-center">
               @if($selected)
                   <x-dropdown label="Bulk Actions">
+                    <x-dropdown.item type='button' wire:click='sendEmails()' class="flex items-center space-x-2">
+                        <x-icons.trash class="text-cool-gray-200" /><span>Send Bulk Emails</span>
+                    </x-dropdown.item>
                     <x-dropdown.item type='button' wire:click='deleteSelected' class="flex items-center space-x-2">
                         <x-icons.trash class="text-cool-gray-200" /><span>Delete</span>
                     </x-dropdown.item>
