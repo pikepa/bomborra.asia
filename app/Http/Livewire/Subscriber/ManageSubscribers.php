@@ -27,7 +27,6 @@ class ManageSubscribers extends Component
 
     public function render()
     {
-
         return view('livewire.subscriber.manage-subscribers', [
             'subscribers' => Subscriber::when($this->search != '', function ($query) {
                 $query->where('name', 'like', '%'.$this->search.'%');
@@ -38,7 +37,6 @@ class ManageSubscribers extends Component
                 ->orderBy('created_at', 'desc')
                 ->paginate(9),
         ]);
-
     }
 
     public function deleteSelected()

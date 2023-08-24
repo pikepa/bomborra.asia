@@ -23,6 +23,5 @@ class DashStandardPage extends Component
     public function setShow($item)
     {
         $this->show = $item;
-
     }
 }

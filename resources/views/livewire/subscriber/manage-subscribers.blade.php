@@ -19,7 +19,7 @@
               <x-input wire:model="search" class=" p-2 border-2 border-gray-300 " placeholder="Search subscriber name"></x-input>
             </div>
             <div >
-              <label for="validated">Select Unvalidated: </label>
+              <label for="validated">Filter Unvalidated: </label>
               <input class="ml-4" wire:model='isNotValidated' type="checkbox" name="validated" value=false>
             </div>
           </div>

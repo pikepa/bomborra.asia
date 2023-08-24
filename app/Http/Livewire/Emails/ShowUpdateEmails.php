@@ -76,19 +76,16 @@ class ShowUpdateEmails extends Component
 
         session()->flash('message', $recs.' Notification Emails successfully deleted.');
         session()->flash('alertType', 'success');
-
     }
 
     public function sortBy($field)
     {
-
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
         } else {
             $this->sortField = $field;
             $this->sortDirection = 'asc';
         }
-
     }
 
     public function makeBlankTransaction()
