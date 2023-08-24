@@ -18,6 +18,7 @@
             </div>
 
             <div class="mr-2 space-x-2 flex items-center">
+            <div>
                 @if($selected)
                 <x-dropdown label="Bulk Actions">
                         <x-dropdown.item type='button' wire:click='deleteSelected' class="flex items-center space-x-2">
@@ -25,6 +26,7 @@
                         </x-dropdown.item>
                 </x-dropdown>
                 @endif
+            </div>   
                 <x-button.primary wire:click="create"><x-icons.plus /> <span>Add New</span></x-button.primary>
             </div>
         </div>
