@@ -10,33 +10,37 @@ class ManageSubscribers extends Component
 {
     use WithPagination;
 
-    public $isNotValidated = false;
-
     public $showAlert = false;
 
     public $selected = [];
 
+    public $sortDirection = 'desc';
+
     public $sortField;
 
-    public $search;
+    public $search = '';
+
+    public $searchField = 'name';
+
+    protected $queryString = ['sortField', 'sortDirection'];
 
     public function paginationView()
     {
         return 'pagination';
     }
 
+    public function mount()
+    {
+        $this->sortField = 'created_at';
+    }
+
     public function render()
     {
         return view('livewire.subscriber.manage-subscribers', [
-            'subscribers' => Subscriber::when($this->search != '', function ($query) {
-                $query->where('name', 'like', '%'.$this->search.'%');
-            })
-                ->when($this->isNotValidated == true, function ($query) {
-                    $query->where('validated_at', null);
-                })
-                ->orderBy('created_at', 'desc')
-                ->paginate(9),
+            'subscribers' => Subscriber::search('name', $this->search)
+                ->orderBy($this->sortField, $this->sortDirection)->paginate(9),
         ]);
+
     }
 
     public function deleteSelected()
@@ -49,6 +53,16 @@ class ManageSubscribers extends Component
 
         session()->flash('message', $recs.' Subscribers successfully deleted.');
         session()->flash('alertType', 'success');
+    }
+
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
     }
 
     public function cancel()

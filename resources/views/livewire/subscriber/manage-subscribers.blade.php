@@ -18,10 +18,7 @@
             <div class="ml-2 ">
               <x-input wire:model="search" class=" p-2 border-2 border-gray-300 " placeholder="Search subscriber name"></x-input>
             </div>
-            <div >
-              <label for="validated">Filter Unvalidated: </label>
-              <input class="ml-4" wire:model='isNotValidated' type="checkbox" name="validated" value=false>
-            </div>
+
           </div>
         
           <div class="mr-2 space-x-2 flex items-center">
@@ -37,10 +34,14 @@
       <x-table wire:loading.class="opacity-50">
         <x-slot name="head">
           <x-table.heading />
-            <x-table.heading sortable class="text-left">Name</x-table.heading>
-            <x-table.heading class="text-left">Email</x-table.heading>
-            <x-table.heading class="text-left">Validated</x-table.heading>
-            <x-table.heading class="text-left">Created</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('name')" 
+            :direction="$sortField === 'name' ? $sortDirection :null" >Name</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('email')" 
+            :direction="$sortField === 'email' ? $sortDirection :null">Email</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('validated_at')" 
+            :direction="$sortField === 'validated_at' ? $sortDirection :null">Validated</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('created_at')" 
+            :direction="$sortField === 'created_at' ? $sortDirection :null">Created</x-table.heading>
         </x-slot>
 
         <x-slot name="body">

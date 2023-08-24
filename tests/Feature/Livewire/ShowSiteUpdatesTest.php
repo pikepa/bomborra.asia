@@ -107,6 +107,7 @@ test('a signed in user can sort records by subject', function () {
         ->set('sortField', 'subject')
         ->assertSeeInOrder([$siteupdate1->subject, $siteupdate2->subject]);
 });
+
 test('a signed in user can sort records by date', function () {
     $this->signIn();
 
