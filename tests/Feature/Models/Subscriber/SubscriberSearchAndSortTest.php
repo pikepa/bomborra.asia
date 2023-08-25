@@ -10,7 +10,7 @@ test('An authorised User can search for a subscriber in the dashboard', function
     $subsc = Subscriber::factory()->create(['name' => 'my name']);
 
     Livewire::test(ManageSubscribers::class)
-        ->set('search', 'name')
+        ->set('filters.search', 'name')
         ->assertSee($subsc->name)
         ->assertDontSee($subsc1->name);
 });
@@ -21,7 +21,7 @@ test('An authorised User sees no Subscriber found when too many chars in the sea
     $subsc = Subscriber::factory()->create(['name' => 'my name']);
 
     Livewire::test(ManageSubscribers::class)
-        ->set('search', 'asdasdasdasdadasdadasdasdasdasdasdadadad')
+        ->set('filters.search', 'asdasdasdasdadasdadasdasdasdasdasdadadad')
         ->assertSee('No Subscribers found')
         ->assertDontSee($subsc->title)
         ->assertDontSee($subsc1->title);

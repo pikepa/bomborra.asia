@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Subscriber;
 
 use App\Jobs\Subscribers\SendWebUpdate;
 use App\Models\Subscriber;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,17 +12,28 @@ class ManageSubscribers extends Component
 {
     use WithPagination;
 
+    public $sortDirection = 'desc';
+
+    public $searchField = 'name';
+
     public $showAlert = false;
+
+    public $showFilters = false;
+
+    public $filters = [
+        'search' => '',
+        'status' => '',
+        'val-date-min' => null,
+        'val-date-max' => null,
+        'create-date-min' => null,
+        'create-date-max' => null,
+    ];
+
+    public $selectPage = false;
 
     public $selected = [];
 
-    public $sortDirection = 'desc';
-
     public $sortField;
-
-    public $search = '';
-
-    public $searchField = 'name';
 
     protected $queryString = ['sortField', 'sortDirection'];
 
@@ -30,18 +42,13 @@ class ManageSubscribers extends Component
         return 'pagination';
     }
 
-    public function mount()
+    public function updatedSelectPage($value)
     {
-        $this->sortField = 'created_at';
-    }
-
-    public function render()
-    {
-        return view('livewire.subscriber.manage-subscribers', [
-            'subscribers' => Subscriber::search('name', $this->search)
-                ->orderBy($this->sortField, $this->sortDirection)->paginate(9),
-        ]);
-
+        if ($value) {
+            $this->selected = [];
+        } else {
+            $this->selected = [];
+        }
     }
 
     public function deleteSelected()
@@ -90,5 +97,36 @@ class ManageSubscribers extends Component
 
         session()->flash('message', '');
         session()->flash('alertType', '');
+    }
+
+    public function updatedFilters()
+    {
+        $this->resetPage();
+    }
+
+    public function resetFilters()
+    {
+        $this->reset('filters');
+    }
+
+    public function mount()
+    {
+        $this->sortField = 'created_at';
+    }
+
+    public function render()
+    {
+        return view('livewire.subscriber.manage-subscribers', [
+            'subscribers' => Subscriber::query()
+                ->when($this->filters['status'], fn ($query, $status) => $query->whereNull('validated_at'))
+                ->when($this->filters['search'], fn ($query, $search) => $query->where('name', 'like', '%'.$search.'%'))
+                ->when($this->filters['val-date-min'], fn ($query, $date) => $query->where('validated_at', '>=', Carbon::parse($date)))
+                ->when($this->filters['val-date-max'], fn ($query, $date) => $query->where('validated_at', '<=', Carbon::parse($date)))
+                ->when($this->filters['create-date-min'], fn ($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))
+                ->when($this->filters['create-date-max'], fn ($query, $date) => $query->where('created_at', '<=', Carbon::parse($date)))
+                ->orderBy($this->sortField, $this->sortDirection)
+                ->paginate(9),
+        ]);
+
     }
 }

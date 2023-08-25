@@ -67,7 +67,7 @@ test('a signed in user can filter records via subscriber name', function () {
 
     Livewire::test(ManageSubscribers::class)
         ->assertSeeInOrder([$subscr1->name, $subscr2->name, $subscr3->name])
-        ->set('search', 'pe')
+        ->set('filters.search', 'pe')
         ->assertSee($subscr1->name)
         ->assertDontSee($subscr2->name)
         ->assertDontSee($subscr3->name);
