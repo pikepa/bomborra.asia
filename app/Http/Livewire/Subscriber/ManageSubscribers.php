@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Subscriber;
 
+use App\Http\Livewire\DataTable\WithSorting;
 use App\Jobs\Subscribers\SendWebUpdate;
 use App\Models\Subscriber;
 use Carbon\Carbon;
@@ -10,9 +11,11 @@ use Livewire\WithPagination;
 
 class ManageSubscribers extends Component
 {
-    use WithPagination;
+    use WithPagination, WithSorting;
 
-    public $sortDirection = 'desc';
+    public $sortField;
+
+    public $sortDirection;
 
     public $searchField = 'name';
 
@@ -31,9 +34,9 @@ class ManageSubscribers extends Component
 
     public $selectPage = false;
 
-    public $selected = [];
+    public $selectAll = false;
 
-    public $sortField;
+    public $selected = [];
 
     protected $queryString = ['sortField', 'sortDirection'];
 
@@ -44,17 +47,27 @@ class ManageSubscribers extends Component
 
     public function updatedSelectPage($value)
     {
-        if ($value) {
-            $this->selected = [];
-        } else {
-            $this->selected = [];
-        }
+        $this->selected = $value
+        ? $this->subscribers->pluck('id')->map(fn ($id) => (string) $id)
+        : [];
+    }
+
+    public function updatedSelected()
+    {
+        $this->selectAll = false;
+        $this->selectPage = false;
+    }
+
+    public function selectAll()
+    {
+        $this->selectAll = true;
     }
 
     public function deleteSelected()
     {
-        $deleteSubscribers = Subscriber::whereKey($this->selected);
-        $deleteSubscribers->delete();
+        $this->subscribersQuery
+            ->unless($this->selectAll, fn ($query) => $query->whereKey($this->selected))
+            ->delete();
 
         $recs = count($this->selected);
         $this->selected = [];
@@ -74,16 +87,6 @@ class ManageSubscribers extends Component
 
         session()->flash('message', $recs.' Subscriber email jobs submitted.');
         session()->flash('alertType', 'success');
-    }
-
-    public function sortBy($field)
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortField = $field;
-            $this->sortDirection = 'asc';
-        }
     }
 
     public function cancel()
@@ -109,6 +112,24 @@ class ManageSubscribers extends Component
         $this->reset('filters');
     }
 
+    public function getSubscribersQueryProperty()
+    {
+        $query = Subscriber::query()
+            ->when($this->filters['status'], fn ($query, $status) => $status == 'VAL' ? $query->where('validated_at', '<>', null) : $query->whereNull('validated_at'))
+            ->when($this->filters['search'], fn ($query, $search) => $query->where('name', 'like', '%'.$search.'%'))
+            ->when($this->filters['val-date-min'], fn ($query, $date) => $query->where('validated_at', '>=', Carbon::parse($date)))
+            ->when($this->filters['val-date-max'], fn ($query, $date) => $query->where('validated_at', '<=', Carbon::parse($date)))
+            ->when($this->filters['create-date-min'], fn ($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))
+            ->when($this->filters['create-date-max'], fn ($query, $date) => $query->where('created_at', '<=', Carbon::parse($date)));
+
+        return $this->applySorting($query);
+    }
+
+    public function getSubscribersProperty()
+    {
+        return $this->subscribersQuery->paginate(10);
+    }
+
     public function mount()
     {
         $this->sortField = 'created_at';
@@ -116,16 +137,12 @@ class ManageSubscribers extends Component
 
     public function render()
     {
+        if ($this->selectAll) {
+            $this->selected = $this->subscribers->pluck('id')->map(fn ($id) => (string) $id);
+        }
+
         return view('livewire.subscriber.manage-subscribers', [
-            'subscribers' => Subscriber::query()
-                ->when($this->filters['status'], fn ($query, $status) => $query->whereNull('validated_at'))
-                ->when($this->filters['search'], fn ($query, $search) => $query->where('name', 'like', '%'.$search.'%'))
-                ->when($this->filters['val-date-min'], fn ($query, $date) => $query->where('validated_at', '>=', Carbon::parse($date)))
-                ->when($this->filters['val-date-max'], fn ($query, $date) => $query->where('validated_at', '<=', Carbon::parse($date)))
-                ->when($this->filters['create-date-min'], fn ($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))
-                ->when($this->filters['create-date-max'], fn ($query, $date) => $query->where('created_at', '<=', Carbon::parse($date)))
-                ->orderBy($this->sortField, $this->sortDirection)
-                ->paginate(9),
+            'subscribers' => $this->subscribers,
         ]);
 
     }

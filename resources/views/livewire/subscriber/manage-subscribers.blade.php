@@ -48,6 +48,7 @@
             <x-input.group inline for="filter-status" label="Status">
               <x-input.select class='rounded' wire:model="filters.status" id="filter-status">
                 <option value="" >Select Status...</option>
+                 <option value='VAL'>VALIDATED</option>
                  <option value=NULL>UNVALIDATED</option>
               </x-input.select>
             </x-input.group>
@@ -98,6 +99,22 @@
       </x-slot>
 
       <x-slot name="body">
+      <div>
+        @if($selectPage)
+        <x-table.row class="bg-gray-100" wire:key="row-message">
+          <x-table.cell class="text-lg" colspan="5">
+            @unless($selectAll)
+            <div>
+            <span>You have selected <strong>{{ $subscribers->count() }}</strong> subscribers, do you want to select all <strong>{{ $subscribers->total() }}</strong>?</span>
+            <x-button.link wire:click='selectAll' class="ml-1  text-blue-600">Select All</x-button.link>
+            </div>
+            @else
+            <span>You are currently selecting all <strong>{{ $subscribers->total() }}</strong> subscribers.</span>
+            @endif
+          </x-table.cell>
+        </x-table.row>
+        @endif
+      </div>
         @forElse($subscribers as $subscriber)
         <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $subscriber->id }}">
           <x-table.cell class="pr-0">
