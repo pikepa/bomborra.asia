@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Subscriber;
 
+use App\Http\Livewire\DataTable\WithBulkActions;
 use App\Http\Livewire\DataTable\WithSorting;
 use App\Jobs\Subscribers\SendWebUpdate;
 use App\Models\Subscriber;
@@ -11,11 +12,7 @@ use Livewire\WithPagination;
 
 class ManageSubscribers extends Component
 {
-    use WithPagination, WithSorting;
-
-    public $sortField;
-
-    public $sortDirection;
+    use WithPagination, WithSorting,WithBulkActions;
 
     public $searchField = 'name';
 
@@ -32,12 +29,6 @@ class ManageSubscribers extends Component
         'create-date-max' => null,
     ];
 
-    public $selectPage = false;
-
-    public $selectAll = false;
-
-    public $selected = [];
-
     protected $queryString = ['sortField', 'sortDirection'];
 
     public function paginationView()
@@ -45,29 +36,9 @@ class ManageSubscribers extends Component
         return 'pagination';
     }
 
-    public function updatedSelectPage($value)
-    {
-        $this->selected = $value
-        ? $this->subscribers->pluck('id')->map(fn ($id) => (string) $id)
-        : [];
-    }
-
-    public function updatedSelected()
-    {
-        $this->selectAll = false;
-        $this->selectPage = false;
-    }
-
-    public function selectAll()
-    {
-        $this->selectAll = true;
-    }
-
     public function deleteSelected()
     {
-        $this->subscribersQuery
-            ->unless($this->selectAll, fn ($query) => $query->whereKey($this->selected))
-            ->delete();
+        $this->selectedRowsQuery->delete();
 
         $recs = count($this->selected);
         $this->selected = [];
@@ -112,7 +83,7 @@ class ManageSubscribers extends Component
         $this->reset('filters');
     }
 
-    public function getSubscribersQueryProperty()
+    public function getRowsQueryProperty()
     {
         $query = Subscriber::query()
             ->when($this->filters['status'], fn ($query, $status) => $status == 'VAL' ? $query->where('validated_at', '<>', null) : $query->whereNull('validated_at'))
@@ -125,9 +96,9 @@ class ManageSubscribers extends Component
         return $this->applySorting($query);
     }
 
-    public function getSubscribersProperty()
+    public function getRowsProperty()
     {
-        return $this->subscribersQuery->paginate(10);
+        return $this->rowsQuery->paginate(10);
     }
 
     public function mount()
@@ -138,12 +109,11 @@ class ManageSubscribers extends Component
     public function render()
     {
         if ($this->selectAll) {
-            $this->selected = $this->subscribers->pluck('id')->map(fn ($id) => (string) $id);
+            $this->selected = $this->rows->pluck('id')->map(fn ($id) => (string) $id);
         }
 
         return view('livewire.subscriber.manage-subscribers', [
-            'subscribers' => $this->subscribers,
+            'subscribers' => $this->rows,
         ]);
-
     }
 }
