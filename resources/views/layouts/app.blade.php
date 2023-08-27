@@ -23,7 +23,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    @livewireStyles
+    @livewireStyles()
 
     @stack('childstyles')
 
@@ -38,7 +38,7 @@
 
         </div>
     </div>
-    @livewireScripts
+    @livewireScripts()
 
     <!-- Scripts -->
     <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
