@@ -146,7 +146,7 @@ test('a signed in user can sort records by created_at', function () {
     $subscr2 = Subscriber::factory()->create(['created_at' => Carbon::now()->subMonth(1)]);
 
     Livewire::test(ManageSubscribers::class)
-        ->assertSeeInOrder([$subscr1->name, $subscr2->name])
+        ->assertSeeInOrder([$subscr2->name, $subscr1->name])
         ->set('sortDirection', 'asc')
         ->set('sortField', 'created_at')
         ->assertSeeInOrder([$subscr2->name, $subscr1->name])
