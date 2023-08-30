@@ -11,7 +11,6 @@ test('an authorised user can see the Notification button on the dashboard', func
         ->assertSee('Notifications');
 });
 test('a guest can not see the Notification button on the dashboard', function () {
-
     $this->get('/dashboard')->assertStatus(302)
         ->assertRedirect('/login');
 });
