@@ -2,12 +2,20 @@
 
 namespace App\Http\Livewire\Links;
 
+use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\Link;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ManageLinks extends Component
 {
-    public $links = [];
+    use WithPagination, WithSorting;
+
+    protected $queryString = ['sortField', 'sortDirection'];
+
+    public $selected = [];
+
+    public $searchfield = 'title';
 
     public $link_id;
 
@@ -31,6 +39,10 @@ class ManageLinks extends Component
 
     public $showAlert = false;
 
+    public $filters = [
+        'search' => '',
+    ];
+
     protected $rules = [
         'title' => 'required|min:6|max:50',
         'url' => 'required|url',
@@ -39,6 +51,11 @@ class ManageLinks extends Component
         'status' => 'required|boolean',
         'sort' => 'required|integer',
     ];
+
+    public function paginationView()
+    {
+        return 'pagination';
+    }
 
     /*
     Set the owner Id to the current User
@@ -50,9 +67,9 @@ class ManageLinks extends Component
 
     public function render()
     {
-        $this->links = Link::with('owner')->orderBy('position')->orderBy('sort', 'asc')->get();
-
-        return view('livewire.links.manage-links');
+        return view('livewire.links.manage-links', [
+            'links' => Link::with('owner')->orderBy('position')->orderBy('sort', 'asc')->paginate(10),
+        ]);
     }
 
     public function updatedPosition($value)

@@ -12,7 +12,7 @@ use Livewire\WithPagination;
 
 class ManageSubscribers extends Component
 {
-    use WithPagination, WithSorting, WithBulkActions;
+    use WithBulkActions, WithPagination, WithSorting;
 
     public $searchField = 'name';
 

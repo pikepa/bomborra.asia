@@ -80,6 +80,7 @@
             {{ $siteUpdates->links() }}
         </div>
     </div>
+    
     <!-- This is the modal form  -->
     <form wire:submit.prevent="save">
         <x-modal.dialog wire:model.defer="showEditModal">
@@ -118,5 +119,4 @@
             </x-slot>
         </x-modal.dialog>
     </form>
-    </div>
 </x-pages.dash-standard-template>

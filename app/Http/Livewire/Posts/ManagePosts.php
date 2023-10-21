@@ -12,8 +12,7 @@ use Livewire\WithPagination;
 
 class ManagePosts extends Component
 {
-    use WithPagination;
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
 
     public $search;
 

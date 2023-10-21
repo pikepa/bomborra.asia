@@ -5,7 +5,8 @@
         <div class="inline p-2 cursor-pointer" ><a href="{{ url('dashboard/categories') }}">Categories</a></div>
         <div class="inline p-2 cursor-pointer" ><a href="{{ url('dashboard/channels') }}">Channels</a></div>
         <div class="inline p-2 cursor-pointer" ><a href="{{ url('dashboard/posts') }}">Posts</a></div>
-        <div class="inline p-2 cursor-pointer" ><a href="{{ url('dashboard/links') }}">Links</a></div>
+        <!-- <div class="inline p-2 cursor-pointer" ><a href="{{ url('dashboard/links') }}">Links</a></div> -->
+        <div class=" inline p-2 cursor-pointer" ><a href="{{ route('manage.links') }}">Links</a></div>
         <div class=" inline p-2 cursor-pointer" ><a href="{{ route('manage.subscribers') }}">Subscribers</a></div>
      
         <div class="inline p-2 cursor-pointer" ><a href="{{ route('site-updates') }}">Notifications</a></div>

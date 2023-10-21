@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('siteupdates', ShowUpdateEmails::class)->name('site-updates');
     Route::get('manage/subscribers', ManageSubscribers::class)->name('manage.subscribers');
     Route::get('posts/edit/{slug}/{origin}', EditPost::class)->name('edit.post');
-    Route::get('links', ManageLinks::class)->name('links');
+    Route::get('manage/links', ManageLinks::class)->name('manage.links');
     Route::get('email/composeandsendupdate', CreateUpdateEmail::class)->name('email.compose');
 });
 
