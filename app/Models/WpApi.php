@@ -113,6 +113,7 @@ class WpApi
         $post->channel_id = 8;
         $post->author_id = 2;
         $post->save();
+
         // $this->syncTags($post, $data->_embedded->{"wp:term"});
         return $post;
     }

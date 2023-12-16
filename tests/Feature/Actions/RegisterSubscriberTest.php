@@ -2,6 +2,7 @@
 
 use App\Actions\Subscriber\RegisterSubscriber;
 use App\Models\Subscriber;
+
 use function Pest\Laravel\post;
 
 test('anyone can subscribe to the Newsletter', function () {

@@ -27,7 +27,6 @@ return new class() extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            //
         });
     }
 };

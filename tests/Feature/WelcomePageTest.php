@@ -4,6 +4,7 @@ use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
 use App\Models\User;
+
 use function Pest\Laravel\get;
 
 it('can load the welcome page', function () {

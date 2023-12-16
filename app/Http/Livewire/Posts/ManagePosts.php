@@ -12,8 +12,7 @@ use Livewire\WithPagination;
 
 class ManagePosts extends Component
 {
-    use WithPagination;
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
 
     public $search;
 
@@ -38,6 +37,8 @@ class ManagePosts extends Component
     public $cover_image = 'https://d18sfhl837dknt.cloudfront.net/featured/J1aR7bQQON3gwr3GipXyXJ1gmA3FSwKiRfjCj8hr.jpg';
 
     public $meta_description;
+
+    public $notifiable = true;
 
     public $published_at = null;
 
@@ -80,6 +81,7 @@ class ManagePosts extends Component
         'category_id' => 'required|integer',
         'channel_id' => 'required|integer',
         'published_at' => 'nullable',
+        'notifiable' => 'required|boolean',
         'cover_image' => 'nullable|url',
     ];
 
@@ -96,7 +98,6 @@ class ManagePosts extends Component
         $this->queryCategories = Category::orderBy('name', 'asc')->get();
         $this->queryChannels = Channel::orderBy('name', 'asc')->get();
         $this->author_id = auth()->user()->id;
-
     }
 
     public function render()
@@ -113,6 +114,11 @@ class ManagePosts extends Component
             ->with('author')->orderBy('published_at', 'desc')->get();
 
         return view('livewire.posts.manage-posts');
+    }
+
+    public function paginationView()
+    {
+        return 'pagination';
     }
 
     public function updatedTitle($value)

@@ -8,6 +8,6 @@
         </a>
     </div>
     <div class="text-right font-bold text-xl  text-teal-900">
-        <a href="/home"> Click to Enter <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="{{ route('home') }}"> Click to Enter <i class="fa-solid fa-arrow-right"></i></a>
     </div>
 </div>

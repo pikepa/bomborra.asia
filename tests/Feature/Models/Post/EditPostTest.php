@@ -6,6 +6,7 @@ use App\Models\Channel;
 use App\Models\Post;
 use App\Models\User;
 use Livewire\Livewire;
+
 use function Pest\Laravel\get;
 
 beforeEach(function () {

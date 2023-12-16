@@ -2,77 +2,68 @@
 
 namespace App\Http\Livewire\Subscriber;
 
+use App\Http\Livewire\DataTable\WithBulkActions;
+use App\Http\Livewire\DataTable\WithSorting;
+use App\Jobs\Subscribers\SendWebUpdate;
 use App\Models\Subscriber;
+use Carbon\Carbon;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ManageSubscribers extends Component
 {
-    public $subscribers;
+    use WithBulkActions, WithPagination, WithSorting;
 
-    public $search;
-
-    public $isNotValidated = false;
-
-    public $showTable = true;
-
-    public $showEditForm = false;
-
-    public $showAddForm = false;
+    public $searchField = 'name';
 
     public $showAlert = false;
 
-    public function render()
-    {
-        $this->subscribers = Subscriber::when($this->search != '', function ($query) {
-            $query->where('name', 'like', '%'.$this->search.'%');
-        })
-            ->when($this->isNotValidated == true, function ($query) {
-                $query->where('validated_at', null);
-            })
-            ->orderBy('created_at', 'desc')
-            ->get();
+    public $showFilters = false;
 
-        return view('livewire.subscriber.manage-subscribers');
+    public $filters = [
+        'search' => '',
+        'status' => '',
+        'val-date-min' => null,
+        'val-date-max' => null,
+        'create-date-min' => null,
+        'create-date-max' => null,
+    ];
+
+    protected $queryString = ['sortField', 'sortDirection'];
+
+    public function paginationView()
+    {
+        return 'pagination';
     }
 
-    /*
-      Switching Forms on Master Screen
-    */
-    public function showAddForm()
+    public function deleteSelected()
     {
-        $this->showTable = false;
-        $this->showEditForm = false;
-        $this->showAddForm = true;
+        $this->selectedRowsQuery->delete();
+
+        $recs = count($this->selected);
+        $this->selected = [];
+
+        session()->flash('message', $recs.' Subscribers successfully deleted.');
+        session()->flash('alertType', 'success');
     }
 
-    public function showEditForm()
+    public function sendEmails()
     {
-        $this->showTable = false;
-        $this->showEditForm = true;
-        $this->showAddForm = false;
-    }
+        foreach ($this->selected as $value) {
+            $subscriber = Subscriber::find($value);
+            dispatch(new SendWebUpdate($subscriber));  //this is a job....
+        }
 
-    public function showTable()
-    {
-        $this->showTable = true;
-        $this->showEditForm = false;
-        $this->showAddForm = false;
-    }
+        $recs = count($this->selected);
+        $this->selected = [];
 
-    public function delete($id)
-    {
-        $post = Subscriber::findOrFail($id);
-        $post->delete();
-        $this->showAlert = true;
-
-        session()->flash('message', ' Subscriber Successfully deleted.');
+        session()->flash('message', $recs.' Subscriber email jobs submitted.');
         session()->flash('alertType', 'success');
     }
 
     public function cancel()
     {
         $this->resetBanner();
-        $this->showTable();
     }
 
     public function resetBanner()
@@ -81,5 +72,49 @@ class ManageSubscribers extends Component
 
         session()->flash('message', '');
         session()->flash('alertType', '');
+    }
+
+    public function updatedFilters()
+    {
+        $this->resetPage();
+    }
+
+    public function resetFilters()
+    {
+        $this->reset('filters');
+    }
+
+    public function getRowsQueryProperty()
+    {
+        $query = Subscriber::query()
+            ->when($this->filters['status'], fn ($query, $status) => $status == 'VAL' ? $query->where('validated_at', '<>', null) : $query->whereNull('validated_at'))
+            ->when($this->filters['search'], fn ($query, $search) => $query->where('name', 'like', '%'.$search.'%'))
+            ->when($this->filters['val-date-min'], fn ($query, $date) => $query->where('validated_at', '>=', Carbon::parse($date)))
+            ->when($this->filters['val-date-max'], fn ($query, $date) => $query->where('validated_at', '<=', Carbon::parse($date)))
+            ->when($this->filters['create-date-min'], fn ($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))
+            ->when($this->filters['create-date-max'], fn ($query, $date) => $query->where('created_at', '<=', Carbon::parse($date)));
+
+        return $this->applySorting($query);
+    }
+
+    public function getRowsProperty()
+    {
+        return $this->rowsQuery->paginate(10);
+    }
+
+    public function mount()
+    {
+        $this->sortField = 'created_at';
+    }
+
+    public function render()
+    {
+        if ($this->selectAll) {
+            $this->selected = $this->rows->pluck('id')->map(fn ($id) => (string) $id);
+        }
+
+        return view('livewire.subscriber.manage-subscribers', [
+            'subscribers' => $this->rows,
+        ]);
     }
 }

@@ -26,7 +26,6 @@ class SubscribedEmail extends Mailable
     {
         $this->OTP = $OTP;
         $this->ID = $ID;
-
     }
 
     /**

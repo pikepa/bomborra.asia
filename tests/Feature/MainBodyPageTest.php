@@ -6,6 +6,7 @@ use App\Models\Link;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+
 use function Pest\Laravel\get;
 
 it('can load the home page', function () {

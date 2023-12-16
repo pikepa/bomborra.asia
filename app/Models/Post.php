@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -34,6 +33,7 @@ class Post extends Model implements HasMedia
         'meta_description',
         'channel_id',
         'published_at',
+        'notifiable',
         'author_id',
         'category_id',
     ];
@@ -142,6 +142,11 @@ class Post extends Model implements HasMedia
     public function channel(): BelongsTo
     {
         return $this->BelongsTo(Channel::class);
+    }
+
+    public function siteUpdates(): BelongsToMany
+    {
+        return $this->BelongsToMany(SiteUpdate::class, 'post_site_update');
     }
 
     public function tags(): HasMany

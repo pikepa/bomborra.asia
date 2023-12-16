@@ -6,11 +6,11 @@ use Livewire\Livewire;
 
 it('has a links listing page', function () {
     $this->signin();
-    $this->get('/links')->assertStatus(200);
+    $this->get(route('manage.links'))->assertStatus(200);
 });
 
 test('a guest gets redirected when trying to access links listing page', function () {
-    $this->get('/links')->assertRedirect('/login', 403);
+    $this->get(route('manage.links'))->assertRedirect('/login', 403);
 });
 
 test('a User can see a table of links', function () {
@@ -70,4 +70,19 @@ test('an authorised user can delete a link', function () {
         ->assertSee('Link Successfully deleted.');
 
     $this->assertDatabaseCount('links', 0);
+});
+
+test('a signed in user can filter links via title', function () {
+    $this->signIn();
+
+    $link1 = Link::factory()->create(['title' => 'Peter']);
+    $link2 = Link::factory()->create(['title' => 'Paul']);
+    $link3 = Link::factory()->create(['title' => 'Fred']);
+
+    Livewire::test(ManageLinks::class)
+        ->assertSeeInOrder([$link1->name, $link2->name, $link3->name])
+        ->set('filters.search', 'pe')
+        ->assertSee($link1->name)
+        ->assertDontSee($link2->name)
+        ->assertDontSee($link3->name);
 });

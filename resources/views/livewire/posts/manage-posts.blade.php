@@ -61,7 +61,7 @@
           <button wire:click='clearFilter()' class="p-1 rounded-lg bg-teal-400">Clear</button>
         </div>
       </div>
-      <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+      <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg"></div>
 
         <x-table wire:loading.class="opacity-50">
           <x-slot name="head">
@@ -106,6 +106,7 @@
               </x-table.cell>
             </x-table.row>
             @endforelse
+            
           </x-slot>
         </x-table>
       </div>
