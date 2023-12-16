@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Subscribers;
 
+use App\Models\Subscriber;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -12,12 +13,14 @@ class SendWebUpdate implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public Subscriber $subscriber;
+
     /**
      * Create a new job instance.
      */
-    public function __construct()
+    public function __construct(Subscriber $subscriber)
     {
-        //
+        $this->subscriber = $subscriber;
     }
 
     /**
@@ -25,6 +28,6 @@ class SendWebUpdate implements ShouldQueue
      */
     public function handle(): void
     {
-        //
+        dd($this->subscriber);
     }
 }

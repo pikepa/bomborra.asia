@@ -73,7 +73,6 @@ test('an authorised user can delete a link', function () {
 });
 
 test('a signed in user can filter links via title', function () {
-
     $this->signIn();
 
     $link1 = Link::factory()->create(['title' => 'Peter']);

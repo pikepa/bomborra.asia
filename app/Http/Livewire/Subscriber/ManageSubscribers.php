@@ -50,7 +50,8 @@ class ManageSubscribers extends Component
     public function sendEmails()
     {
         foreach ($this->selected as $value) {
-            dispatch(new SendWebUpdate($value));
+            $subscriber = Subscriber::find($value);
+            dispatch(new SendWebUpdate($subscriber));  //this is a job....
         }
 
         $recs = count($this->selected);
