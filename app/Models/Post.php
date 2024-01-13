@@ -21,7 +21,7 @@ class Post extends Model implements HasMedia
     protected $table = 'posts';
 
     protected $casts = [
-        'published_at' => 'date',
+        'published_at' => 'datetime:Y-m-d',
     ];
 
     protected $fillable = [
