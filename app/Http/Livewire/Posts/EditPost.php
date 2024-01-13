@@ -137,9 +137,7 @@ class EditPost extends Component
 
     public function cancel()
     {
-        dd('im here');
-
-        return redirect()->to('/posts/'.$this->post->slug.'/D');
+        return redirect()->to('/dashboard/posts');
         //posts/edit/john-macdougall-1970-2023/D
     }
 
