@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Posts;
 
 use App\Models\Post;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -130,12 +131,31 @@ class EditPost extends Component
         if ($this->origin === 'P') {
             return redirect()->to('/posts/'.$post->slug);
         } else {
-            return redirect()->to('/dashboard');
+            return redirect()->to('/dashboard/posts');
         }
     }
 
     public function cancel()
     {
-        return redirect()->to('/posts/'.$this->post->slug);
+        dd('im here');
+
+        return redirect()->to('/posts/'.$this->post->slug.'/D');
+        //posts/edit/john-macdougall-1970-2023/D
+    }
+
+    public function publishPost()
+    {
+        $this->published_at = Carbon::now()->format('Y-m-d');
+        $this->post->update();
+
+        return redirect()->back();
+    }
+
+    public function unpublishPost()
+    {
+        $this->published_at = null; //Carbon::now()->format('Y-m-d');
+        $this->post->update();
+
+        return redirect()->back();
     }
 }
