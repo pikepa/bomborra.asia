@@ -19,7 +19,6 @@ test('an authorised user can see the edit a post page', function () {
     //Setup
     $this->signIn($this->user);
     $post = Post::factory()->create();
-
     //Act and Assert
     get('/posts/edit/'.$post->slug.'/P')
         ->assertSuccessful()

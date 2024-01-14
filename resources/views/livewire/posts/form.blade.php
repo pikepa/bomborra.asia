@@ -48,26 +48,30 @@
             <!-- Publish Post -->
             <div>
                 @if($post)
-                    <label class=" flex flex-row justify-between items-center">
-                        <span class="text-gray-700  font-bold">Published : @if($published_at){{   $published_at->format('d-M-Y')  }}@endif</span>
-                            @if(! $published_at)
-                               <x-button.secondary 
-                                    wire:click="publishPost"
-                                    class="bg-blue-400">
-                                    Publish
-                                </x-button.secondary>
-                            @endif
-                            @if( $published_at)
-                               <x-button.secondary 
-                                    wire:click="unpublishPost"
-                                    class="bg-blue-400">
-                                    Make Draft
-                                </x-button.secondary>
-                            @endif
-                    </label>
+                <label class=" flex flex-row justify-between items-center">
+                        <span class="text-gray-700  font-bold">Published : @if($published_at){{
+                            $published_at->format('d-M-Y') }}@endif</span>
+                        @if(! $published_at)
+                        <x-button.secondary wire:click="publishPost" class="bg-blue-400">
+                            Publish
+                        </x-button.secondary>
+                    @endif
+                    @if( $published_at)
+                    <x-button.secondary wire:click="unpublishPost" class="bg-blue-400">
+                        Make Draft
+                    </x-button.secondary>
+                    @endif
+
+                </label>
+                @if(! $published_at)
+                    <div>
+                        <input wire:model='temp_published_at' type="text" placeholder="DD-MM-YYYY" name="published_at"
+                            format="DD-MM-YYYY" class="form-input rounded mt-1 block w-full">
+                    </div>
+                @endif
                 @endif
             </div>
-            
+
             <!-- Checkbox for Featured Image-->
             @isset($cover_image)
             <div>
@@ -101,5 +105,5 @@
     </div>
 
     <!-- This is the spot for the Post Gallery -->
-    
+
 </div>

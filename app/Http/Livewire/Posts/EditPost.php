@@ -45,6 +45,8 @@ class EditPost extends Component
 
     public $published_at = null;
 
+    public $temp_published_at = null;
+
     public function mount(string $slug, string $origin)
     {
         $this->origin = $origin;
@@ -143,17 +145,21 @@ class EditPost extends Component
 
     public function publishPost()
     {
-        $this->published_at = Carbon::now()->format('Y-m-d');
+        if (! $this->temp_published_at) {
+            $this->post->published_at = Carbon::now()->format('Y-m-d');
+        } else {
+            $this->post->published_at = Carbon::parse($this->temp_published_at);
+        }
         $this->post->update();
 
-        return redirect()->back();
+        return redirect()->to('/posts/edit/'.$this->post->slug.'{{ origin }}');
     }
 
     public function unpublishPost()
     {
-        $this->published_at = null; //Carbon::now()->format('Y-m-d');
+        $this->post->published_at = null; //Carbon::now()->format('Y-m-d');
         $this->post->update();
 
-        return redirect()->back();
+        return redirect()->to('/posts/edit/'.$this->post->slug.'{{ origin }}');
     }
 }
