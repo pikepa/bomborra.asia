@@ -10,9 +10,14 @@ use Livewire\Livewire;
 test('any user can view published posts by channel', function () {
     //  $this->withoutExceptionHandling();
 
-    $user = User::factory()->create();
-    $category = Category::factory()->create();
+    $category = $category = Category::factory()->create();
     $channel = Channel::factory()->create();
+
+    $post = Post::factory()->create([
+        'published_at' => now()->subMonth(),
+        'channel_id' => $channel->id,
+        'category_id' => $category->id,
+    ]);
 
     $post = Post::factory()->create(['published_at' => now()->subMonth(), 'channel_id' => $channel->id]);
 
@@ -28,10 +33,14 @@ test('any user can view published posts by channel', function () {
 
 test('a signed in user can view published posts by channel', function () {
     $user = User::factory()->create();
-    Category::factory()->create();
+    $category = $category = Category::factory()->create();
     $channel = Channel::factory()->create();
 
-    $post = Post::factory()->create(['published_at' => now()->subMonth()]);
+    $post = Post::factory()->create([
+        'published_at' => now()->subMonth(),
+        'channel_id' => $channel->id,
+        'category_id' => $category->id,
+    ]);
 
     $this->signIn();
 
@@ -47,10 +56,14 @@ test('a signed in user can view published posts by channel', function () {
 
 test('a signed in user can view unpublished future posts by channel', function () {
     $user = User::factory()->create();
-    $category = Category::factory()->create();
+    $category = $category = Category::factory()->create();
     $channel = Channel::factory()->create();
 
-    $post = Post::factory()->create(['published_at' => now()->addMonth()]);
+    $post = Post::factory()->create([
+        'published_at' => now()->addMonth(),
+        'channel_id' => $channel->id,
+        'category_id' => $category->id,
+    ]);
 
     $this->signIn();
 
@@ -65,10 +78,14 @@ test('a signed in user can view unpublished future posts by channel', function (
 
 test('a signed in user can view unpublished posts by channel', function () {
     $user = User::factory()->create();
-    Category::factory()->create();
+    $category = $category = Category::factory()->create();
     $channel = Channel::factory()->create();
 
-    $post = Post::factory()->create(['published_at' => null]);
+    $post = Post::factory()->create([
+        'published_at' => null,
+        'channel_id' => $channel->id,
+        'category_id' => $category->id,
+    ]);
 
     $this->signIn();
 
@@ -88,7 +105,6 @@ test('displays "No Posts within this Channel" if colllection is empty', function
     $channel = Channel::factory()->create();
 
     // $post=Post::factory()->create(['published_at'=>now()]);
-
     //act and Assert
     Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
         ->assertStatus(200)

@@ -29,9 +29,9 @@ class PostFactory extends Factory
             'meta_description' => $this->faker->paragraph,
             'published_at' => now()->subMonth(),
             'notifiable' => true,
-            'channel_id' => Channel::inRandomOrder()->first()->id,
-            'author_id' => User::inRandomOrder()->first()->id,
-            'category_id' => Category::inRandomOrder()->first()->id,
+            'channel_id' => Channel::factory()->create()->id, //inRandomOrder()->first()->id,
+            'author_id' => User::factory()->create()->id, // inRandomOrder()->first()->id,
+            'category_id' => Category::factory()->create()->id, //inRandomOrder()->first()->id,
         ];
     }
 }

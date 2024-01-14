@@ -5,13 +5,14 @@ namespace App\Models;
 use App\Mail\SubscribedEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class Subscriber extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'subscribers';
 

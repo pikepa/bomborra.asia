@@ -12,11 +12,14 @@ use Livewire\Livewire;
 
 test('a newsletter subscribe button appears on the welcome screen', function () {
     User::factory()->create();
-    Category::factory()->create(['slug' => 'welcome']);
-    Channel::factory()->create(['slug' => 'no-channel']);
-    Channel::factory()->create(['slug' => 'no-channel']);
-    $post = Post::factory()->create();
+    $category = Category::factory()->create(['slug' => 'welcome']);
+    $channel = Channel::factory()->create(['slug' => 'no-channel']);
 
+    $post = Post::factory()->create([
+        'published_at' => now()->subMonth(),
+        'channel_id' => $channel->id,
+        'category_id' => $category->id,
+    ]);
     $this->get('/')->assertSuccessful()
         ->assertSee($post->title)
         ->assertSee('Enter')

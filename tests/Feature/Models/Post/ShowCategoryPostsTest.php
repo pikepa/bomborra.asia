@@ -11,10 +11,14 @@ test('any user can view published posts by category', function () {
     $this->withoutExceptionHandling();
 
     $user = User::factory()->create();
-    $category = Category::factory()->create();
-    Channel::factory()->create();
+    $category = $category = Category::factory()->create();
+    $channel = Channel::factory()->create();
 
-    $post = Post::factory()->create(['published_at' => now()->subMonth()]);
+    $post = Post::factory()->create([
+        'published_at' => now()->subMonth(),
+        'channel_id' => $channel->id,
+        'category_id' => $category->id,
+    ]);
 
     Livewire::test(ShowCategoryPosts::class, ['cat_slug' => $category->slug])
         ->assertStatus(200)
@@ -28,11 +32,14 @@ test('any user can view published posts by category', function () {
 
 test('a signed in user can view published posts by category', function () {
     $user = User::factory()->create();
-    $category = Category::factory()->create();
-    Channel::factory()->create();
+    $category = $category = Category::factory()->create();
+    $channel = Channel::factory()->create();
 
-    $post = Post::factory()->create(['published_at' => now()->subMonth()]);
-
+    $post = Post::factory()->create([
+        'published_at' => now()->subMonth(),
+        'channel_id' => $channel->id,
+        'category_id' => $category->id,
+    ]);
     $this->signIn();
 
     Livewire::test(ShowCategoryPosts::class, ['cat_slug' => $category->slug])
@@ -47,10 +54,14 @@ test('a signed in user can view published posts by category', function () {
 
 test('a signed in user can view unpublished future posts by category', function () {
     $user = User::factory()->create();
-    $category = Category::factory()->create();
-    Channel::factory()->create();
+    $category = $category = Category::factory()->create();
+    $channel = Channel::factory()->create();
 
-    $post = Post::factory()->create(['published_at' => now()->addMonth()]);
+    $post = Post::factory()->create([
+        'published_at' => now()->addMonth(),
+        'channel_id' => $channel->id,
+        'category_id' => $category->id,
+    ]);
 
     $this->signIn();
 
@@ -65,10 +76,14 @@ test('a signed in user can view unpublished future posts by category', function 
 
 test('a signed in user can view unpublished posts by category', function () {
     $user = User::factory()->create();
-    $category = Category::factory()->create();
-    Channel::factory()->create();
+    $category = $category = Category::factory()->create();
+    $channel = Channel::factory()->create();
 
-    $post = Post::factory()->create(['published_at' => null]);
+    $post = Post::factory()->create([
+        'published_at' => null,
+        'channel_id' => $channel->id,
+        'category_id' => $category->id,
+    ]);
 
     $this->signIn();
 
