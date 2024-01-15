@@ -125,7 +125,6 @@ class EditPost extends Component
         }
 
         $data = $this->validate();
-        // dd($data);
         $post = Post::findOrFail($id);
 
         $post->update($data);
@@ -146,20 +145,16 @@ class EditPost extends Component
     public function publishPost()
     {
         if (! $this->temp_published_at) {
-            $this->post->published_at = Carbon::now()->format('Y-m-d');
+            $this->published_at = Carbon::now()->format('Y-m-d');
         } else {
-            $this->post->published_at = Carbon::parse($this->temp_published_at);
+            $this->published_at = Carbon::parse($this->temp_published_at);
         }
-        $this->post->update();
-
-        return redirect()->to('/posts/edit/'.$this->post->slug.'{{ origin }}');
+        $this->post->update;
     }
 
     public function unpublishPost()
     {
-        $this->post->published_at = null; //Carbon::now()->format('Y-m-d');
-        $this->post->update();
-
-        return redirect()->to('/posts/edit/'.$this->post->slug.'{{ origin }}');
+        $this->published_at = Carbon::make(null);
+        $this->post->update;
     }
 }

@@ -46,18 +46,18 @@
             </div>
 
             <!-- Publish Post -->
-            <div>
-                @if($post)
+            <div x-data>
+                <!-- @if($post) -->
                 <label class=" flex flex-row justify-between items-center">
                         <span class="text-gray-700  font-bold">Published : @if($published_at){{
                             $published_at->format('d-M-Y') }}@endif</span>
                         @if(! $published_at)
-                        <x-button.secondary wire:click="publishPost" class="bg-blue-400">
+                        <x-button.secondary x-on:click="$wire.publishPost()" class="bg-blue-400">
                             Publish
                         </x-button.secondary>
                     @endif
                     @if( $published_at)
-                    <x-button.secondary wire:click="unpublishPost" class="bg-blue-400">
+                    <x-button.secondary x-on:click="$wire.unpublishPost()" class="bg-blue-400">
                         Make Draft
                     </x-button.secondary>
                     @endif
@@ -69,7 +69,7 @@
                             format="DD-MM-YYYY" class="form-input rounded mt-1 block w-full">
                     </div>
                 @endif
-                @endif
+                <!-- @endif -->
             </div>
 
             <!-- Checkbox for Featured Image-->

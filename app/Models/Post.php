@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -111,19 +112,19 @@ class Post extends Model implements HasMedia
         : '';
     }
 
-    // Media Definitions
-    public function registerMediaConversions(?Media $media = null): void
-    {
-        $this->addMediaConversion('thumb')
-            ->width(200)
-            ->height(200)
-            ->sharpen(10);
+    // // Media Definitions
+    // public function registerMediaConversions(?Media $media = null): void
+    // {
+    //     $this->addMediaConversion('thumb')
+    //         ->width(200)
+    //         ->height(200)
+    //         ->sharpen(10);
 
-        $this->addMediaConversion('full')
-            ->width(800)
-            ->height(800)
-            ->sharpen(10);
-    }
+    //     $this->addMediaConversion('full')
+    //         ->width(800)
+    //         ->height(800)
+    //         ->sharpen(10);
+    // }
 
     /*
     *       Relationships
@@ -152,5 +153,24 @@ class Post extends Model implements HasMedia
     public function tags(): HasMany
     {
         return $this->HasMany(Tag::class, 'post_tag');
+    }
+
+    public function publish($date = null)
+    {
+        if (! $date) {
+            $date = Carbon::now()->format('Y-m-d');
+        }
+        $this->published_at = Carbon::parse($date)->format('Y-m-d');
+        $this->update();
+
+        return $this;
+    }
+
+    public function unpublish()
+    {
+        $this->published_at = null;
+        $this->save();
+
+        return $this;
     }
 }
