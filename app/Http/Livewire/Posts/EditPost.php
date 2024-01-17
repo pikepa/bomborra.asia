@@ -139,7 +139,6 @@ class EditPost extends Component
     public function cancel()
     {
         return redirect()->to('/dashboard/posts');
-        //posts/edit/john-macdougall-1970-2023/D
     }
 
     public function publishPost()
@@ -149,6 +148,7 @@ class EditPost extends Component
         } else {
             $this->published_at = Carbon::parse($this->temp_published_at);
         }
+
         $this->post->update;
     }
 
