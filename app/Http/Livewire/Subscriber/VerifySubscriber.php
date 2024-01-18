@@ -25,7 +25,7 @@ class VerifySubscriber extends Component
         if ($this->otp === $subscriber->validation_key) {
             $subscriber->update(['validated_at' => now(), 'validation_key' => '']);
             $this->isVerified = true;
-        // return response(null,201);
+            // return response(null,201);
         } else {
             $this->isVerified = false;
         }
