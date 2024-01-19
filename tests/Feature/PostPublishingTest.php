@@ -30,8 +30,9 @@ test('that a post is created with null valued published_at', function () {
     $this->assertDatabaseHas('posts', ['published_at' => null]);
 });
 
-test('that a published post displays a draft button which when clicked sets the published at to null', function () {
+test('that a published post displays a draft button ', function () {
     $this->signIn($this->user);
+
     $post = Post::factory()->create();
 
     Livewire::test(EditPost::class, ['origin' => 'P', 'slug' => $post->slug])
@@ -39,35 +40,38 @@ test('that a published post displays a draft button which when clicked sets the 
         ->assertSee('Published :')
         ->assertSee($post->published_at->format('d-M-Y'))
         ->assertSee('Make Draft')
-        ->set('published_at', '')
-        ->call('update', $post->id);
-
+        ->call('unpublishPost');
     $this->assertDatabaseHas('posts', ['published_at' => null]);
     $post->refresh();
     $this->assertEquals(null, $post->published_at);
 });
 
-test('that an upublished post displays a publish button which when clicked sets the published at to the current date', function () {
+test('that an upublished post displays a publish button ', function () {
     $this->signIn($this->user);
     $post = Post::factory()->create(['published_at' => null]);
     Livewire::test(EditPost::class, ['origin' => 'P', 'slug' => $post->slug])
         ->assertOk()
         ->assertSee('Published :')
         ->assertDontSee('Make Draft')
-        ->assertSee('Publish')
-        ->set('published_at', Carbon::now())
-        ->call('update', $post->id);
-
-    $this->assertDatabaseHas('posts', ['published_at' => Carbon::now()]);
+        ->assertSee('Publish');
 });
 
-test('an PostPublished event is generated after a post is published', function () {
+test('a post can be published', function () {
     Event::fake();
-    $post = Post::factory()->create(['published_at' => null]);
-    // dd($post);
-    Livewire::test(EditPost::class, ['origin' => 'P', 'slug' => $post->slug])
-        ->assertOk()
-        ->call('publishPost');
-
+    // given we have an unpublished post
+    $post = Post::factory()->create(['published_at' => Carbon::make(null)]);
+    // when we publish with a given date
+    $post->publish('24-01-19');
+    // the post is updated and can be defined a s published
+    $this->assertDatabaseHas('posts', ['published_at' => '2024-01-19']);
+    // assert that the postpublished event is dispatched
     Event::assertDispatched(PostPublished::class);
+});
+test('a post can be un published', function () {
+    // given we have an published post
+    $post = Post::factory()->create(['published_at' => Carbon::now()]);
+    // when we unpublish
+    $post->unpublish();
+    // the post is updated and can be defined as unpublished
+    $this->assertDatabaseHas('posts', ['published_at' => null]);
 });

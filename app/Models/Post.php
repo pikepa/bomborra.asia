@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\PostPublished;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Post extends Model implements HasMedia
 {
@@ -38,26 +38,6 @@ class Post extends Model implements HasMedia
         'author_id',
         'category_id',
     ];
-
-    // protected function PublishedAt(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: function ($value) {
-    //             if ($value !== null) {
-    //                 return Carbon::parse($value)->format('d-m-Y');
-    //             }
-
-    //             return 'Draft';
-    //         },
-    //         set: function ($value) {
-    //             if ($value == 'Draft' or $value == '') {
-    //                 return null;
-    //             }
-
-    //             return Carbon::parse($value)->format('Y-m-d  H:m:s');
-    //         }
-    //     );
-    // }
 
     public function scopePublished($query)
     {
@@ -112,24 +92,6 @@ class Post extends Model implements HasMedia
         : '';
     }
 
-    // // Media Definitions
-    // public function registerMediaConversions(?Media $media = null): void
-    // {
-    //     $this->addMediaConversion('thumb')
-    //         ->width(200)
-    //         ->height(200)
-    //         ->sharpen(10);
-
-    //     $this->addMediaConversion('full')
-    //         ->width(800)
-    //         ->height(800)
-    //         ->sharpen(10);
-    // }
-
-    /*
-    *       Relationships
-    */
-
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -145,10 +107,10 @@ class Post extends Model implements HasMedia
         return $this->BelongsTo(Channel::class);
     }
 
-    public function siteUpdates(): BelongsToMany
-    {
-        return $this->BelongsToMany(SiteUpdate::class, 'post_site_update');
-    }
+    // public function siteUpdates(): BelongsToMany
+    // {
+    //     return $this->BelongsToMany(SiteUpdate::class, 'post_site_update');
+    // }
 
     public function tags(): HasMany
     {
@@ -161,7 +123,10 @@ class Post extends Model implements HasMedia
             $date = Carbon::now()->format('Y-m-d');
         }
         $this->published_at = Carbon::parse($date)->format('Y-m-d');
+
         $this->update();
+
+        PostPublished::dispatch($this->post, Carbon::now());
 
         return $this;
     }
@@ -169,7 +134,7 @@ class Post extends Model implements HasMedia
     public function unpublish()
     {
         $this->published_at = null;
-        $this->save();
+        $this->update();
 
         return $this;
     }
