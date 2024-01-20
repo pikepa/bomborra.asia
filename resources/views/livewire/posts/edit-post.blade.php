@@ -4,7 +4,9 @@
         <livewire:menus.menu-top />
 
         <x-menus.menu-middle />
-
+        <div>
+            here
+        </div>
         <livewire:menus.menu-bottom />
 
     </menus>
@@ -18,7 +20,7 @@
       
     <div class="px-2">
         <!-- This Section allows adding and update forms -->
-    
+  
             @include('livewire.posts.update')
     
         @auth
