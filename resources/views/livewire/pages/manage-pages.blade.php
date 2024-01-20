@@ -1,5 +1,4 @@
 <div class=" ">
-
     <div class="py-2">
         <div class="max-w-7xl mx-auto px-2">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

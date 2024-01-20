@@ -26,9 +26,13 @@
                         </div>
                         <div class="flex text-right mr-4 font-bold text-xl">
                             @if(Auth::user())
+                                @if($post->published_status !== "Published")
+                                <div class="mr-4 text-red-500">
+                                    <button wire:click="publish"><i class="fa-solid fa-book-open-reader"></i></button>
+                                </div>
+                                @endif
                             <div class="mr-4">
                                 <a href="/posts/edit/{{ $post->slug }}/P" ><i class="fa-solid fa-pen-to-square"></i></a>
-                                
                             </div>
                             @endif
                             <a href="{{ url()->previous() }}"><i class="fa-solid fa-arrow-left"></i> Back </a>

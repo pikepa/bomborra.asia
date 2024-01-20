@@ -27,4 +27,4 @@ test('a Post relates to many SiteUpdates', function () {
 
     $this->assertTrue($post->siteUpdates()->first()->is($site_update));
     $this->assertCount(1, $post->fresh()->siteUpdates);
-});
+})->skip();

@@ -14,6 +14,8 @@ class ShowPost extends Component
 
     public $showEditForm = false;
 
+    protected $listeners = ['refreshComponent' => '$refresh'];
+
     public function mount($slug)
     {
         if (Auth::check()) {
@@ -32,8 +34,15 @@ class ShowPost extends Component
         return view('livewire.posts.show-post');
     }
 
-    public function editPost()
+    public function publish($date = null)
     {
-        // return redirect()->to('/dashboard/posts/'. $this->post->id );
+        $this->post->publish($date);
+        // return redirect()->to('/posts/' . $this->post->slug);
+        $this->emit('refreshComponent');
+
     }
+    // public function editPost()
+    // {
+    //     // return redirect()->to('/dashboard/posts/'. $this->post->id );
+    // }
 }

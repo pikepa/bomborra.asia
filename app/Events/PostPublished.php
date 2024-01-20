@@ -5,7 +5,7 @@ namespace App\Events;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PublishPostRequested
+class PostPublished
 {
     use Dispatchable, SerializesModels;
 

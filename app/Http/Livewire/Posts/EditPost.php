@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Posts;
 
+use App\Events\PostPublished;
 use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -149,12 +150,14 @@ class EditPost extends Component
             $this->published_at = Carbon::parse($this->temp_published_at);
         }
 
-        $this->post->update;
+        $this->post->update();
+        PostPublished::dispatch($this->post, Carbon::now());
     }
 
     public function unpublishPost()
     {
-        $this->published_at = Carbon::make(null);
-        $this->post->update;
+        //   $this->post->unpublish();
+        $this->post->published_at = Carbon::make(null);
+        $this->post->update();
     }
 }
