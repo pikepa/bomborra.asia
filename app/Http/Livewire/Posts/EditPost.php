@@ -149,15 +149,15 @@ class EditPost extends Component
         } else {
             $this->published_at = Carbon::parse($this->temp_published_at);
         }
-
-        $this->post->update();
+        $this->update($this->post->id);
+        //Event
         PostPublished::dispatch($this->post, Carbon::now());
     }
 
     public function unpublishPost()
     {
-        //   $this->post->unpublish();
-        $this->post->published_at = Carbon::make(null);
-        $this->post->update();
+        //     $this->post->unpublish();
+        $this->published_at = Carbon::make(null);
+        $this->update($this->post->id);
     }
 }
