@@ -49,7 +49,10 @@ class Post extends Model implements HasMedia
         if (! empty($this->published_at) && $this->published_at < now()) {
             return 'Published';
         }
-        if ($this->published_at > now() | empty($this->published_at)) {
+        if (! empty($this->published_at) && $this->published_at > now()) {
+            return 'Publication Pending';
+        }
+        if (empty($this->published_at)) {
             return 'Draft';
         }
     }
