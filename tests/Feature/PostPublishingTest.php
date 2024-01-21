@@ -40,7 +40,9 @@ test('that a published post displays a draft button ', function () {
         ->assertSee('Published :')
         ->assertSee($post->published_at->format('d-M-Y'))
         ->assertSee('Make Draft')
+        ->assertSeeHtml('wire:click.prevent="unpublishPost()"')
         ->call('unpublishPost');
+
     $this->assertDatabaseHas('posts', ['published_at' => null]);
     $post->refresh();
     $this->assertEquals(null, $post->published_at);
@@ -53,7 +55,8 @@ test('that an upublished post displays a publish button ', function () {
         ->assertOk()
         ->assertSee('Published :')
         ->assertDontSee('Make Draft')
-        ->assertSee('Publish');
+        ->assertSee('Publish')
+        ->assertSeeHtml('wire:click.prevent="publishPost()"');
 });
 
 test('a post can be published', function () {
