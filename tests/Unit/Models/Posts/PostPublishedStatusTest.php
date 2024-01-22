@@ -25,9 +25,9 @@ test('a post with a published date of today or less is published', function () {
     expect($post->published_status)->toBe('Published');
 });
 
-test('a post with a future date is shown as draft', function () {
+test('a post with a future date is shown as publication pending', function () {
     $this->signIn();
     $post = Post::factory()->create(['published_at' => now()->addMonth()]);
 
-    expect($post->published_status)->toBe('Draft');
+    expect($post->published_status)->toBe('Publication Pending');
 });

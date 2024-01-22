@@ -14,8 +14,9 @@ class NotifySubscribers
     {
         // for each validated subscriber create an email notification
         $subscribers = Subscriber::where('validated_at', '!=', null)->get();
-        foreach ($subscribers as $subscriber) {
-            //  dd($subscriber);
-        }
+
+        // foreach ($subscribers as $subscriber) {
+        //  dd($subscriber);
+        //}
     }
 }

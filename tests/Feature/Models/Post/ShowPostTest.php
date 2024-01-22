@@ -42,7 +42,7 @@ test('An Auth User can view an unpublished post', function () {
     Livewire::test(ShowPost::class, [$post->slug])
         ->assertStatus(200)
         ->assertSee($post->title)
-        ->assertSee('Not Published - Draft')
+        ->assertSee('Draft')
         ->assertSee('by')
         ->assertSee($post->author->name)
         ->assertSee($post->body);
@@ -55,7 +55,7 @@ test('An Auth User can view a future published post', function () {
     Livewire::test(ShowPost::class, [$post->slug])
         ->assertStatus(200)
         ->assertSee($post->title)
-        ->assertSee('Not Published - Draft')
+        ->assertSee('Publication Pending')
         ->assertSee('by')
         ->assertSee($post->author->name)
         ->assertSee($post->body);

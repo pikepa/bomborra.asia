@@ -20,17 +20,17 @@
                             {{$post->title}}
                             @if($post->published_status == 'Published') <p class="text-xs font-bold text-gray-600">Published on
                                 {{$post->display_published_at }} by {{$post->author->name}}</p>
-                            @else <p class="text-xs font-bold text-gray-600">Not Published - Draft
+                            @else <p class="text-xs font-bold text-gray-600">{{ $post->published_status }}
                                 by {{$post->author->name}}</p>
                             @endif
                         </div>
                         <div class="flex text-right mr-4 font-bold text-xl">
                             @if(Auth::user())
-                                @if($post->published_status !== "Published")
+                                <!-- @if($post->published_status !== "Published")
                                 <div class="mr-4 text-red-500">
                                     <button wire:click="publish"><i class="fa-solid fa-book-open-reader"></i></button>
                                 </div>
-                                @endif
+                                @endif -->
                             <div class="mr-4">
                                 <a href="/posts/edit/{{ $post->slug }}/P" ><i class="fa-solid fa-pen-to-square"></i></a>
                             </div>
