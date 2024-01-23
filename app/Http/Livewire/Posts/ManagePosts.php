@@ -68,6 +68,8 @@ class ManagePosts extends Component
 
     public $showAlert = false;
 
+    public $showFilters = false;
+
     //  public $mediaItems = [];
 
     protected $rules =
