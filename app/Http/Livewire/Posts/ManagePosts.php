@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Posts;
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -56,7 +57,10 @@ class ManagePosts extends Component
 
     public $queryChannels = [];   // all channels for select dropdown
 
-    public $categories;
+    public $statusQuery;
+
+    public $queryStatuses = ['Draft', 'Publication Pending',  'Published'];
+    // public $categories;
 
     public $selectedCategory;
 
@@ -67,6 +71,8 @@ class ManagePosts extends Component
     public $post;
 
     public $showAlert = false;
+
+    public $showFilters = false;
 
     //  public $mediaItems = [];
 
@@ -90,13 +96,18 @@ class ManagePosts extends Component
     protected $listeners = [
         'category_selected',
         'channel_selected',
-        'make_featured',
+        'status_selected',
+        // 'make_featured',
     ];
 
     public function mount()
     {
-        $this->queryCategories = Category::orderBy('name', 'asc')->get();
-        $this->queryChannels = Channel::orderBy('name', 'asc')->get();
+        $this->queryCategories = Cache::rememberForever('queryCategories', function () {
+            return Category::orderBy('name', 'asc')->get();
+        });
+        $this->queryChannels = Cache::rememberForever('quertChannels', function () {
+            return Channel::orderBy('name', 'asc')->get();
+        });
         $this->author_id = auth()->user()->id;
     }
 
@@ -105,13 +116,16 @@ class ManagePosts extends Component
         $this->posts = Post::when($this->search != '', function ($query) {
             $query->where('title', 'like', '%'.$this->search.'%');
         })
+            ->when($this->statusQuery != '', function ($query) {
+                $query->where('published_at', $this->statusQuery);
+            })
             ->when($this->categoryQuery != '', function ($query) {
                 $query->where('category_id', $this->categoryQuery);
             })
             ->when($this->channelQuery != '', function ($query) {
                 $query->where('channel_id', $this->channelQuery);
             })
-            ->with('author')->orderBy('published_at', 'desc')->get();
+            ->with('author', 'channel', 'category')->orderBy('published_at', 'desc')->get();
 
         return view('livewire.posts.manage-posts');
     }
@@ -135,6 +149,7 @@ class ManagePosts extends Component
     {
         $this->categoryQuery = '';
         $this->channelQuery = '';
+        $this->statusQuery = '';
         $this->search = '';
     }
 

@@ -40,7 +40,6 @@
     </div>
     <!-- Advanced Search -->
     <div>
-
       @if ($showFilters)
       <div class="bg-cool-gray-200 p-4 rounded shadow-inner ">
         <div class="flex relative">

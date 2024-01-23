@@ -159,6 +159,7 @@ test('An authorised user can filter posts by category in the dashboard', functio
         ->call('showTable')
         ->set('categoryQuery', '')
         ->assertSee('Posts')
+        ->set('showFilters', true)
         ->assertSee('Select Channel')
         ->assertSee('Select Category')
         ->assertSee($post->title)
@@ -178,6 +179,7 @@ test('An authorised user can filter posts by channel in the dashboard', function
         ->call('showTable')
         ->set('channelQuery', '')
         ->assertSee('Posts')
+        ->set('showFilters', true)
         ->assertSee('Select Channel')
         ->assertSee('Select Category')
         ->assertSee($post->title)
@@ -192,6 +194,7 @@ test('The posts dashboard page has a clear button which clears filters', functio
 
     Livewire::test(ManagePosts::class)
         ->call('showTable')
+        ->set('showFilters', true)
         ->assertSee('Clear')
         ->assertSee('Select Channel')
         ->assertSee('Select Category')
