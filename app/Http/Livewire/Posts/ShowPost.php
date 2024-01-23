@@ -39,7 +39,6 @@ class ShowPost extends Component
         $this->post->publish($date);
         // return redirect()->to('/posts/' . $this->post->slug);
         $this->emit('refreshComponent');
-
     }
     // public function editPost()
     // {
