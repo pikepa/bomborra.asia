@@ -41,7 +41,7 @@ class Post extends Model implements HasMedia
 
     public function scopePublished($query)
     {
-        return $query->where('published_at', '<', now());
+        return $query->where('published_at', '<=', now());
     }
 
     public function getPublishedStatusAttribute($value)

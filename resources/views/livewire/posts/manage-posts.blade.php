@@ -70,15 +70,14 @@
                   </div>
                 </x-input.group>
               </div>
-              <div class="w-1/3 ml-4 pr-2 space-y-4">
+              <div class="w-1/3 ml-4 pr-2 space-y-4 invisible">
                 <x-input.group inline for="filter-status" label="Status Filter">
                   <div class="mb-2 ">
                     <select wire:model='statusQuery' class=" rounded-lg p-1 border-2 border-gray-600 "
                       placeholder="Select Status">
                       <option value="">Select Status</option>
                       @foreach($queryStatuses as $status_item)
-                        {{ $status_item }}
-                      <option value="{{ $status_item }}">{{ $status_item }}</option>
+                          <option value="{{ $status_item }}">{{ $status_item }}</option>
                       @endforeach
                     </select>
                   </div>

@@ -59,7 +59,7 @@ class ManagePosts extends Component
 
     public $statusQuery;
 
-    public $queryStatuses = ['0' => 'Draft', '1' => 'Publication Pending', '2' => 'Published'];
+    public $queryStatuses = ['Draft', 'Publication Pending',  'Published'];
     // public $categories;
 
     public $selectedCategory;
