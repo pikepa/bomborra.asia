@@ -73,11 +73,13 @@
               <div class="w-1/3 ml-4 pr-2 space-y-4">
                 <x-input.group inline for="filter-status" label="Status Filter">
                   <div class="mb-2 ">
-                    <select wire:model='categoryQuery' class=" rounded-lg p-1 border-2 border-gray-600 "
+                    <select wire:model='statusQuery' class=" rounded-lg p-1 border-2 border-gray-600 "
                       placeholder="Select Status">
                       <option value="">Select Status</option>
-                      <option value="">Unpublished</option>
-                      <option value="">Published</option>
+                      @foreach($queryStatuses as $status_item)
+                        {{ $status_item }}
+                      <option value="{{ $status_item }}">{{ $status_item }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </x-input.group>

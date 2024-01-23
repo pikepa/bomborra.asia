@@ -57,7 +57,10 @@ class ManagePosts extends Component
 
     public $queryChannels = [];   // all channels for select dropdown
 
-    public $categories;
+    public $statusQuery;
+
+    public $queryStatuses = ['0' => 'Draft', '1' => 'Publication Pending', '2' => 'Published'];
+    // public $categories;
 
     public $selectedCategory;
 
@@ -93,6 +96,7 @@ class ManagePosts extends Component
     protected $listeners = [
         'category_selected',
         'channel_selected',
+        'status_selected',
         // 'make_featured',
     ];
 
@@ -112,6 +116,9 @@ class ManagePosts extends Component
         $this->posts = Post::when($this->search != '', function ($query) {
             $query->where('title', 'like', '%'.$this->search.'%');
         })
+            ->when($this->statusQuery != '', function ($query) {
+                $query->where('published_at', $this->statusQuery);
+            })
             ->when($this->categoryQuery != '', function ($query) {
                 $query->where('category_id', $this->categoryQuery);
             })
@@ -142,6 +149,7 @@ class ManagePosts extends Component
     {
         $this->categoryQuery = '';
         $this->channelQuery = '';
+        $this->statusQuery = '';
         $this->search = '';
     }
 
