@@ -4,9 +4,7 @@
         <livewire:menus.menu-top />
 
         <x-menus.menu-middle />
-        <div>
-            here
-        </div>
+
         <livewire:menus.menu-bottom />
 
     </menus>
