@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Posts;
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -92,13 +93,17 @@ class ManagePosts extends Component
     protected $listeners = [
         'category_selected',
         'channel_selected',
-        'make_featured',
+        // 'make_featured',
     ];
 
     public function mount()
     {
-        $this->queryCategories = Category::orderBy('name', 'asc')->get();
-        $this->queryChannels = Channel::orderBy('name', 'asc')->get();
+        $this->queryCategories = Cache::rememberForever('queryCategories', function () {
+            return Category::orderBy('name', 'asc')->get();
+        });
+        $this->queryChannels = Cache::rememberForever('quertChannels', function () {
+            return Channel::orderBy('name', 'asc')->get();
+        });
         $this->author_id = auth()->user()->id;
     }
 
@@ -113,7 +118,7 @@ class ManagePosts extends Component
             ->when($this->channelQuery != '', function ($query) {
                 $query->where('channel_id', $this->channelQuery);
             })
-            ->with('author')->orderBy('published_at', 'desc')->get();
+            ->with('author', 'channel', 'category')->orderBy('published_at', 'desc')->get();
 
         return view('livewire.posts.manage-posts');
     }
