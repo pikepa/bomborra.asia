@@ -53,7 +53,7 @@
                             $published_at->format('d-M-Y') }}@endif</span>
                         @if(! $published_at)
                         <x-button.secondary wire:click.prevent="publishPost()" class="bg-blue-400">
-                            Publish
+                            Publish Post
                         </x-button.secondary>
                     @endif
                     @if( $published_at)
