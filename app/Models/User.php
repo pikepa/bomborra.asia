@@ -56,7 +56,18 @@ class User extends Authenticatable
 
     public function posts(): HasMany
     {
-        return $this->hasMany(Post::class, 'author_id');
+        return $this->hasMany(
+            related: Post::class,
+            foreignKey: 'author_id',
+        );
+    }
+
+    public function siteupdates(): HasMany
+    {
+        return $this->hasMany(
+            related: SiteUpdate::class,
+            foreignKey: 'user_id',
+        );
     }
 
     public function links(): HasMany

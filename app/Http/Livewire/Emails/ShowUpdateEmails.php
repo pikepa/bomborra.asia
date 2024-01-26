@@ -34,16 +34,18 @@ class ShowUpdateEmails extends Component
 
     public function mount()
     {
-        $this->sortField = 'date';
+        $this->sortField = 'update_date';
         $this->editing = $this->makeBlankTransaction();
     }
 
     public function render()
     {
         return view('livewire.emails.show-update-emails', [
-            'siteUpdates' => SiteUpdate::search('subject', $this->search)
+            'siteUpdates' => SiteUpdate::filtertitle($this->search)
+                ->with('owner', 'post')
                 ->orderBy($this->sortField, $this->sortDirection)->paginate(9),
         ]);
+
     }
 
     public function rules()
@@ -52,8 +54,8 @@ class ShowUpdateEmails extends Component
             'editing.from' => 'email|required',
             'editing.date' => 'required',
             'editing.subject' => 'required|min:6|max:150',
-            'editing.content' => 'required|min:10',
-            'editing.slug' => 'required',
+            // 'editing.content' => 'required|min:10',
+            // 'editing.slug' => 'required',
             'editing.status' => 'required:in:'.collect(SiteUpdate::STATUSES)->keys()->implode(','),
         ];
     }
@@ -99,21 +101,6 @@ class ShowUpdateEmails extends Component
             $this->editing = $this->makeBlankTransaction();
         }
         $this->showEditModal = true;
-    }
-
-    public function edit(SiteUpdate $siteupdate)
-    {
-        if ($this->editing->isNot($siteupdate)) {
-            $this->editing = $siteupdate;
-        }
-        $this->showEditModal = true;
-    }
-
-    public function save()
-    {
-        $this->validate();
-        $this->editing->save();
-        $this->showEditModal = false;
     }
 
     public function resetBanner()

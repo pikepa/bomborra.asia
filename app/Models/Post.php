@@ -7,8 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
@@ -110,10 +110,10 @@ class Post extends Model implements HasMedia
         return $this->BelongsTo(Channel::class);
     }
 
-    // public function siteUpdates(): BelongsToMany
-    // {
-    //     return $this->BelongsToMany(SiteUpdate::class, 'post_site_update');
-    // }
+    public function siteUpdate(): HasOne
+    {
+        return $this->hasOne(SiteUpdate::class);
+    }
 
     public function tags(): HasMany
     {

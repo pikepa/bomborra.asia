@@ -28,7 +28,6 @@ class PostFactory extends Factory
             'is_in_vault' => false,
             'meta_description' => $this->faker->paragraph,
             'published_at' => now()->subMonth()->format('Y-m-d'),
-            'notifiable' => true,
             'channel_id' => Channel::factory()->create()->id, //inRandomOrder()->first()->id,
             'author_id' => User::factory()->create()->id, // inRandomOrder()->first()->id,
             'category_id' => Category::factory()->create()->id, //inRandomOrder()->first()->id,

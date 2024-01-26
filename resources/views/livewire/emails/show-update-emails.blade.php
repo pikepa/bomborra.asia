@@ -27,7 +27,7 @@
                 </x-dropdown>
                 @endif
             </div>   
-                <x-button.primary wire:click="create"><x-icons.plus /> <span>Add New</span></x-button.primary>
+                <x-button.primary class="invisible"    wire:click="create"><x-icons.plus /> <span>Add New</span></x-button.primary>
             </div>
         </div>
         <x-table wire:loading.class="opacity-50">
@@ -35,15 +35,12 @@
                 <x-table.heading class="pr-0 w-8">
                     <!-- <x-input.checkbox></x-input.checkbox> -->
                 </x-table.heading>
-                <x-table.heading class="w-full" sortable wire:click="sortBy('subject')"
-                    :direction="$sortField === 'subject' ? $sortDirection :null"> Subject</x-table.heading>
-                <x-table.heading sortable wire:click="sortBy('from')"
-                    :direction="$sortField === 'from' ? $sortDirection :null">From</x-table.heading>
+                <x-table.heading sortable wire:click="sortBy('update_date')"
+                :direction="$sortField === 'update_date' ? $sortDirection :null">Date</x-table.heading>
+                <x-table.heading class="text-left"> Post Title</x-table.heading>
+                <x-table.heading class="text-left">Post Owner</x-table.heading>
                 <x-table.heading sortable wire:click="sortBy('status')"
                     :direction="$sortField === 'status' ? $sortDirection :null">Status</x-table.heading>
-                <x-table.heading sortable wire:click="sortBy('date')"
-                    :direction="$sortField === 'date' ? $sortDirection :null">Date</x-table.heading>
-                <x-table.heading></x-table.heading>
             </x-slot>
 
             <x-slot name="body">
@@ -52,17 +49,13 @@
                     <x-table.cell class="pr-0 w-8">
                         <x-input.checkbox wire:model='selected' value="{{ $siteupdate->id }}"></x-input.checkbox>
                     </x-table.cell>
-                    <x-table.cell>{{ $siteupdate->subject }}</x-table.cell>
-                    <x-table.cell>{{ $siteupdate->from }}</x-table.cell>
+                    <x-table.cell>{{ $siteupdate->date_for_humans}}</x-table.cell>
+                    <x-table.cell wire:model='subject' class="nowrap">{{ $siteupdate->post->title }}</x-table.cell>
+                    <x-table.cell>{{ $siteupdate->owner->name }}</x-table.cell>
                     <x-table.cell>
                         <span class="font-semibold p-1 rounded bg-{{ $siteupdate->status_color }}-100">{{
                             $siteupdate->status }}</span></x-table.cell>
-                    <x-table.cell class="whitespace-nowrap">{{ $siteupdate->date_for_humans}}</x-table.cell>
-                    @if($siteupdate->status !== 'Sent')
-                    <x-table.cell>
-                        <x-button.link wire:click="edit({{ $siteupdate->id }})">Edit</x-button.link>
-                    </x-table.cell>
-                    @endif
+
                 </x-table.row>
                 @empty
                 <x-table.row>

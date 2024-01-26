@@ -21,17 +21,10 @@ it('a post belongs to a channel', function () {
         ->toBeInstanceOf(Channel::class);
 });
 
-test('a post belongs to a SiteUpdate', function () {
-    $this->withoutExceptionHandling();
-
-    // set up
-    $post = Post::factory()->create();
-    $site_update = SiteUpdate::factory()->create();
-
-    $this->assertCount(0, $site_update->fresh()->posts);
-
-    $site_update->posts()->attach($post);
-
-    $this->assertTrue($site_update->posts->first()->is($post));
-    $this->assertCount(1, $site_update->fresh()->posts);
+test('a post can have a SiteUpdate', function () {
+    $post = Post::factory()
+        ->has(Siteupdate::factory())
+        ->create();
+    expect($post->siteupdate)
+        ->toBeInstanceOf(Siteupdate::class);
 });

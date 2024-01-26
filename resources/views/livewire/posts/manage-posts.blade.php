@@ -70,7 +70,7 @@
                   </div>
                 </x-input.group>
               </div>
-              <div class="w-1/3 ml-4 pr-2 space-y-4 invisible">
+              <div class="w-1/3 ml-4 pr-2 space-y-4 ">
                 <x-input.group inline for="filter-status" label="Status Filter">
                   <div class="mb-2 ">
                     <select wire:model='statusQuery' class=" rounded-lg p-1 border-2 border-gray-600 "
@@ -113,7 +113,7 @@
         </x-slot>
         <x-slot name="body">
           @forElse($posts as $post)
-          <x-table.row>
+          <x-table.row >
             <x-table.cell class="text-sky-600 font-bold dark:text-sky-400"><a
                 href="/posts/{{$post->slug}}">{{$post->title}}</a></x-table.cell>
             <x-table.cell>{{$post->channel->name}}</x-table.cell>
