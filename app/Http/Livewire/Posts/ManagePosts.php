@@ -87,7 +87,6 @@ class ManagePosts extends Component
         'category_id' => 'required|integer',
         'channel_id' => 'required|integer',
         'published_at' => 'nullable',
-        'notifiable' => 'required|boolean',
         'cover_image' => 'nullable|url',
     ];
 

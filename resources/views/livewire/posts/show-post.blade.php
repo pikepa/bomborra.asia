@@ -18,7 +18,8 @@
                     <div class="flex flex-row justify-between items-center">
                         <div class="ml-4 text-3xl pt-4  text-gray-700 font-bold">
                             {{$post->title}}
-                            @if($post->published_status == 'Published') <p class="text-xs font-bold text-gray-600">Published on
+                            @if($post->published_status == 'Published') <p class="text-xs font-bold text-gray-600">
+                                Published on
                                 {{$post->display_published_at }} by {{$post->author->name}}</p>
                             @else <p class="text-xs font-bold text-gray-600">{{ $post->published_status }}
                                 by {{$post->author->name}}</p>
@@ -26,13 +27,13 @@
                         </div>
                         <div class="flex text-right mr-4 font-bold text-xl">
                             @if(Auth::user())
-                                <!-- @if($post->published_status !== "Published")
+                            <!-- @if($post->published_status !== "Published")
                                 <div class="mr-4 text-red-500">
                                     <button wire:click="publish"><i class="fa-solid fa-book-open-reader"></i></button>
                                 </div>
                                 @endif -->
                             <div class="mr-4">
-                                <a href="/posts/edit/{{ $post->slug }}/P" ><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="/posts/edit/{{ $post->slug }}/P"><i class="fa-solid fa-pen-to-square"></i></a>
                             </div>
                             @endif
                             <a href="{{ url()->previous() }}"><i class="fa-solid fa-arrow-left"></i> Back </a>
@@ -54,7 +55,7 @@
                     </div>
                     <!-- This is the post gallery -->
                     <div class="p-4">
-                     <livewire:posts.display-post-gallery :post="$post">
+                        <livewire:posts.display-post-gallery :post="$post">
                     </div>
                 </div>
 

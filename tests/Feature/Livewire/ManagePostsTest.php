@@ -72,7 +72,7 @@ test('An authorised user can add a post', function () {
     $this->assertDatabaseCount('posts', 1)
         ->assertDatabaseHas('posts', ['title' => 'this is a post',
             'is_in_vault' => false,
-            'notifiable' => true, ]);
+        ]);
 });
 
 test('When a user hits the add button the published date is not shown', function () {

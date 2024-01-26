@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SiteUpdate extends Model
 {
@@ -16,13 +16,20 @@ class SiteUpdate extends Model
         'Sent' => 'Sent',
     ];
 
-    protected $casts = ['date' => 'date'];
+    protected $casts = ['update_date' => 'date'];
 
     protected $guarded = [];
 
+    public function scopeFiltertitle($query, $text = '')
+    {
+        return $query->whereHas('post', function ($q) use ($text) {
+            $q->where('title', 'LIKE', '%'.$text.'%');
+        });
+    }
+
     public function getDateForHumansAttribute()
     {
-        return $this->date->format('M d, Y');
+        return $this->update_date->format('M d, Y');
     }
 
     public function getStatusColorAttribute()
@@ -34,8 +41,13 @@ class SiteUpdate extends Model
         ][$this->status] ?? 'cool-gray';
     }
 
-    public function posts(): BelongsToMany
+    public function post(): BelongsTo
     {
-        return $this->BelongsToMany(Post::class, 'post_site_update');
+        return $this->belongsTo(Post::class);
+    }
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -28,7 +28,4 @@ dataset('post_validation', [
     'A post is_in_vault flag is required' => ['is_in_vault', null, 'required'],
     'A post is_in_vault flag is boolean' => ['is_in_vault', 'abc', 'boolean'],
 
-    'A post has a notifiable flag is required' => ['notifiable', null, 'required'],
-    'A post notifiable flag is boolean' => ['notifiable', 'abc', 'boolean'],
-
 ]);
