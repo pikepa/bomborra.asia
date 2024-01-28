@@ -1,8 +1,6 @@
 <div class="bg-cyan-100 p-2">
-
-
     <!-- source https://www.epicweb.dev/tutorials/fluid-hover-cards-with-tailwind-css/implementation/concluding-the-fluid-hover-cards-tutorial -->
-    <div class="grid  place-items-center ">
+    <div class="grid place-items-center ">
         <ul class="flex gap-4 w-full ">
             @foreach($posts as $post)
             <li
@@ -14,9 +12,9 @@
                         <div class="w-64">
                             <h2 class="text-2xl text-white font-medium leading-tight">{{$post->title}}</h2>
                             <div class="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all">
-                                <p class="mt-2 overflow-hidden text-white/70 
-                                 opacity-0 group-hover:opacity-100 duration-300 transition text-clip ">
-                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam, pariatur.
+                                <p class="mt-2 overflow-hidden text-white/70 line-clamp-3
+                                 opacity-0 group-hover:opacity-100 duration-300 transition ">
+                                    {{ strip_tags($post->body) }}
                                 </p>
                             </div>
                         </div>
