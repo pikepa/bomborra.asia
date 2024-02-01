@@ -21,6 +21,8 @@ class MainBody extends Component
         $this->channel = $channel;
     }
 
+    public $taglessBody;
+
     public function render()
     {
         $this->posts = Post::published()

@@ -27,7 +27,7 @@
                     </div>
 
                     <div class=" overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-2 bg-cyan-100 border-b border-gray-200">
+                        <div class="p-2 bg-cyan-100 border-b border-gray-200 max-h-300">
                         @if($posts->count() > 0 )
                             @foreach($posts as $post)
                             
