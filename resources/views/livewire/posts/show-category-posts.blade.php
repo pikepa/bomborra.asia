@@ -25,15 +25,20 @@
                             <a href="{{ url()->previous() }}"><i class="fa-solid fa-arrow-left"></i> Back</a>
                         </div>
                     </div>
-                    <div class="ml-4 text-base">
-                        {!!$category->description!!}
+                    <div class="flex flex-row justify-between items-center pr-4">
+                        <div class="ml-4 text-base">
+                            {!!$category->description!!}
+                        </div>
+                        <div class=" pb-2 pt-4">
+                            {!! $posts->links('pagination::tailwind_custom')!!}
+                        </div>
                     </div>
                     <div class=" overflow-hidden shadow-sm sm:rounded-lg">
                         <div class=" p-2 bg-cyan-100 border-b border-gray-200">
                             @if($posts->count() > 0 )
                             @foreach($posts as $post)
-                            
-                            <x-listings.image-text-combo :post="$post"/> 
+
+                            <x-listings.image-text-combo :post="$post" />
 
                             @endforeach
                             @else
@@ -44,7 +49,7 @@
                     </div>
                 </div>
             </div>
-            {{ $posts->links() }}
+
         </x-pages.standard-page>
     </x-guest-layout>
 

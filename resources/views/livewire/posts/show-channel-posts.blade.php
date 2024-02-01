@@ -15,11 +15,11 @@
             <div class=" ">
                 <div class="max-w-7xl mx-auto bg-cyan-100 ">
                     <div class=" pt-2 flex flex-row justify-between items-center">
-                        <div class="">
-                            <div class="ml-4  font-bold text-3xl">
-                                {{$channel->name}}
-                            </div>
-
+                        <div class="ml-4  font-bold text-3xl">
+                            {{$channel->name}}
+                        </div>
+                        <div class="pb-2 pt-2 mr-10">
+                            {!! $posts->links('pagination::tailwind_custom')!!}
                         </div>
                         <div class="text-right  mr-4 font-bold text-xl">
                             <a href="{{ url()->previous() }}"><i class="fa-solid fa-arrow-left"></i> Back</a>
@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            {{ $posts->links() }}
+
         </x-pages.standard-page>
     </x-guest-layout>
 

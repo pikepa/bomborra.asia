@@ -45,7 +45,6 @@ class ShowUpdateEmails extends Component
                 ->with('owner', 'post')
                 ->orderBy($this->sortField, $this->sortDirection)->paginate(9),
         ]);
-
     }
 
     public function rules()
