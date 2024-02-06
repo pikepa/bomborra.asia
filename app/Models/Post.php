@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Events\PostPublished;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -118,27 +116,5 @@ class Post extends Model implements HasMedia
     public function tags(): HasMany
     {
         return $this->HasMany(Tag::class, 'post_tag');
-    }
-
-    public function publish($date = null)
-    {
-        if (! $date) {
-            $date = Carbon::now()->format('Y-m-d');
-        }
-        $this->published_at = Carbon::parse($date)->format('Y-m-d');
-
-        $this->update();
-
-        PostPublished::dispatch($this->post, Carbon::now());
-
-        return $this;
-    }
-
-    public function unpublish()
-    {
-        $this->published_at = null;
-        $this->update();
-
-        return $this;
     }
 }

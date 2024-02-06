@@ -151,14 +151,19 @@ class EditPost extends Component
         }
         $this->update($this->post->id);
         //Event
+        // $this->post->publish();
         $postfound = $this->post->refresh();
         PostPublished::dispatch($postfound, Carbon::now());
+        $this->emit('refreshcomponent');
     }
 
     public function unpublishPost()
     {
-        //     $this->post->unpublish();
+        // $deletepost = Post::find($this->post->id);
+        // $deletepost->unpublish();
+        // $this->post->refresh();
         $this->published_at = Carbon::make(null);
         $this->update($this->post->id);
+        $this->post->siteUpdate()->delete();
     }
 }

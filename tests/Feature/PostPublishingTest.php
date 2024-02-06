@@ -59,22 +59,57 @@ test('that an upublished post displays a publish button ', function () {
         ->assertSeeHtml('wire:click.prevent="publishPost()"');
 });
 
-test('a post can be published', function () {
+test('a post can be published and Post published event fired', function () {
     Event::fake();
     // given we have an unpublished post
     $post = Post::factory()->create(['published_at' => Carbon::make(null)]);
-    // when we publish with a given date
-    $post->publish('24-01-19');
+    // when we publish without a given date
+    Livewire::test(EditPost::class, ['origin' => 'P', 'slug' => $post->slug])
+        ->assertOk()
+        ->assertSee('Publish')
+        ->set('temp_published_at', Carbon::now()->format('Y-m-d H:i:s'))
+        ->assertSeeHtml('wire:click.prevent="publishPost()"')
+        ->call('publishPost');
     // the post is updated and can be defined a s published
-    $this->assertDatabaseHas('posts', ['published_at' => '2024-01-19']);
+    $this->assertDatabaseHas('posts', ['published_at' => Carbon::now()->format('Y-m-d H:i:s')]);
     // assert that the postpublished event is dispatched
     Event::assertDispatched(PostPublished::class);
+    $post->refresh();
+    expect($post->published_status)->toBe('Published');
 });
-test('a post can be un published', function () {
+test('a post can be published in the future and has a site_update record', function () {
+    $this->signIn($this->user);
+    // given we have an unpublished post
+    $post = Post::factory()->create(['published_at' => null]);
+    // when we publishnwith a future date
+    Livewire::test(EditPost::class, ['origin' => 'P', 'slug' => $post->slug])
+        ->assertOk()
+        ->assertSee('Publish')
+        ->set('temp_published_at', Carbon::now()->addMonth()->format('Y-m-d H:i:s'))
+        ->assertSeeHtml('wire:click.prevent="publishPost()"')
+        ->call('publishPost');
+    // the post is updated and can be defined as unpublished
+    $this->assertDatabaseHas('posts', ['published_at' => Carbon::now()->addMonth()->format('Y-m-d H:i:s')]);
+    $this->assertDatabaseHas('site_updates', ['post_id' => $post->id]);
+    $post->refresh();
+    expect($post->published_status)->toBe('Publication Pending');
+});
+
+test('a post can be unpublished', function () {
+    $this->signIn($this->user);
     // given we have an published post
     $post = Post::factory()->create(['published_at' => Carbon::now()]);
     // when we unpublish
-    $post->unpublish();
+    Livewire::test(EditPost::class, ['origin' => 'P', 'slug' => $post->slug])
+        ->assertOk()
+        ->assertSee('Published :')
+        ->assertSee($post->published_at->format('d-M-Y'))
+        ->assertSee('Make Draft')
+        ->assertSeeHtml('wire:click.prevent="unpublishPost()"')
+        ->call('unpublishPost');
     // the post is updated and can be defined as unpublished
     $this->assertDatabaseHas('posts', ['published_at' => null]);
+    $this->assertDatabaseCount('site_updates', 0);
+    $post->refresh();
+    expect($post->published_status)->toBe('Draft');
 });
