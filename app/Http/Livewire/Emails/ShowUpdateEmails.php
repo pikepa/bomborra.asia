@@ -75,7 +75,7 @@ class ShowUpdateEmails extends Component
         $recs = count($this->selected);
         $this->selected = [];
 
-        session()->flash('message', $recs.' Notification Emails successfully deleted.');
+        session()->flash('message', $recs.' Notification successfully deleted.');
         session()->flash('alertType', 'success');
     }
 

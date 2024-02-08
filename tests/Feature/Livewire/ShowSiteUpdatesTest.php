@@ -20,7 +20,7 @@ test('an authorised user can load the SiteUpdate page', function () {
     $this->signIn();
     $this->get('/siteupdates')->assertStatus(200)
         ->assertSeeLivewire(ShowUpdateEmails::class)
-        ->assertSee('Notification Emails')
+        ->assertSee('Post Published Notifications')
         ->assertSee('Add New')
         ->assertSee('Date')
         ->assertSee('Subject')
@@ -68,7 +68,7 @@ test('a User can select an multiple displayed rows and delete', function () {
         ->assertSee($siteupdate2->subject)
         ->assertSee($siteupdate3->subject)
         ->call('deleteSelected')
-        ->assertSee('Notification Emails successfully deleted')
+        ->assertSee('Notification successfully deleted')
         ->assertSee($siteupdate1->subject)
         ->assertSee($siteupdate1->update_date->format('M d, Y'))
         ->assertDontSee($siteupdate2->subject)

@@ -2,7 +2,7 @@
     <div class="flex-col space-y-4">
         <div class="flex justify-between items-center">
             <div>
-                <x-pages.title.left>Notification Emails</x-pages.title.left>
+                <x-pages.title.left>Post Published Notifications</x-pages.title.left>
             </div>
             <div>
                 @if (session()->has('message') )
