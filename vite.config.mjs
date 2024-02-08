@@ -1,5 +1,5 @@
-import laravel from 'laravel-vite-plugin';
 import {defineConfig} from 'vite';
+import laravel from 'laravel-vite-plugin';
 import fs from 'fs';
 const host = 'bomborra.test';
 

@@ -1,7 +1,7 @@
 <div class="bg-cyan-100 p-2">
     <!-- source https://www.epicweb.dev/tutorials/fluid-hover-cards-with-tailwind-css/implementation/concluding-the-fluid-hover-cards-tutorial -->
     <div class="grid place-items-center ">
-        <ul class="flex gap-4 w-full ">
+        <ul class="grid grid-cols-4  gap-4 w-full ">
             @foreach($posts as $post)
             <li
                 class="flex-1 hover:grow-[1.3] transition-all bg-rose-300 h-[400px] w-full rounded-2xl relative overflow-hidden group">
