@@ -41,13 +41,12 @@ test('An authorised user can see a list of all posts', function () {
 
     Livewire::test(ManagePosts::class)
         ->set('showTable', true)
-        ->call('render')
         ->assertSee($post1->title)
         ->assertSee($post1->channel->name)
-        ->assertSee($post1->author_id)
+        ->assertSee($post1->author->name)
         ->assertSee($post2->title)
         ->assertSee($post2->channel->name)
-        ->assertSee($post2->author_id);
+        ->assertSee($post2->author->name);
 });
 
 test('An authorised user can add a post', function () {
@@ -64,7 +63,7 @@ test('An authorised user can add a post', function () {
         ->set('category_id', $this->category->id)
         ->set('channel_id', $this->channel->id)
         ->set('author_id', auth()->user()->id)
-        ->set('published_at', '')
+        ->set('published_at', null)
         ->set('meta_description', 'This is the meta description')
         ->call('save')
         ->assertSuccessful();

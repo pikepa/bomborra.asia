@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Posts;
+namespace App\Livewire\Posts;
 
 use App\Events\PostPublished;
 use App\Models\Post;

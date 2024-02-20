@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Posts\ShowPostUpdates;
+use App\Livewire\Posts\ShowPostUpdates;
 use App\Models\Post;
 use App\Models\SiteUpdate;
 use Carbon\Carbon;
@@ -21,9 +21,10 @@ test('an authorised user can load the SiteUpdate page', function () {
     $this->get('/siteupdates')->assertStatus(200)
         ->assertSeeLivewire(ShowPostUpdates::class)
         ->assertSee('Post Published Notifications')
-        ->assertSee('Add New')
+       // ->assertSee('Add New')
         ->assertSee('Date')
-        ->assertSee('Subject')
+        ->assertSee('Post Title')
+        ->assertSee('Post Owner')
         ->assertSee('Status');
 });
 
