@@ -17,7 +17,7 @@ class PostFactory extends Factory
      */
     public function definition()
     {
-        $title = $this->faker->sentence;
+        $title = $this->faker->sentence(3);
         $slug = Str::slug($title, '-');
 
         return [

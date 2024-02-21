@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Livewire\Emails;
+namespace App\Livewire\Posts;
 
 use App\Models\SiteUpdate;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ShowUpdateEmails extends Component
+class ShowPostUpdates extends Component
 {
     use WithPagination;
 
     public $sortDirection = 'desc';
 
-    public $showEditModal = false;
+    public $showModal = false;
 
     public SiteUpdate $editing;
 
@@ -40,24 +40,24 @@ class ShowUpdateEmails extends Component
 
     public function render()
     {
-        return view('livewire.emails.show-update-emails', [
+        return view('livewire.posts.show-post-updates', [
             'siteUpdates' => SiteUpdate::filtertitle($this->search)
                 ->with('owner', 'post')
                 ->orderBy($this->sortField, $this->sortDirection)->paginate(9),
         ]);
     }
 
-    public function rules()
-    {
-        return [
-            'editing.from' => 'email|required',
-            'editing.date' => 'required',
-            'editing.subject' => 'required|min:6|max:150',
-            // 'editing.content' => 'required|min:10',
-            // 'editing.slug' => 'required',
-            'editing.status' => 'required:in:'.collect(SiteUpdate::STATUSES)->keys()->implode(','),
-        ];
-    }
+    // public function rules()
+    // {
+    //     return [
+    //         'editing.from' => 'email|required',
+    //         'editing.date' => 'required',
+    //         'editing.subject' => 'required|min:6|max:150',
+    //         // 'editing.content' => 'required|min:10',
+    //         // 'editing.slug' => 'required',
+    //         'editing.status' => 'required:in:'.collect(SiteUpdate::STATUSES)->keys()->implode(','),
+    //     ];
+    // }
 
     public function updatedSearch(&$value)
     {
@@ -79,6 +79,21 @@ class ShowUpdateEmails extends Component
         session()->flash('alertType', 'success');
     }
 
+    public function createEmail()
+    {
+        $array = implode('-', $this->selected);
+
+        // By clicking the drop down, I want to open a modal to Capture email.
+        // then create jobs from within this component
+        redirect()->route('email.compose', ['selected' => $array]);
+
+    }
+
+    public function openModal()
+    {
+        $this->showModal = true;
+    }
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -94,13 +109,13 @@ class ShowUpdateEmails extends Component
         return SiteUpdate::make(['date' => Carbon::now(), 'status' => 'Draft', 'from' => 'pikepeter@gmail.com']);
     }
 
-    public function create()
-    {
-        if ($this->editing->getKey()) {
-            $this->editing = $this->makeBlankTransaction();
-        }
-        $this->showEditModal = true;
-    }
+    // public function create()
+    // {
+    //     if ($this->editing->getKey()) {
+    //         $this->editing = $this->makeBlankTransaction();
+    //     }
+    //     $this->showEditModal = true;
+    // }
 
     public function resetBanner()
     {

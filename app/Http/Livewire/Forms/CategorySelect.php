@@ -28,6 +28,6 @@ class CategorySelect extends Component
 
     public function updatedCategoryId()
     {
-        $this->emitUp('category_selected', $this->category_id);
+        $this->dispatch('category_selected', $this->category_id);
     }
 }

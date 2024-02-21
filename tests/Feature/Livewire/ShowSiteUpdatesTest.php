@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Emails\ShowUpdateEmails;
+use App\Livewire\Posts\ShowPostUpdates;
 use App\Models\Post;
 use App\Models\SiteUpdate;
 use Carbon\Carbon;
@@ -19,11 +19,12 @@ test('a guest can not see the Notification link on the dashboard', function () {
 test('an authorised user can load the SiteUpdate page', function () {
     $this->signIn();
     $this->get('/siteupdates')->assertStatus(200)
-        ->assertSeeLivewire(ShowUpdateEmails::class)
+        ->assertSeeLivewire(ShowPostUpdates::class)
         ->assertSee('Post Published Notifications')
-        ->assertSee('Add New')
+       // ->assertSee('Add New')
         ->assertSee('Date')
-        ->assertSee('Subject')
+        ->assertSee('Post Title')
+        ->assertSee('Post Owner')
         ->assertSee('Status');
 });
 
@@ -32,7 +33,7 @@ test('a User can see a table of SiteUpdates', function () {
     $siteupdate1 = SiteUpdate::factory()->create(['user_id' => auth()->id()]);
     $siteupdate2 = SiteUpdate::factory()->create(['user_id' => auth()->id()]);
 
-    Livewire::test(ShowUpdateEmails::class)
+    Livewire::test(ShowPostUpdates::class)
         ->assertSee($siteupdate1->owner->name)
         ->assertSee($siteupdate1->date_for_humans)
         ->assertSee($siteupdate2->owner->name);
@@ -45,7 +46,7 @@ test('a User can select an individual displayed row and delete', function () {
     $siteupdate2 = SiteUpdate::factory()->create();
     $siteupdate3 = SiteUpdate::factory()->create();
 
-    Livewire::test(ShowUpdateEmails::class)
+    Livewire::test(ShowPostUpdates::class)
         ->set('selected', [$siteupdate2->id, $siteupdate3->id])
         ->assertSee($siteupdate2->subject)
         ->assertSee($siteupdate3->subject)
@@ -56,14 +57,14 @@ test('a User can select an individual displayed row and delete', function () {
         ->assertDontSee($siteupdate3->subject);
 });
 
-test('a User can select an multiple displayed rows and delete', function () {
+test('a User can select multiple displayed rows and delete', function () {
     $this->signIn();
 
     $siteupdate1 = SiteUpdate::factory()->create();
     $siteupdate2 = SiteUpdate::factory()->create();
     $siteupdate3 = SiteUpdate::factory()->create();
 
-    Livewire::test(ShowUpdateEmails::class)
+    Livewire::test(ShowPostUpdates::class)
         ->set('selected', [$siteupdate2->id, $siteupdate3->id])
         ->assertSee($siteupdate2->subject)
         ->assertSee($siteupdate3->subject)
@@ -85,7 +86,7 @@ test('a signed in user can filter records via the search field', function () {
     $siteupdate2 = SiteUpdate::factory()->create(['post_id' => $post2->id]);
     $siteupdate3 = SiteUpdate::factory()->create(['post_id' => $post3->id]);
 
-    Livewire::test(ShowUpdateEmails::class)
+    Livewire::test(ShowPostUpdates::class)
         ->assertSee($siteupdate1->post->title)
         ->assertSee($siteupdate2->post->title)
         ->assertSee($siteupdate3->post->title)
@@ -117,7 +118,7 @@ test('a signed in user can sort records by date', function () {
     $siteupdate1 = SiteUpdate::factory()->create(['update_date' => Carbon::now()]);
     $siteupdate2 = SiteUpdate::factory()->create(['update_date' => Carbon::now()->subMonth(1)]);
 
-    Livewire::test(ShowUpdateEmails::class)
+    Livewire::test(ShowPostUpdates::class)
         ->assertSeeInOrder([$siteupdate1->post->title, $siteupdate2->post->title])
         ->set('sortDirection', 'asc')
         ->set('sortField', 'update_date')
@@ -133,7 +134,7 @@ test('a signed in user can sort records by status', function () {
     $siteupdate1 = SiteUpdate::factory()->create(['status' => 'draft']);
     $siteupdate2 = SiteUpdate::factory()->create(['status' => 'sent']);
 
-    Livewire::test(ShowUpdateEmails::class)
+    Livewire::test(ShowPostUpdates::class)
         ->assertSeeInOrder([$siteupdate1->Subject, $siteupdate2->Subject])
         ->set('sortDirection', 'asc')
         ->set('sortField', 'status')

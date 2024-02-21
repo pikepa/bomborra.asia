@@ -28,7 +28,7 @@
             @endforeach
         </ul>
     </div>
-  
+    
     <div>
         @if($this->postCount >= 5 )
         <div class="flex justify-center font-semibold text-2xl text-red-600 pt-2 px-2">

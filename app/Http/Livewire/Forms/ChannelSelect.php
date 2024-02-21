@@ -29,6 +29,6 @@ class ChannelSelect extends Component
 
     public function updatedChannelId()
     {
-        $this->emitUp('channel_selected', $this->channel_id);
+        $this->dispatch('channel_selected', $this->channel_id);
     }
 }

@@ -154,7 +154,7 @@ class EditPost extends Component
         // $this->post->publish();
         $postfound = $this->post->refresh();
         PostPublished::dispatch($postfound, Carbon::now());
-        $this->emit('refreshcomponent');
+        $this->dispatch('refreshcomponent');
     }
 
     public function unpublishPost()
