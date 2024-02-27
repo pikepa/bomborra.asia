@@ -78,6 +78,7 @@ test('a User can select multiple displayed rows and delete', function () {
 
 test('a signed in user can filter records via the search field', function () {
     $this->signIn();
+    // $this->withoutExceptionErrors();
     $post1 = Post::factory()->create(['title' => 'Peter']);
     $post2 = Post::factory()->create(['title' => 'Paul']);
     $post3 = Post::factory()->create(['title' => 'Fred']);
