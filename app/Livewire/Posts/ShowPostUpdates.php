@@ -86,7 +86,6 @@ class ShowPostUpdates extends Component
         // By clicking the drop down, I want to open a modal to Capture email.
         // then create jobs from within this component
         redirect()->route('email.compose', ['selected' => $array]);
-
     }
 
     public function openModal()
