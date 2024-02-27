@@ -9,9 +9,9 @@ beforeEach(function () {
 
 it('displays show-post-updates page', function () {
     $update = SiteUpdate::factory()->create();
-
+    // $this->withoutExceptionHandling();
     $this->get('/siteupdates')
         ->assertSeeLivewire(ShowPostUpdates::class)
         ->assertSee($update->title)
         ->assertStatus(200);
-})->todo();
+});
