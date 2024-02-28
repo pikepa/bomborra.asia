@@ -47,7 +47,7 @@
 
             <!-- Publish Post -->
             <div x-data>
-                <!-- @if($post) -->
+                @if($post)
                 <label class=" flex flex-row justify-between items-center">
                         <span class="text-gray-700  font-bold">Published : @if($published_at){{
                             $published_at->format('d-M-Y') }}@endif</span>
@@ -69,7 +69,7 @@
                             format="DD-MM-YYYY" class="form-input rounded mt-1 block w-full">
                     </div>
                 @endif
-                <!-- @endif -->
+                @endif
             </div>
 
             <!-- Checkbox for Featured Image-->
