@@ -3,8 +3,7 @@
     <div class="grid place-items-center ">
         <ul class="grid grid-cols-4  gap-4 w-full ">
             @foreach($posts as $post)
-            <li
-                class="flex-1 hover:grow-[1.3] transition-all bg-rose-300 h-[400px] w-full rounded-2xl relative overflow-hidden group">
+            <li class="group relative  hover:grow-[1.3] transition-all bg-rose-300 h-[400px] w-full rounded-2xl flex-1 overflow-hidden ">
                 <a href="/posts/{{$post->slug}}">
                     <img class="absolute h-full w-full inset-0 object-cover" src='{{$post->cover_image}}'
                         alt="placeimg">
