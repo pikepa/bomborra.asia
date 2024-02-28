@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Posts\ShowCategoryPosts;
+use App\Livewire\Posts\ShowCategoryPosts;
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;

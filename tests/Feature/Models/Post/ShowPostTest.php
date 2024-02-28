@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Livewire\Posts\DisplayPostGallery;
-use App\Http\Livewire\Posts\ShowPost;
+use App\Livewire\Posts\DisplayPostGallery;
+use App\Livewire\Posts\ShowPost;
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;

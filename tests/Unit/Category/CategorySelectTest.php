@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Forms\CategorySelect;
+use App\Livewire\Forms\CategorySelect;
 use Livewire\Livewire;
 
 test('the select component emits an event on selection', function () {

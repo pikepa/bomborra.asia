@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Channel\ManageChannels;
+use App\Livewire\Channel\ManageChannels;
 use Livewire\Livewire;
 
 test('Category Validation rules on save', function ($field, $value, $rule) {

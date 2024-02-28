@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Forms\ChannelSelect;
+use App\Livewire\Forms\ChannelSelect;
 use Livewire\Livewire;
 
 test('the select component emits an event on selection', function () {

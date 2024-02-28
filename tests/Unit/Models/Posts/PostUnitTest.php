@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Livewire\Posts\EditPost;
-use App\Http\Livewire\Posts\ManagePosts;
+use App\Livewire\Posts\EditPost;
+use App\Livewire\Posts\ManagePosts;
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;

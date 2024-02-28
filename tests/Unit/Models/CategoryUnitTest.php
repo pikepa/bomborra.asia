@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Category\ManageCategories;
+use App\Livewire\Category\ManageCategories;
 use App\Models\User;
 use Livewire\Livewire;
 

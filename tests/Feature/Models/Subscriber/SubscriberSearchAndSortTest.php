@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Subscriber\ManageSubscribers;
+use App\Livewire\Subscriber\ManageSubscribers;
 use App\Models\Subscriber;
 use Livewire\Livewire;
 
