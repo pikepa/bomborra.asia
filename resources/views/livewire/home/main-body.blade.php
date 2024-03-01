@@ -1,9 +1,10 @@
 <div class="bg-cyan-100 p-2">
     <!-- source https://www.epicweb.dev/tutorials/fluid-hover-cards-with-tailwind-css/implementation/concluding-the-fluid-hover-cards-tutorial -->
     <div class="grid place-items-center ">
-        <ul class="grid grid-cols-4  gap-4 w-full ">
+        <ul class="sm:flex gap-4 w-full sm:space-y-0 space-y-4">
             @foreach($posts as $post)
-            <li class="group relative  hover:grow-[1.3] transition-all bg-rose-300 h-[400px] w-full rounded-2xl flex-1 overflow-hidden ">
+            <li
+                class="flex-1 hover:grow-[1.3] transition-all bg-rose-300 h-[400px] w-full rounded-2xl relative overflow-hidden group">
                 <a href="/posts/{{$post->slug}}">
                     <img class="absolute h-full w-full inset-0 object-cover" src='{{$post->cover_image}}'
                         alt="placeimg">
@@ -21,13 +22,14 @@
                     </div>
                 </a>
             </li>
-            @if($loop->iteration == 4)
-            @break
-            @endif
+            <div>
+                @if($loop->iteration == 4)
+                @break
+                @endif  
+            </div>
             @endforeach
         </ul>
     </div>
-    
     <div>
         @if($this->postCount >= 5 )
         <div class="flex justify-center font-semibold text-2xl text-red-600 pt-2 px-2">
