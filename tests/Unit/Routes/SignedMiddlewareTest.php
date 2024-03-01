@@ -8,4 +8,4 @@ test('assert signed middleware is applied to the route', function () {
     $url = URL::signedRoute('unsubscribe', ['id' => $subscriber->id]);
 
     $this->post($url)->assertOk();
-})->skip();
+});

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Channel\ManageChannels;
+use App\Livewire\Channel\ManageChannels;
 use App\Models\Channel;
 use App\Models\User;
 use Livewire\Livewire;

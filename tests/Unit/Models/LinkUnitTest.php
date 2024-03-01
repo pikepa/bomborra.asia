@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Links\ManageLinks;
+use App\Livewire\Links\ManageLinks;
 use Livewire\Livewire;
 
 test('Link Validation rules on save', function ($field, $value, $rule) {
