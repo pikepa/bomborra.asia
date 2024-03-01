@@ -5,17 +5,17 @@ use App\Http\Controllers\ManageSubscriberController;
 use App\Http\Controllers\UnsubscribeController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\WpApiController;
-use App\Http\Livewire\Emails\CreateUpdateEmail;
-use App\Http\Livewire\Emails\ShowUpdateEmails;
-use App\Http\Livewire\Links\ManageLinks;
-use App\Http\Livewire\Pages\DashStandardPage;
-use App\Http\Livewire\Posts\EditPost;
-use App\Http\Livewire\Posts\ShowCategoryPosts;
-use App\Http\Livewire\Posts\ShowChannelPosts;
-use App\Http\Livewire\Posts\ShowPost;
-use App\Http\Livewire\Posts\ShowVaultPosts;
-use App\Http\Livewire\Subscriber\ManageSubscribers;
-use App\Http\Livewire\Subscriber\VerifySubscriber;
+use App\Livewire\Emails\CreateUpdateEmail;
+use App\Livewire\Links\ManageLinks;
+use App\Livewire\Pages\DashStandardPage;
+use App\Livewire\Posts\EditPost;
+use App\Livewire\Posts\ShowCategoryPosts;
+use App\Livewire\Posts\ShowChannelPosts;
+use App\Livewire\Posts\ShowPost;
+use App\Livewire\Posts\ShowPostUpdates;
+use App\Livewire\Posts\ShowVaultPosts;
+use App\Livewire\Subscriber\ManageSubscribers;
+use App\Livewire\Subscriber\VerifySubscriber;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +38,7 @@ Route::get('vault/', ShowVaultPosts::class)->name('posts.vault');
 */
 Route::middleware('auth')->group(function () {
     Route::get('dashboard/{page?}', DashStandardPage::class)->name('dashboard');
-    Route::get('siteupdates', ShowUpdateEmails::class)->name('site-updates');
+    Route::get('siteupdates', ShowPostUpdates::class)->name('site-updates');
     Route::get('manage/subscribers', ManageSubscribers::class)->name('manage.subscribers');
     Route::get('posts/edit/{slug}/{origin}', EditPost::class)->name('edit.post');
     Route::get('manage/links', ManageLinks::class)->name('manage.links');

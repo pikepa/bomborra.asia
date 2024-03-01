@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Subscriber\ManageSubscribers;
+use App\Livewire\Subscriber\ManageSubscribers;
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;

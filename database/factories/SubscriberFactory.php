@@ -20,7 +20,7 @@ class SubscriberFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'name' => $this->faker->unique()->name(),
             'validation_key' => '',
-            'validated_at' => '',
+            'validated_at' => null,
         ];
     }
 }

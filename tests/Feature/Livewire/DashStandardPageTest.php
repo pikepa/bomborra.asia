@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Pages\DashStandardPage;
+use App\Livewire\Pages\DashStandardPage;
 use App\Models\User;
 use Livewire\Livewire;
 

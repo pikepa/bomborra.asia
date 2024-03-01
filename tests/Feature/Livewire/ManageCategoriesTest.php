@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Category\ManageCategories;
+use App\Livewire\Category\ManageCategories;
 use App\Models\Category;
 use App\Models\User;
 use Livewire\Livewire;
@@ -24,7 +24,7 @@ test('an authorised user can create a category', function () {
         ->set('name', 'FOOBAR')
         ->set('description', 'This is the main description')
         ->set('type', 'main')
-        ->set('parent_id', '')
+        ->set('parent_id', null)
         ->set('status', true)
         ->call('save')
         ->assertSuccessful()
