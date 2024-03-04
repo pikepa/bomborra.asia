@@ -19,7 +19,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         'App\Events\PostPublished' => [
-            'App\Listeners\NotifySubscribers',
+            'App\Listeners\CreateSiteUpdate',
         ],
     ];
 

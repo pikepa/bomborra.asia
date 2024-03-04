@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Links\ManageLinks;
+use App\Livewire\Links\ManageLinks;
 use App\Models\Link;
 use Livewire\Livewire;
 

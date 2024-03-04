@@ -3996,7 +3996,7 @@
         <priority>0.8</priority>
             </url>
     <url>
-        <loc>http://localhost/posts/hong-kong-heritage-the-punji-trap</loc>
+        <loc>http://localhost/posts/luke-hunt-interviewed-by-rthk</loc>
             <changefreq>daily</changefreq>
         <priority>0.8</priority>
             </url>
@@ -4371,7 +4371,7 @@
         <priority>0.8</priority>
             </url>
     <url>
-        <loc>http://localhost/posts/publishers-notes</loc>
+        <loc>http://localhost/posts/publishers-note</loc>
             <changefreq>daily</changefreq>
         <priority>0.8</priority>
             </url>
@@ -4512,156 +4512,6 @@
             </url>
     <url>
         <loc>http://localhost/posts/flicker-fade</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/debt-fears-wins-award</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/unfinished-business</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/two-british-poets</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/punji-trap-promo</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/from-pol-pot-to-us-presidents</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/cambodias-one-sided-vote</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/are-funcinpec-a-chance</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/cambodians-braced-for-poll</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/prepped-for-the-inevitable</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/dos-and-donts</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/hun-sens-election</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/out-of-myanmar</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/a-cambodian-dynasty</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/an-illustrious-photographer</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/a-refugees-story</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/australians-asked-to-vote-yes</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/yes-vote-struggles</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/an-australian-vote</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/an-aboriginal-voice</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/australia-votes-no</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/a-dutchman-in-cambodia</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/world-music</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/dragon-boats-are-back</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/podcast-platforms</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/john-mcbeth-1944-2023</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/making-art</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/new-year-old-problems</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/rainforests-and-rights</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/john-macdougall-1970-2023</loc>
-            <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-            </url>
-    <url>
-        <loc>http://localhost/posts/asialife-in-vietnam</loc>
             <changefreq>daily</changefreq>
         <priority>0.8</priority>
             </url>
