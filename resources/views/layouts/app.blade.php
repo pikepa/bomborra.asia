@@ -17,13 +17,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Styles -->
-    <!-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> -->
     <link rel="stylesheet" href="https://unpkg.com/trix@2.0.0-beta.0/dist/trix.css">
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    @livewireStyles()
 
     @stack('childstyles')
 
@@ -39,9 +36,8 @@
         </div>
     </div>
     @livewireScripts()
-
+ 
     <!-- Scripts -->
-    <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
     <script src="https://unpkg.com/trix@2.0.0-beta.0/dist/trix.umd.js"></script>
 
     @stack('childscripts')

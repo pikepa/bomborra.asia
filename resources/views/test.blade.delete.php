@@ -5,7 +5,7 @@
             <!-- Post Title -->
 
             <x-input.group for="title" label="Title" width="full">
-                <x-input.text wire:model='title' type="text" class="form-input w-full rounded" name="name">
+                <x-input.text wire:model.live='title' type="text" class="form-input w-full rounded" name="name">
                 </x-input.text>
             </x-input.group>
 
