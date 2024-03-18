@@ -114,7 +114,7 @@
                 <x-table.row wire:key="{{ $post->id }}">
                   <x-table.cell class="text-sky-600 font-bold dark:text-sky-400"><a
                       href="/posts/{{$post->slug}}">{{$post->title}}</a></x-table.cell>
-                  <x-table.cell>{{$post->channel->name}}</x-table.cell>
+                  <x-table.cell class="truncate">{{$post->channel->name}}</x-table.cell>
                   <x-table.cell>{{$post->category->name}}</x-table.cell>
                   <x-table.cell>{{$post->author->name}}</x-table.cell>
                   <x-table.cell>{{$post->published_status}}</x-table.cell>
