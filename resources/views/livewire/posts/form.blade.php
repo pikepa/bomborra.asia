@@ -3,7 +3,7 @@
         <div class="flex-1 mr-4 space-y-6">
             <!-- Post Title -->
             <x-input.group for="title" label="Title" width="full">
-                <x-input.text wire:model='title' type="text" class="form-input w-full rounded" name="name">
+                <x-input.text wire:model.live='title' type="text" class="form-input w-full rounded" name="name">
                 </x-input.text>
             </x-input.group>
 
@@ -41,7 +41,7 @@
             <!-- Post is in the Vault -->
             <div>
                 <x-input.group for="is_in_vault" label="Post is in our Vault" width="full">
-                    <input wire:model='is_in_vault' type="checkbox" class="ml-2">
+                    <input wire:model.live='is_in_vault' type="checkbox" class="ml-2">
                 </x-input.group>
             </div>
 

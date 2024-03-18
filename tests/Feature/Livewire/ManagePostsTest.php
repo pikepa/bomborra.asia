@@ -53,8 +53,14 @@ test('An authorised user can add a post', function () {
     $this->actingAs(User::factory()->create());
 
     Livewire::test(ManagePosts::class)
+        ->assertSet('showTable', true)
+        ->assertSet('showAddForm', false)
         ->call('create')
+        ->assertSet('showTable', false)
+        ->assertSet('showEditForm', false)
+        ->assertSet('showAddForm', true)
         ->assertSee('Title')
+        ->assertSee('Channel')
         ->set('cover_image', '')
         ->set('title', 'this is a post')
         ->set('slug', 'this-is-a-post')

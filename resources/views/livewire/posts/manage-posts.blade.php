@@ -3,13 +3,13 @@
 
   <div class="block">
     @if($showAddForm )
-    @include('livewire.posts.create')
+         @include('livewire.posts.create')
     @endif
 
     @auth
-    @if($post_id)
-    <livewire:images.upload :post_id="$post->id" />
-    @endif
+      @if($post_id)
+      <livewire:images.upload :post_id="$post->id" />
+      @endif
     @endauth
 
   </div>
@@ -29,7 +29,7 @@
       <div class="my-2 overflow-x-auto ">
         <div class="flex flex-row justify-left items-center py-2 ">
           <div class="">
-            <x-input wire:model="search" class="p-2 border-2 border-gray-600 " placeholder="Search Title"></x-input>
+            <x-input wire:model.live="search" class="p-2 border-2 border-gray-600 " placeholder="Search Title"></x-input>
           </div>
           <div class="ml-4">
             <x-button.link wire:click="$toggle('showFilters')">
@@ -111,7 +111,7 @@
               </x-slot>
               <x-slot name="body">
                 @forElse($posts as $post)
-                <x-table.row>
+                <x-table.row wire:key="{{ $post->id }}">
                   <x-table.cell class="text-sky-600 font-bold dark:text-sky-400"><a
                       href="/posts/{{$post->slug}}">{{$post->title}}</a></x-table.cell>
                   <x-table.cell>{{$post->channel->name}}</x-table.cell>
