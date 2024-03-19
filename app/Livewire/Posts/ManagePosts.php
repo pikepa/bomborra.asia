@@ -5,6 +5,7 @@ namespace App\Livewire\Posts;
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
+use App\Traits\Post\Searchable;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
@@ -14,9 +15,9 @@ use Livewire\WithPagination;
 
 class ManagePosts extends Component
 {
-    use WithFileUploads, WithPagination;
+    use Searchable, WithFileUploads, WithPagination;
 
-    public $search = '';
+    // public $search = '';
 
     public $post_id;
 
@@ -97,33 +98,6 @@ class ManagePosts extends Component
         'status_selected',
         // 'make_featured',
     ];
-
-    public function render()
-    {
-        $query = Post::query();
-
-        $this->applySearch($query);
-        // $this->applyChannel($query);
-
-        //     ->when($this->statusQuery != '', function ($query) {
-        //         $query->where('published_at', $this->statusQuery);
-        //     })
-        //     ->when($this->categoryQuery != '', function ($query) {
-        //         $query->where('category_id', $this->categoryQuery);
-        //     })
-        //     ->when($this->channelQuery != '', function ($query) {
-        //         $query->where('channel_id', $this->channelQuery);
-        //     })
-        //     ->with('author', 'channel', 'category')->orderBy('published_at', 'desc')->get();
-        return view('livewire.posts.manage-posts', [
-            'posts' => $query->paginate(10),
-        ]);
-    }
-
-    public function updatedSelectedCategory()
-    {
-        dd('im here');
-    }
 
     public function mount()
     {
@@ -232,24 +206,25 @@ class ManagePosts extends Component
         session()->flash('alertType', '');
     }
 
-    public function updatedSearch()
+    public function render()
     {
-        $this->resetPage();
+        $query = Post::query()->orderBy('published_at', 'desc');
+        $this->applySearch($query); // (Defined within the Searchable Trait)
+
+        return view('livewire.posts.manage-posts', [
+            'posts' => $query->paginate(10),
+        ]);
     }
 
-    protected function applyChannel($query)
-    {
-        return $this->channelQuery === ''
-        ? $query
-        : $query
-            ->where('channel_id', $this->channelQuery);
-    }
+    //     ->when($this->statusQuery != '', function ($query) {
+    //         $query->where('published_at', $this->statusQuery);
+    //     })
+    //     ->when($this->categoryQuery != '', function ($query) {
+    //         $query->where('category_id', $this->categoryQuery);
+    //     })
+    //     ->when($this->channelQuery != '', function ($query) {
+    //         $query->where('channel_id', $this->channelQuery);
+    //     })
+    //     ->with('author', 'channel', 'category')->orderBy('published_at', 'desc')->get();
 
-    protected function applySearch($query)
-    {
-        return $this->search === ''
-        ? $query
-        : $query
-            ->where('title', 'like', '%'.$this->search.'%');
-    }
 }
