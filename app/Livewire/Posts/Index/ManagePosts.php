@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Posts;
+namespace App\Livewire\Posts\Index;
 
 use App\Models\Category;
 use App\Models\Channel;
@@ -211,7 +211,7 @@ class ManagePosts extends Component
         $query = Post::query()->orderBy('published_at', 'desc');
         $this->applySearch($query); // (Defined within the Searchable Trait)
 
-        return view('livewire.posts.manage-posts', [
+        return view('livewire.posts.index.manage-posts', [
             'posts' => $query->paginate(10),
         ]);
     }
