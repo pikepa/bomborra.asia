@@ -22,7 +22,7 @@ test('it renders successfully', function () {
 
 test('An authorised user sees the Manage Posts page', function () {
     $this->signIn();
-    $this->get('/dashboard/posts')
+    Livewire::test(Table::class)
         ->assertSee('Posts')
         ->assertSee('A list of all the posts in your account.');
 });
@@ -45,7 +45,8 @@ test('An authorised user can see a list of all posts', function () {
 
     $post1 = Post::factory()->create();
     $post2 = Post::factory()->create();
-    $this->get('/dashboard/posts')
+
+    Livewire::test(Table::class)
         ->assertSee($post1->title)
         ->assertSee($post1->category->name)
         ->assertSee($post1->author->name)
