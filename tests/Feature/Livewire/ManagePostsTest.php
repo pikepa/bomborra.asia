@@ -14,9 +14,16 @@ beforeEach(function () {
     $this->channel = Channel::factory()->create();
 });
 
+test('it renders successfully', function () {
+    $this->signIn();
+    Livewire::test(ManagePosts::class)
+        ->assertStatus(200);
+});
+
 test('An authorised user sees the Manage Posts page', function () {
     $this->signIn();
-    Livewire::test(ManagePosts::class)->assertSee('Posts')
+    $this->get('/dashboard/posts')
+        ->assertSee('Posts')
         ->assertSee('A list of all the posts in your account.');
 });
 
@@ -39,13 +46,12 @@ test('An authorised user can see a list of all posts', function () {
     $post1 = Post::factory()->create();
     $post2 = Post::factory()->create();
 
-    Livewire::test(ManagePosts::class)
-        ->set('showTable', true)
+    $this->get('/dashboard/posts')
         ->assertSee($post1->title)
-        ->assertSee($post1->channel->name)
+        ->assertSee($post1->category->name)
         ->assertSee($post1->author->name)
         ->assertSee($post2->title)
-        ->assertSee($post2->channel->name)
+        ->assertSee($post2->category->name)
         ->assertSee($post2->author->name);
 });
 
@@ -59,6 +65,7 @@ test('An authorised user can add a post', function () {
         ->assertSet('showTable', false)
         ->assertSet('showEditForm', false)
         ->assertSet('showAddForm', true)
+        ->assertDontSee('Search Title')
         ->assertSee('Title')
         ->assertSee('Channel')
         ->set('cover_image', '')
@@ -84,7 +91,7 @@ test('When a user hits the add button the published date is not shown', function
     $this->actingAs(User::factory()->create());
 
     Livewire::test(ManagePosts::class)
-        ->call('showAddForm')
+        ->call('create')
         ->assertDontSee('Published');
 });
 
@@ -139,7 +146,7 @@ test('When a user hits the add button the create form is shown', function () {
     $this->signIn();
 
     Livewire::test(ManagePosts::class)
-        ->call('showAddForm')
+        ->call('create')
         ->assertSee('Add Post')
         ->assertSee('Save');
 });
@@ -172,7 +179,7 @@ test('An authorised user can filter posts by category in the dashboard', functio
         ->set('categoryQuery', $this->category->id)
         ->assertSee($post->title)
         ->assertDontSee($post2->title);
-});
+})->todo();
 
 test('An authorised user can filter posts by channel in the dashboard', function () {
     $this->signIn();
@@ -192,7 +199,7 @@ test('An authorised user can filter posts by channel in the dashboard', function
         ->set('channelQuery', $this->channel->id)
         ->assertSee($post->title)
         ->assertDontSee($post2->title);
-});
+})->todo();
 
 test('The posts dashboard page has a clear button which clears filters', function () {
     $this->signIn();

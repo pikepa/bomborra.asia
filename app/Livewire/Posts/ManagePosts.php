@@ -7,6 +7,7 @@ use App\Models\Channel;
 use App\Models\Post;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -15,9 +16,7 @@ class ManagePosts extends Component
 {
     use WithFileUploads, WithPagination;
 
-    public $search;
-
-    public $posts;
+    public $search = '';
 
     public $post_id;
 
@@ -57,7 +56,7 @@ class ManagePosts extends Component
 
     public $queryChannels = [];   // all channels for select dropdown
 
-    public $statusQuery;
+    public $statusQuery = '';
 
     public $queryStatuses = ['Draft', 'Publication Pending',  'Published'];
     // public $categories;
@@ -81,13 +80,13 @@ class ManagePosts extends Component
         'title' => 'required|min:10|max:250',
         'slug' => 'required',
         'body' => 'required|min:20',
-        'meta_description' => 'required|min:20|max:500',
         'is_in_vault' => 'required|boolean',
+        'cover_image' => 'nullable|url',
+        'meta_description' => 'required|min:20|max:500',
+        'published_at' => 'nullable',
+        'channel_id' => 'required|integer',
         'author_id' => 'required|integer',
         'category_id' => 'required|integer',
-        'channel_id' => 'required|integer',
-        'published_at' => 'nullable',
-        'cover_image' => 'nullable|url',
     ];
 
     // listen from event from CategorySelect
@@ -99,6 +98,33 @@ class ManagePosts extends Component
         // 'make_featured',
     ];
 
+    public function render()
+    {
+        $query = Post::query();
+
+        $this->applySearch($query);
+        // $this->applyChannel($query);
+
+        //     ->when($this->statusQuery != '', function ($query) {
+        //         $query->where('published_at', $this->statusQuery);
+        //     })
+        //     ->when($this->categoryQuery != '', function ($query) {
+        //         $query->where('category_id', $this->categoryQuery);
+        //     })
+        //     ->when($this->channelQuery != '', function ($query) {
+        //         $query->where('channel_id', $this->channelQuery);
+        //     })
+        //     ->with('author', 'channel', 'category')->orderBy('published_at', 'desc')->get();
+        return view('livewire.posts.manage-posts', [
+            'posts' => $query->paginate(10),
+        ]);
+    }
+
+    public function updatedSelectedCategory()
+    {
+        dd('im here');
+    }
+
     public function mount()
     {
         $this->queryCategories = Cache::rememberForever('queryCategories', function () {
@@ -108,25 +134,6 @@ class ManagePosts extends Component
             return Channel::orderBy('name', 'asc')->get();
         });
         $this->author_id = auth()->user()->id;
-    }
-
-    public function render()
-    {
-        $this->posts = Post::when($this->search != '', function ($query) {
-            $query->where('title', 'like', '%'.$this->search.'%');
-        })
-            ->when($this->statusQuery != '', function ($query) {
-                $query->where('published_at', $this->statusQuery);
-            })
-            ->when($this->categoryQuery != '', function ($query) {
-                $query->where('category_id', $this->categoryQuery);
-            })
-            ->when($this->channelQuery != '', function ($query) {
-                $query->where('channel_id', $this->channelQuery);
-            })
-            ->with('author', 'channel', 'category')->orderBy('published_at', 'desc')->get();
-
-        return view('livewire.posts.manage-posts');
     }
 
     public function paginationView()
@@ -166,7 +173,8 @@ class ManagePosts extends Component
         $this->showAddForm = false;
     }
 
-    public function category_selected($category_id)
+    #[On('category_selected')]
+    public function updateSelected($category_id)
     {
         $this->category_id = $category_id;
     }
@@ -189,7 +197,7 @@ class ManagePosts extends Component
 
         $this->resetExcept(['author_id']);
 
-        //  return redirect()->to('/posts/edit'.$post->slug);
+        return redirect()->to('/posts/edit'.$post->slug);
 
         session()->flash('message', 'Post Successfully added.');
         session()->flash('alertType', 'success');
@@ -211,11 +219,37 @@ class ManagePosts extends Component
         $this->showTable();
     }
 
+    public function resetPage()
+    {
+        return $this->setPage(1);
+    }
+
     public function resetBanner()
     {
         $this->showAlert = true;
 
         session()->flash('message', '');
         session()->flash('alertType', '');
+    }
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    protected function applyChannel($query)
+    {
+        return $this->channelQuery === ''
+        ? $query
+        : $query
+            ->where('channel_id', $this->channelQuery);
+    }
+
+    protected function applySearch($query)
+    {
+        return $this->search === ''
+        ? $query
+        : $query
+            ->where('title', 'like', '%'.$this->search.'%');
     }
 }
