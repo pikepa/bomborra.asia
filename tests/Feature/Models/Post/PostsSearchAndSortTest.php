@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Posts\Index\ManagePosts;
+use App\Livewire\Posts\Index\Table;
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
@@ -16,7 +16,7 @@ test('An authorised User can search for a post in the dashboard', function () {
     $post1 = Post::factory()->create();
     $post = Post::factory()->create(['title' => 'My Title']);
 
-    Livewire::test(ManagePosts::class)
+    Livewire::test(Table::class)
         ->set('search', 'title')
         ->assertSee($post->title)
         ->assertDontSee($post1->title);
@@ -27,7 +27,7 @@ test('An authorised User sees no Post found when too many chars in the search', 
     $post1 = Post::factory()->create();
     $post = Post::factory()->create(['title' => 'My Title']);
 
-    Livewire::test(ManagePosts::class)
+    Livewire::test(Table::class)
         ->set('search', 'asdasdasdasdadasdadasdasdasdasdasdadadad')
         ->assertSee('No Posts found')
         ->assertDontSee($post->title)

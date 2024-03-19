@@ -2,22 +2,19 @@
 
 namespace App\Livewire\Posts\Index;
 
-use App\Models\Category;
-use App\Models\Channel;
 use App\Models\Post;
-use App\Traits\Post\Searchable;
-use Illuminate\Support\Facades\Cache;
+use App\Models\Channel;
+use Livewire\Component;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
-use Livewire\Component;
-use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Cache;
 
-class ManagePosts extends Component
+class Table extends Component
 {
     use Searchable, WithFileUploads, WithPagination;
-
-    // public $search = '';
 
     public $post_id;
 
@@ -60,7 +57,7 @@ class ManagePosts extends Component
     public $statusQuery = '';
 
     public $queryStatuses = ['Draft', 'Publication Pending',  'Published'];
-    // public $categories;
+    public $categories;
 
     public $selectedCategory;
 
@@ -211,7 +208,7 @@ class ManagePosts extends Component
         $query = Post::query()->orderBy('published_at', 'desc');
         $this->applySearch($query); // (Defined within the Searchable Trait)
 
-        return view('livewire.posts.index.manage-posts', [
+        return view('livewire.posts.index.table', [
             'posts' => $query->paginate(10),
         ]);
     }

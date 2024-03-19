@@ -1,7 +1,7 @@
 <?php
 
 use App\Livewire\Posts\EditPost;
-use App\Livewire\Posts\Index\ManagePosts;
+use App\Livewire\Posts\Index\Table;
 use App\Livewire\Posts\ShowPost;
 use App\Models\Category;
 use App\Models\Channel;
@@ -16,7 +16,7 @@ beforeEach(function () {
 
 test('it renders successfully', function () {
     $this->signIn();
-    Livewire::test(ManagePosts::class)
+    Livewire::test(Table::class)
         ->assertStatus(200);
 });
 
@@ -45,7 +45,6 @@ test('An authorised user can see a list of all posts', function () {
 
     $post1 = Post::factory()->create();
     $post2 = Post::factory()->create();
-
     $this->get('/dashboard/posts')
         ->assertSee($post1->title)
         ->assertSee($post1->category->name)
@@ -58,7 +57,7 @@ test('An authorised user can see a list of all posts', function () {
 test('An authorised user can add a post', function () {
     $this->actingAs(User::factory()->create());
 
-    Livewire::test(ManagePosts::class)
+    Livewire::test(Table::class)
         ->assertSet('showTable', true)
         ->assertSet('showAddForm', false)
         ->call('create')
@@ -90,7 +89,7 @@ test('An authorised user can add a post', function () {
 test('When a user hits the add button the published date is not shown', function () {
     $this->actingAs(User::factory()->create());
 
-    Livewire::test(ManagePosts::class)
+    Livewire::test(Table::class)
         ->call('create')
         ->assertDontSee('Published');
 });
@@ -111,7 +110,7 @@ test('An authorised user can delete a post', function () {
 
     $this->assertDatabaseCount('posts', 1);
 
-    Livewire::test(ManagePosts::class)
+    Livewire::test(Table::class)
         ->call('delete', $post->id)
         ->assertSuccessful();
 
@@ -123,7 +122,7 @@ test('A message is displayed when a user deletes a post', function () {
 
     $post = Post::factory()->create();
 
-    Livewire::test(ManagePosts::class)
+    Livewire::test(Table::class)
         ->assertDontSee('Post Successfully deleted')
         ->call('delete', $post->id)
         ->assertSee('Post Successfully deleted');
@@ -145,7 +144,7 @@ test('An authorised User can mark a post as being in the vault', function () {
 test('When a user hits the add button the create form is shown', function () {
     $this->signIn();
 
-    Livewire::test(ManagePosts::class)
+    Livewire::test(Table::class)
         ->call('create')
         ->assertSee('Add Post')
         ->assertSee('Save');
@@ -154,7 +153,7 @@ test('When a user hits the add button the create form is shown', function () {
 test('When a user hits the show table button the main table is shown', function () {
     $this->signIn();
 
-    Livewire::test(ManagePosts::class)
+    Livewire::test(Table::class)
         ->call('showTable')
         ->assertSee('Posts')
         ->assertDontSee('Edit Post')
@@ -167,7 +166,7 @@ test('An authorised user can filter posts by category in the dashboard', functio
     $post = Post::factory()->create(['category_id' => $this->category->id]);
     $post2 = Post::factory()->create(['category_id' => $category2->id]);
 
-    Livewire::test(ManagePosts::class)
+    Livewire::test(Table::class)
         ->call('showTable')
         ->set('categoryQuery', '')
         ->assertSee('Posts')
@@ -187,7 +186,7 @@ test('An authorised user can filter posts by channel in the dashboard', function
     $post = Post::factory()->create(['channel_id' => $this->channel->id]);
     $post2 = Post::factory()->create(['channel_id' => $channel2->id]);
 
-    Livewire::test(ManagePosts::class)
+    Livewire::test(Table::class)
         ->call('showTable')
         ->set('channelQuery', '')
         ->assertSee('Posts')
@@ -204,7 +203,7 @@ test('An authorised user can filter posts by channel in the dashboard', function
 test('The posts dashboard page has a clear button which clears filters', function () {
     $this->signIn();
 
-    Livewire::test(ManagePosts::class)
+    Livewire::test(Table::class)
         ->call('showTable')
         ->set('showFilters', true)
         ->assertSee('Clear')

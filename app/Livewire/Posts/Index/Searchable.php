@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits\Post;
+namespace App\Livewire\Posts\Index;
 
 trait Searchable
 {

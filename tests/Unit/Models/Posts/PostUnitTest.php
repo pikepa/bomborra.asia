@@ -1,7 +1,7 @@
 <?php
 
 use App\Livewire\Posts\EditPost;
-use App\Livewire\Posts\Index\ManagePosts;
+use App\Livewire\Posts\Index\Table;
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
@@ -14,7 +14,7 @@ beforeEach(function () {
 });
 
 test('Post Validation rules on save', function ($field, $value, $rule) {
-    Livewire::test(ManagePosts::class)
+    Livewire::test(Table::class)
         ->set($field, $value)
         ->call('save')
         ->assertHasErrors([$field => $rule]);

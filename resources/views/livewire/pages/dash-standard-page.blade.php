@@ -11,7 +11,7 @@
 
 
                     @if($show =='posts')
-                    <livewire:posts.index.manage-posts />
+                    <livewire:posts.index.page />
                     @endif
 
                     @if($show =='channels')
