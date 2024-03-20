@@ -2,15 +2,15 @@
 
 namespace App\Livewire\Posts\Index;
 
-use App\Models\Post;
-use App\Models\Channel;
-use Livewire\Component;
 use App\Models\Category;
+use App\Models\Channel;
+use App\Models\Post;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
-use Livewire\WithPagination;
+use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Cache;
+use Livewire\WithPagination;
 
 class Table extends Component
 {
@@ -57,6 +57,7 @@ class Table extends Component
     public $statusQuery = '';
 
     public $queryStatuses = ['Draft', 'Publication Pending',  'Published'];
+
     public $categories;
 
     public $selectedCategory;
@@ -69,7 +70,7 @@ class Table extends Component
 
     public $showAlert = false;
 
-    public $showFilters = false;
+    public $showFilters = true;
 
     //  public $mediaItems = [];
 
@@ -87,23 +88,15 @@ class Table extends Component
         'category_id' => 'required|integer',
     ];
 
-    // listen from event from CategorySelect
-
-    protected $listeners = [
-        'category_selected',
-        'channel_selected',
-        'status_selected',
-        // 'make_featured',
-    ];
-
     public function mount()
     {
-        $this->queryCategories = Cache::rememberForever('queryCategories', function () {
-            return Category::orderBy('name', 'asc')->get();
-        });
-        $this->queryChannels = Cache::rememberForever('quertChannels', function () {
-            return Channel::orderBy('name', 'asc')->get();
-        });
+        // $this->queryCategories = Cache::rememberForever('queryCategories', function () {
+        //     return Category::orderBy('name', 'asc')->get();
+        // });
+        // $this->queryChannels = Cache::rememberForever('quertChannels', function () {
+        //     return Channel::orderBy('name', 'asc')->get();
+        // });
+
         $this->author_id = auth()->user()->id;
     }
 
@@ -145,14 +138,15 @@ class Table extends Component
     }
 
     #[On('category_selected')]
-    public function updateSelected($category_id)
+    public function updateCategory($category_id)
     {
         $this->category_id = $category_id;
     }
 
-    public function channel_selected($channel_id)
+    #[On('channel-selected')]
+    public function updateChannel($selected_channel_id)
     {
-        $this->channel_id = $channel_id;
+        $this->channel_id = $selected_channel_id;
     }
 
     public function create()
@@ -168,7 +162,7 @@ class Table extends Component
 
         $this->resetExcept(['author_id']);
 
-        return redirect()->to('/posts/edit'.$post->slug);
+        return redirect()->to('/posts/edit'.$post->id);
 
         session()->flash('message', 'Post Successfully added.');
         session()->flash('alertType', 'success');

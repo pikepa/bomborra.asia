@@ -40,36 +40,18 @@
       <div>
         @if ($showFilters)
         <div class=" bg-cool-gray-200 p-4 rounded shadow-inner ">
-          <div class="flex flex-row items-center">
-            <div class="flex flex-1 justify-between ">
-              <div class="w-1/3 pr-2 space-y-4">
-                <x-input.group inline for="filter-status" label="Channel Filter">
-                  <div class=" mb-2 ">
-                    <select wire:model="channelQuery" class=" rounded-lg p-1 border-2 border-gray-600 "
-                      placeholder="Select Channel">
-                      <option value="">Select Channel</option>
-                      @foreach($queryChannels as $channel_item)
-                      <option value="{{ $channel_item->id }}">{{ $channel_item->name }}</option>
-                      @endforeach
-                    </select>
-                  </div>
+            <div class="flex flex-row justify-start items-center  space-x-4">
+              <div class="">
+                <x-input.group inline for="channel" label="Channel Filter">
+                  <livewire:forms.channel-select wire:model="channel_id"/>
                 </x-input.group>
               </div>
-
-              <div class="w-1/3 ml-4 pr-2 space-y-4">
+              <div class="">
                 <x-input.group inline for="filter-status" label="Category Filter">
-                  <div class="mb-2 ">
-                    <select wire:model='categoryQuery' class=" rounded-lg p-1 border-2 border-gray-600 "
-                      placeholder="Select Category">
-                      <option value="">Select Category</option>
-                      @foreach($queryCategories as $category_item)
-                      <option value="{{ $category_item->id }}">{{ $category_item->name }}</option>
-                      @endforeach
-                    </select>
-                  </div>
+                  <livewire:forms.category-select wire:model="category_id"/>
                 </x-input.group>
               </div>
-              <div class="w-1/3 ml-4 pr-2 space-y-4 ">
+              <div class="mt-2">
                 <x-input.group inline for="filter-status" label="Status Filter">
                   <div class="mb-2 ">
                     <select wire:model='statusQuery' class=" rounded-lg p-1 border-2 border-gray-600 "
@@ -82,12 +64,10 @@
                   </div>
                 </x-input.group>
               </div>
+              <div class="mt-2 p-4">
+                <button wire:click='clearFilter()' class="mt-4 p-2 rounded-lg bg-teal-200">Clear</button>
+              </div>
             </div>
-            <div class="mt-4 mr-4">
-              <button wire:click='clearFilter()' class="p-1 rounded-lg bg-teal-400">Clear</button>
-            </div>
-          </div>
-
         </div>
         @endif
       </div>
