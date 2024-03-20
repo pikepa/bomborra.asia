@@ -1,4 +1,5 @@
 <div>
+    {{ $channel_id }} {{ $category_id }}
     <div class="flex justify-between border-2 rounded-lg p-4">
         <div class="flex-1 mr-4 space-y-6">
             <!-- Post Title -->
@@ -8,9 +9,10 @@
             </x-input.group>
 
             <!-- Post Body -->
-
             <x-input.group for="body" label="Body" width="full">
                 <x-input.rich-text wire:model.lazy='body' :initial-value=$body unique="body" type="text" />
+                {{ $category_id }}
+
             </x-input.group>
 
             <!-- Meta Description -->
@@ -27,14 +29,14 @@
             <!-- Post Channel -->
             <div>
                 <x-input.group for="Channel_id" label="Channel" width="full">
-                    <livewire:forms.channel-select :chan_id="$selectedChannel" />
+                    <livewire:forms.channel-select wire:model="channel_id"/>
                 </x-input.group>
             </div>
 
             <!-- Post Category -->
             <div>
                 <x-input.group for="category" label="Category" width="full">
-                    <livewire:forms.category-select :cat_id="$selectedCategory" />
+                    <livewire:forms.category-select wire:model="category_id"/>
                 </x-input.group>
             </div>
 
@@ -49,12 +51,12 @@
             <div x-data>
                 @if($post)
                 <label class=" flex flex-row justify-between items-center">
-                        <span class="text-gray-700  font-bold">Published : @if($published_at){{
-                            $published_at->format('d-M-Y') }}@endif</span>
-                        @if(! $published_at)
-                        <x-button.secondary wire:click.prevent="publishPost()" class="bg-blue-400">
-                            Publish Post
-                        </x-button.secondary>
+                    <span class="text-gray-700  font-bold">Published : @if($published_at){{
+                        $published_at->format('d-M-Y') }}@endif</span>
+                    @if(! $published_at)
+                    <x-button.secondary wire:click.prevent="publishPost()" class="bg-blue-400">
+                        Publish Post
+                    </x-button.secondary>
                     @endif
                     @if( $published_at)
                     <x-button.secondary wire:click.prevent="unpublishPost()" class="bg-blue-400">
@@ -64,10 +66,10 @@
 
                 </label>
                 @if(! $published_at)
-                    <div>
-                        <input wire:model='temp_published_at' type="text" placeholder="DD-MM-YYYY" name="published_at"
-                            format="DD-MM-YYYY" class="form-input rounded mt-1 block w-full">
-                    </div>
+                <div>
+                    <input wire:model='temp_published_at' type="text" placeholder="DD-MM-YYYY" name="published_at"
+                        format="DD-MM-YYYY" class="form-input rounded mt-1 block w-full">
+                </div>
                 @endif
                 @endif
             </div>

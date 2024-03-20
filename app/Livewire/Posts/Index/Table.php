@@ -1,23 +1,18 @@
 <?php
 
-namespace App\Livewire\Posts;
+namespace App\Livewire\Posts\Index;
 
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
-class ManagePosts extends Component
+class Table extends Component
 {
-    use WithFileUploads, WithPagination;
-
-    public $search;
-
-    public $posts;
+    use Searchable, WithFileUploads, WithPagination;
 
     public $post_id;
 
@@ -49,24 +44,26 @@ class ManagePosts extends Component
 
     public $showTable = 1;
 
+    public $channelQuery = '';    // dropdown selected channel result
+
+    public $categoryQuery = '';   // dropdown selected category result
+
+    public $statusQuery = '';     // dropdown selected status result
+    //  public $search is in the searchable trait.
+
     public $channels;
 
     public $selectedChannel; // form selected channel
 
-    public $channelQuery = '';    // dropdown selected channel
-
     public $queryChannels = [];   // all channels for select dropdown
 
-    public $statusQuery;
-
     public $queryStatuses = ['Draft', 'Publication Pending',  'Published'];
-    // public $categories;
+
+    public $categories;
 
     public $selectedCategory;
 
-    public $categoryQuery = '';
-
-    public $queryCategories = [];
+    public $queryCategories;
 
     public $post;
 
@@ -81,52 +78,18 @@ class ManagePosts extends Component
         'title' => 'required|min:10|max:250',
         'slug' => 'required',
         'body' => 'required|min:20',
-        'meta_description' => 'required|min:20|max:500',
         'is_in_vault' => 'required|boolean',
+        'cover_image' => 'nullable|url',
+        'meta_description' => 'required|min:20|max:500',
+        'published_at' => 'nullable',
+        'channel_id' => 'required|integer',
         'author_id' => 'required|integer',
         'category_id' => 'required|integer',
-        'channel_id' => 'required|integer',
-        'published_at' => 'nullable',
-        'cover_image' => 'nullable|url',
-    ];
-
-    // listen from event from CategorySelect
-
-    protected $listeners = [
-        'category_selected',
-        'channel_selected',
-        'status_selected',
-        // 'make_featured',
     ];
 
     public function mount()
     {
-        $this->queryCategories = Cache::rememberForever('queryCategories', function () {
-            return Category::orderBy('name', 'asc')->get();
-        });
-        $this->queryChannels = Cache::rememberForever('quertChannels', function () {
-            return Channel::orderBy('name', 'asc')->get();
-        });
         $this->author_id = auth()->user()->id;
-    }
-
-    public function render()
-    {
-        $this->posts = Post::when($this->search != '', function ($query) {
-            $query->where('title', 'like', '%'.$this->search.'%');
-        })
-            ->when($this->statusQuery != '', function ($query) {
-                $query->where('published_at', $this->statusQuery);
-            })
-            ->when($this->categoryQuery != '', function ($query) {
-                $query->where('category_id', $this->categoryQuery);
-            })
-            ->when($this->channelQuery != '', function ($query) {
-                $query->where('channel_id', $this->channelQuery);
-            })
-            ->with('author', 'channel', 'category')->orderBy('published_at', 'desc')->get();
-
-        return view('livewire.posts.manage-posts');
     }
 
     public function paginationView()
@@ -166,16 +129,6 @@ class ManagePosts extends Component
         $this->showAddForm = false;
     }
 
-    public function category_selected($category_id)
-    {
-        $this->category_id = $category_id;
-    }
-
-    public function channel_selected($channel_id)
-    {
-        $this->channel_id = $channel_id;
-    }
-
     public function create()
     {
         $this->showAddForm();
@@ -189,7 +142,7 @@ class ManagePosts extends Component
 
         $this->resetExcept(['author_id']);
 
-        //  return redirect()->to('/posts/edit'.$post->slug);
+        return redirect()->to('/posts/edit/'.$post->slug.'/O');
 
         session()->flash('message', 'Post Successfully added.');
         session()->flash('alertType', 'success');
@@ -211,11 +164,36 @@ class ManagePosts extends Component
         $this->showTable();
     }
 
+    public function resetPage()
+    {
+        return $this->setPage(1);
+    }
+
     public function resetBanner()
     {
         $this->showAlert = true;
-
         session()->flash('message', '');
         session()->flash('alertType', '');
     }
+
+    public function render()
+    {
+        $query = Post::query()->orderBy('published_at', 'desc');
+        $this->applySearch($query); // (Defined within the Searchable Trait)
+
+        return view('livewire.posts.index.table', [
+            'posts' => $query->paginate(10),
+        ]);
+    }
+
+    //     ->when($this->statusQuery != '', function ($query) {
+    //         $query->where('published_at', $this->statusQuery);
+    //     })
+    //     ->when($this->categoryQuery != '', function ($query) {
+    //         $query->where('category_id', $this->categoryQuery);
+    //     })
+    //     ->when($this->channelQuery != '', function ($query) {
+    //         $query->where('channel_id', $this->channelQuery);
+    //     })
+    //     ->with('author', 'channel', 'category')->orderBy('published_at', 'desc')->get();
 }
