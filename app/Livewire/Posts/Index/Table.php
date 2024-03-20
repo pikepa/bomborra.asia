@@ -176,10 +176,50 @@ class Table extends Component
         session()->flash('alertType', '');
     }
 
+    protected function applyChannelFilter($query)
+    {
+        return $this->channelQuery === ''
+            ? $query
+            : $query
+                ->where('channel_id', $this->channelQuery);
+    }
+
+    protected function applyCategoryFilter($query)
+    {
+        return $this->categoryQuery === ''
+            ? $query
+            : $query
+                ->where('category_id', $this->categoryQuery);
+    }
+    // protected function applyStatusFilter($query)
+    // {
+    //     switch ($this->statusQuery) {
+    //         case 'Draft':
+    //           $temp = '';
+    //           break;
+    //         case 'Published':
+    //           $temp = '"<=" , now()';
+    //           break;
+    //         case 'Pending Publication':
+    //           $temp = '> now()';
+    //           break;
+    //         default:
+
+    //       }
+
+    //     return $this->statusQuery === ''
+    //         ? $query
+    //         : $query
+    //             ->where('published_at', $temp);
+    // }
+
     public function render()
     {
         $query = Post::query()->orderBy('published_at', 'desc');
         $this->applySearch($query); // (Defined within the Searchable Trait)
+        $this->applyChannelFilter($query);
+        $this->applyCategoryFilter($query);
+        // $this->applyStatusFilter($query);
 
         return view('livewire.posts.index.table', [
             'posts' => $query->paginate(10),
@@ -189,11 +229,4 @@ class Table extends Component
     //     ->when($this->statusQuery != '', function ($query) {
     //         $query->where('published_at', $this->statusQuery);
     //     })
-    //     ->when($this->categoryQuery != '', function ($query) {
-    //         $query->where('category_id', $this->categoryQuery);
-    //     })
-    //     ->when($this->channelQuery != '', function ($query) {
-    //         $query->where('channel_id', $this->channelQuery);
-    //     })
-    //     ->with('author', 'channel', 'category')->orderBy('published_at', 'desc')->get();
 }
