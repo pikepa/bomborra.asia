@@ -5,9 +5,7 @@ namespace App\Livewire\Posts\Index;
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
-use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -46,15 +44,18 @@ class Table extends Component
 
     public $showTable = 1;
 
+    public $channelQuery = '';    // dropdown selected channel result
+
+    public $categoryQuery = '';   // dropdown selected category result
+
+    public $statusQuery = '';     // dropdown selected status result
+    //  public $search is in the searchable trait.
+
     public $channels;
 
     public $selectedChannel; // form selected channel
 
-    public $channelQuery = '';    // dropdown selected channel
-
     public $queryChannels = [];   // all channels for select dropdown
-
-    public $statusQuery = '';
 
     public $queryStatuses = ['Draft', 'Publication Pending',  'Published'];
 
@@ -62,15 +63,13 @@ class Table extends Component
 
     public $selectedCategory;
 
-    public $categoryQuery = '';
-
-    public $queryCategories = [];
+    public $queryCategories;
 
     public $post;
 
     public $showAlert = false;
 
-    public $showFilters = true;
+    public $showFilters = false;
 
     //  public $mediaItems = [];
 
@@ -90,13 +89,6 @@ class Table extends Component
 
     public function mount()
     {
-        // $this->queryCategories = Cache::rememberForever('queryCategories', function () {
-        //     return Category::orderBy('name', 'asc')->get();
-        // });
-        // $this->queryChannels = Cache::rememberForever('quertChannels', function () {
-        //     return Channel::orderBy('name', 'asc')->get();
-        // });
-
         $this->author_id = auth()->user()->id;
     }
 
@@ -137,18 +129,6 @@ class Table extends Component
         $this->showAddForm = false;
     }
 
-    #[On('category_selected')]
-    public function updateCategory($category_id)
-    {
-        $this->category_id = $category_id;
-    }
-
-    #[On('channel-selected')]
-    public function updateChannel($selected_channel_id)
-    {
-        $this->channel_id = $selected_channel_id;
-    }
-
     public function create()
     {
         $this->showAddForm();
@@ -162,7 +142,7 @@ class Table extends Component
 
         $this->resetExcept(['author_id']);
 
-        return redirect()->to('/posts/edit'.$post->id);
+        return redirect()->to('/posts/edit/'.$post->slug.'/O');
 
         session()->flash('message', 'Post Successfully added.');
         session()->flash('alertType', 'success');
@@ -192,7 +172,6 @@ class Table extends Component
     public function resetBanner()
     {
         $this->showAlert = true;
-
         session()->flash('message', '');
         session()->flash('alertType', '');
     }
@@ -217,5 +196,4 @@ class Table extends Component
     //         $query->where('channel_id', $this->channelQuery);
     //     })
     //     ->with('author', 'channel', 'category')->orderBy('published_at', 'desc')->get();
-
 }

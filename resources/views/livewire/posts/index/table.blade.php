@@ -43,12 +43,12 @@
             <div class="flex flex-row justify-start items-center  space-x-4">
               <div class="">
                 <x-input.group inline for="channel" label="Channel Filter">
-                  <livewire:forms.channel-select wire:model="channel_id"/>
+                  <livewire:forms.channel-select wire:model="channelQuery"/>
                 </x-input.group>
               </div>
               <div class="">
                 <x-input.group inline for="filter-status" label="Category Filter">
-                  <livewire:forms.category-select wire:model="category_id"/>
+                  <livewire:forms.category-select wire:model="categoryQuery"/>
                 </x-input.group>
               </div>
               <div class="mt-2">
