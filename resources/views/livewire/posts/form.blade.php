@@ -1,5 +1,4 @@
 <div>
-    {{ $channel_id }} {{ $category_id }}
     <div class="flex justify-between border-2 rounded-lg p-4">
         <div class="flex-1 mr-4 space-y-6">
             <!-- Post Title -->
@@ -11,7 +10,6 @@
             <!-- Post Body -->
             <x-input.group for="body" label="Body" width="full">
                 <x-input.rich-text wire:model.lazy='body' :initial-value=$body unique="body" type="text" />
-                {{ $category_id }}
 
             </x-input.group>
 
