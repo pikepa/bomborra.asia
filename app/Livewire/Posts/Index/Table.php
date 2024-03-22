@@ -6,10 +6,12 @@ use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
+#[Title('Manage Posts')]
 class Table extends Component
 {
     use Searchable, WithFileUploads, WithPagination;

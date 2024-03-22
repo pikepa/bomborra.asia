@@ -26,6 +26,7 @@
   </x-pages.dash-page-sub-head>
 
   <div class="-my-2 mt-2 flex flex-col">
+    <!-- start of page content -->
     <div class="my-2 overflow-x-auto ">
       <div class="flex flex-row justify-left items-center py-2 ">
         <div class="">
@@ -127,14 +128,15 @@
       </div> -->
     </div> 
   </div>
+  <!-- bottom of table incl record summary + TOP / Prev / Next -->
   <div class="pt-4 flex justify-between items-center">
     <div class="text-gray-700 text-sm">
       Total Results : {{ $posts->total() }}
     </div>
     <div class="flex flex-row items-center justify-between">
-
       <div class="mr-4">
-        <button wire:click="resetPage">Top</button>
+        <button class="rounded-lg border px-3 py-2 bg-white font-semibold text-sm text-gray-700 hover:bg-gray-100 disabled:bg-gray-50 disabled:opacity-75 disabled:cursor-not-allowed disabled:text-gray-500"
+           wire:click="resetPage">Top</button>
       </div>
       <div>
         {{ $posts->links() }}
