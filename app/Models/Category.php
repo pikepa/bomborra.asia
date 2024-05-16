@@ -17,6 +17,10 @@ class Category extends Model
         'pages' => 'Pages',
     ];
 
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
     protected $table = 'categories';
 
     protected $fillable = ['name', 'slug', 'description', 'status', 'type', 'parent_id'];

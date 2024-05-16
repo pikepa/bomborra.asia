@@ -14,7 +14,7 @@
     <!-- channel Status -->
     <div>
         <x-input.group for="status" label="Active Status" width="full">
-            <input wire:model.live='status' type="checkbox" class="ml-2">
+            <input type="checkbox" wire:model="status"  class="ml-2">
         </x-input.group>
     </div>
 

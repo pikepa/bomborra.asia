@@ -14,6 +14,10 @@ class Channel extends Model
 
     protected $fillable = ['name', 'slug', 'status', 'sort'];
 
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
     public function getDisplayStatusAttribute($status)
     {
         if ($this->status == true) {
