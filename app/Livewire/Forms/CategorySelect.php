@@ -19,9 +19,11 @@ class CategorySelect extends Component
         if ($cat_id != null) {
             $this->category_id = $cat_id;
         }
-        $this->queryCategories = Cache::rememberForever('queryCategories', function () {
-            return Category::orderBy('name', 'asc')->get();
-        });
+        $this->queryCategories = Category::whereStatus(1)->orderBy('name', 'asc')->get();
+
+        // $this->queryCategories = Cache::remember('queryCategories',90, function () {
+        //     return Category::orderBy('name', 'asc')->get();
+        // });
     }
 
     public function render()

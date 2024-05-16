@@ -69,18 +69,18 @@ class EditPost extends Component
     ];
 
     protected $rules =
-    [
-        'title' => 'required|min:10|max:250',
-        'slug' => 'required',
-        'body' => 'required|min:20',
-        'meta_description' => 'required|min:20|max:500',
-        'is_in_vault' => 'required|boolean',
-        'author_id' => 'required|integer',
-        'category_id' => 'required|integer',
-        'channel_id' => 'required|integer',
-        'published_at' => '',
-        'cover_image' => 'nullable|url',
-    ];
+        [
+            'title' => 'required|min:10|max:250',
+            'slug' => 'required',
+            'body' => 'required|min:20',
+            'meta_description' => 'required|min:20|max:500',
+            'is_in_vault' => 'required|boolean',
+            'author_id' => 'required|integer',
+            'category_id' => 'required|integer',
+            'channel_id' => 'required|integer',
+            'published_at' => '',
+            'cover_image' => 'nullable|url',
+        ];
 
     public function populate()
     {

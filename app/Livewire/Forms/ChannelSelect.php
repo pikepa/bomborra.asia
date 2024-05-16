@@ -19,9 +19,11 @@ class ChannelSelect extends Component
         if ($chan_id != null) {
             $this->channel_id = $chan_id;
         }
-        $this->queryChannels = Cache::rememberForever('quertChannels', function () {
-            return Channel::orderBy('name', 'desc')->get();
-        });
+        $this->queryChannels = Channel::whereStatus(1)->orderBy('sort', 'asc')->get();
+
+        // $this->queryChannels = Cache::rememberForever('quertChannels', function () {
+        //     return Channel::orderBy('name', 'desc')->get();
+        // });
     }
 
     public function render()

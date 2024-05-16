@@ -76,18 +76,18 @@ class Table extends Component
     //  public $mediaItems = [];
 
     protected $rules =
-    [
-        'title' => 'required|min:10|max:250',
-        'slug' => 'required',
-        'body' => 'required|min:20',
-        'is_in_vault' => 'required|boolean',
-        'cover_image' => 'nullable|url',
-        'meta_description' => 'required|min:20|max:500',
-        'published_at' => 'nullable',
-        'channel_id' => 'required|integer',
-        'author_id' => 'required|integer',
-        'category_id' => 'required|integer',
-    ];
+        [
+            'title' => 'required|min:10|max:250',
+            'slug' => 'required',
+            'body' => 'required|min:20',
+            'is_in_vault' => 'required|boolean',
+            'cover_image' => 'nullable|url',
+            'meta_description' => 'required|min:20|max:500',
+            'published_at' => 'nullable',
+            'channel_id' => 'required|integer',
+            'author_id' => 'required|integer',
+            'category_id' => 'required|integer',
+        ];
 
     public function mount()
     {
