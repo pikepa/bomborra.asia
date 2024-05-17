@@ -21,6 +21,7 @@ class Post extends Model implements HasMedia
 
     protected $casts = [
         'published_at' => 'datetime:Y-m-d',
+        'is_in_vault' => 'boolean',
     ];
 
     protected $fillable = [

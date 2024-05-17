@@ -41,7 +41,7 @@
             <!-- Post is in the Vault -->
             <div>
                 <x-input.group for="is_in_vault" label="Post is in our Vault" width="full">
-                    <input wire:model.live='is_in_vault' type="checkbox" class="ml-2">
+                    <input wire:model='is_in_vault' type="checkbox" class="ml-2">
                 </x-input.group>
             </div>
 
