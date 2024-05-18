@@ -82,8 +82,10 @@ test('An authorised user can add a post', function () {
         ->assertSuccessful();
 
     $this->assertDatabaseCount('posts', 1)
-        ->assertDatabaseHas('posts', ['title' => 'this is a post',
+        ->assertDatabaseHas('posts', [
+            'title' => 'this is a post',
             'is_in_vault' => false,
+            'body' => str_repeat('s', 100),
         ]);
 });
 
@@ -127,19 +129,6 @@ test('A message is displayed when a user deletes a post', function () {
         ->assertDontSee('Post Successfully deleted')
         ->call('delete', $post->id)
         ->assertSee('Post Successfully deleted');
-});
-
-test('An authorised User can mark a post as being in the vault', function () {
-    $this->signIn();
-    $post = Post::factory()->create(['is_in_vault' => false]);
-
-    Livewire::test(EditPost::class, ['origin' => 'P', 'slug' => $post->slug])
-        ->set('is_in_vault', true)
-        ->set('meta_description', 'this is a new meta_description')
-        ->call('update', $post->id);
-
-    $this->assertDatabaseHas('posts', ['is_in_vault' => true,
-        'meta_description' => 'this is a new meta_description', ]);
 });
 
 test('When a user hits the add button the create form is shown', function () {

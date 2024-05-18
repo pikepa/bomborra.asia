@@ -16,7 +16,7 @@
     <div class="flex justify-between items-center">
       <div class="flex justify-left space-x-4 items-center">
         <div class="ml-2 ">
-          <x-input wire:model.live="filters.search" class=" p-2 border-2 border-gray-300 "
+          <x-input wire:model="filters.search" class=" p-2 border-2 border-gray-300 "
             placeholder="Search subscriber name"></x-input>
         </div>
         <div>

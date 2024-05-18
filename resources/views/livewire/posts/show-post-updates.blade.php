@@ -13,7 +13,7 @@
 
         <div class="flex justify-between items-center">
             <div class="ml-2 w-1/4">
-                <x-input.text wire:model.live="search" class="rounded-md p-2 border-2 border-gray-300"
+                <x-input.text wire:model="search" class="rounded-md p-2 border-2 border-gray-300"
                     placeholder="Search subject .."></x-input.text>
             </div>
 
@@ -51,10 +51,10 @@
                 @forelse($siteUpdates as $siteupdate)
                 <x-table.row wire.loading.class.delay="opacity-50" wire:key="row-{{ $siteupdate->id }}">
                     <x-table.cell class="pr-0 w-8">
-                        <x-input.checkbox wire:model.live='selected' value="{{ $siteupdate->id }}"></x-input.checkbox>
+                        <x-input.checkbox wire:model='selected' value="{{ $siteupdate->id }}"></x-input.checkbox>
                     </x-table.cell>
                     <x-table.cell>{{ $siteupdate->date_for_humans}}</x-table.cell>
-                    <x-table.cell wire:model.live='subject' class="nowrap">{{ $siteupdate->post->title }}</x-table.cell>
+                    <x-table.cell wire:model='subject' class="nowrap">{{ $siteupdate->post->title }}</x-table.cell>
                     <x-table.cell>{{ $siteupdate->owner->name }}</x-table.cell>
                     <x-table.cell>
                         <span class="font-semibold p-1 rounded bg-{{ $siteupdate->status_color }}-100">{{
@@ -82,7 +82,7 @@
         <div class="flex justify-between items-center pt-4">
             <div class="flex justify-start items-center gap-2 text-sm">
     
-                <x-modal wire:model.live="showModal">
+                <x-modal wire:model="showModal">
                     <x-modal.button>
                         <button type="button" class="underline text-blue-500">
                             terms of service.

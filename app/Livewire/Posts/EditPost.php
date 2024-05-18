@@ -32,6 +32,8 @@ class EditPost extends Component
 
     public $body;
 
+    public $meta_description;
+
     public $is_in_vault = false;
 
     public $category_id;
@@ -42,8 +44,6 @@ class EditPost extends Component
 
     public $cover_image;
 
-    public $meta_description;
-
     public $published_at = null;
 
     public $temp_published_at = null;
@@ -52,6 +52,7 @@ class EditPost extends Component
     {
         $this->origin = $origin;
         $this->post = Post::where('slug', $slug)->first();
+
         $this->populate();
     }
 
@@ -89,6 +90,7 @@ class EditPost extends Component
         $this->cover_image = $this->post->cover_image;
         $this->slug = $this->post->slug;
         $this->body = $this->post->body;
+        $this->meta_description = $this->post->meta_description;
         $this->is_in_vault = $this->post->is_in_vault;
         $this->category_id = $this->post->category_id;
         $this->channel_id = $this->post->channel_id;
@@ -96,7 +98,8 @@ class EditPost extends Component
         $this->selectedChannel = $this->post->channel_id;
         $this->author_id = $this->post->author_id;
         $this->published_at = $this->post->published_at;
-        $this->meta_description = $this->post->meta_description;
+
+        //  dd($this->post, $this->meta_description);
     }
 
     public function updatedTitle($value)

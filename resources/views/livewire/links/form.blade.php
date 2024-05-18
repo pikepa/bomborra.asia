@@ -28,7 +28,7 @@
     <!-- link Status -->
     <div>
         <x-input.group for="status" label="Active Status" width="full">
-            <input wire:model.live='status' type="checkbox" class="ml-2">
+            <input wire:model='status' type="checkbox" class="ml-2">
         </x-input.group>
     </div>
 

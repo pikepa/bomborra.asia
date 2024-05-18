@@ -6,21 +6,16 @@
                 <x-input.text wire:model='title' type="text" class="form-input w-full rounded" name="name">
                 </x-input.text>
             </x-input.group>
-
+            
             <!-- Post Body -->
             <x-input.group for="body" label="Body" width="full">
                 <x-input.rich-text wire:model='body' :initial-value=$body unique="body" type="text" />
-
             </x-input.group>
 
             <!-- Meta Description -->
-
             <x-input.group for="meta_description" label="Meta Description" width="full">
-                <x-input.rich-text wire:model='meta_description' :initial-value="$meta_description" unique='meta'
-                    type="text" />
+                <x-input.rich-text wire:model='meta_description' :initial-value="$meta_description" unique='meta' type="text" />
             </x-input.group>
-
-
 
         </div>
         <div class=" space-y-6">
