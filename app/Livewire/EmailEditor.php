@@ -34,7 +34,5 @@ class EmailEditor extends Component
         return view('livewire.email-editor');
     }
 
-    public function save()
-    {
-    }
+    public function save() {}
 }

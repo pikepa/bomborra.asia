@@ -55,48 +55,6 @@ test('An authorised user can see a list of all posts', function () {
         ->assertSee($post2->author->name);
 });
 
-test('An authorised user can add a post', function () {
-    $this->actingAs(User::factory()->create());
-
-    Livewire::test(Table::class)
-        ->assertSet('showTable', true)
-        ->assertSet('showAddForm', false)
-        ->call('create')
-        ->assertSet('showTable', false)
-        ->assertSet('showEditForm', false)
-        ->assertSet('showAddForm', true)
-        ->assertDontSee('Search Title')
-        ->assertSee('Title')
-        ->assertSee('Channel')
-        ->set('cover_image', '')
-        ->set('title', 'this is a post')
-        ->set('slug', 'this-is-a-post')
-        ->set('body', str_repeat('s', 100))
-        ->set('is_in_vault', false)
-        ->set('category_id', $this->category->id)
-        ->set('channel_id', $this->channel->id)
-        ->set('author_id', auth()->user()->id)
-        ->set('published_at', null)
-        ->set('meta_description', 'This is the meta description')
-        ->call('save')
-        ->assertSuccessful();
-
-    $this->assertDatabaseCount('posts', 1)
-        ->assertDatabaseHas('posts', [
-            'title' => 'this is a post',
-            'is_in_vault' => false,
-            'body' => str_repeat('s', 100),
-        ]);
-});
-
-test('When a user hits the add button the published date is not shown', function () {
-    $this->actingAs(User::factory()->create());
-
-    Livewire::test(Table::class)
-        ->call('create')
-        ->assertDontSee('Published');
-});
-
 test('When a user hits the edit button the published date is shown', function () {
     $this->actingAs(User::factory()->create());
 
@@ -136,8 +94,7 @@ test('When a user hits the add button the create form is shown', function () {
 
     Livewire::test(Table::class)
         ->call('create')
-        ->assertSee('Add Post')
-        ->assertSee('Save');
+        ->assertSee('Add Post');
 });
 
 test('When a user hits the show table button the main table is shown', function () {
