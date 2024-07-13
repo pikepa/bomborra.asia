@@ -11,7 +11,7 @@
                 <ul class="pl-4 list-disc">
                     <x-menus.item routename='home'>Home</x-menus.item>
                     @foreach($m_categories as $category)
-                    <li><a href="{{ url('/category/posts/'. $category->slug ) }}" class="hover:font-bold">{{
+                    <li wire:key="{{ $category->id }}"><a href="{{ url('/category/posts/'. $category->slug ) }}" class="hover:font-bold">{{
                             $category->name }} </li></a>
                     @endforeach
                 </ul>

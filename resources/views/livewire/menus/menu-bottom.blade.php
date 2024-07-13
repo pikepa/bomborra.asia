@@ -7,7 +7,7 @@
                     <div>About Us</div>
                 </a>
                 @foreach($categories as $category)
-                <a href="/category/posts/{{$category->slug}}">
+                <a wire:key="{{ $category->id }}" href="/category/posts/{{$category->slug}}">
                     <div>{{$category->name}}</div>
                 </a>
                 @endforeach

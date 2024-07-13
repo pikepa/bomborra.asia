@@ -16,16 +16,15 @@
         </div>
       </div>
       
-    <div class="px-2">
+        <div class="px-2">
         <!-- This Section allows adding and update forms -->
-  
-            @include('livewire.posts.update')
+            @include('livewire.posts.create')
     
-        @auth
-        @if($form->post_id)
-            <livewire:images.upload :post="$form->post" />
-        @endif
-        @endauth
-    
+            @auth
+                @if($form->post_id)
+                    <livewire:images.upload :post="$form->post" />
+                @endif
+            @endauth
+        </div>
     </div>
 </div>

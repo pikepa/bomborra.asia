@@ -2,10 +2,10 @@
 
 namespace App\Livewire\Posts\Index;
 
+use App\Livewire\Forms\PostForm;
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
-use Illuminate\Support\Str;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -14,6 +14,8 @@ use Livewire\WithPagination;
 #[Title('Manage Posts')]
 class Table extends Component
 {
+    public PostForm $form;
+
     use Searchable, WithFileUploads, WithPagination;
 
     public $post_id;
@@ -75,20 +77,6 @@ class Table extends Component
 
     //  public $mediaItems = [];
 
-    protected $rules =
-        [
-            'title' => 'required|min:10|max:250',
-            'slug' => 'required',
-            'body' => 'required|min:20',
-            'is_in_vault' => 'required|boolean',
-            'cover_image' => 'nullable|url',
-            'meta_description' => 'required|min:20|max:500',
-            'published_at' => 'nullable',
-            'channel_id' => 'required|integer',
-            'author_id' => 'required|integer',
-            'category_id' => 'required|integer',
-        ];
-
     public function mount()
     {
         $this->author_id = auth()->user()->id;
@@ -97,11 +85,6 @@ class Table extends Component
     public function paginationView()
     {
         return 'pagination';
-    }
-
-    public function updatedTitle($value)
-    {
-        $this->slug = Str::slug($value);
     }
 
     public function updatedNewImage()
@@ -117,13 +100,6 @@ class Table extends Component
         $this->search = '';
     }
 
-    public function showAddForm()
-    {
-        $this->showTable = false;
-        $this->showEditForm = false;
-        $this->showAddForm = true;
-    }
-
     public function showTable()
     {
         $this->showTable = true;
@@ -133,18 +109,19 @@ class Table extends Component
 
     public function create()
     {
-        $this->showAddForm();
+        return redirect()->to(route('create.post'));
     }
 
     public function save()
     {
-        $data = $this->validate();
+        $this->form->store();
+        // $data = $this->validate();
 
-        $post = Post::create($data);
+        // $post = Post::create($data);
 
         $this->resetExcept(['author_id']);
 
-        return redirect()->to('/posts/edit/'.$post->slug.'/O');
+        return redirect()->to('/posts/edit/'.$this->form->post->slug.'/O');
 
         session()->flash('message', 'Post Successfully added.');
         session()->flash('alertType', 'success');
@@ -193,27 +170,6 @@ class Table extends Component
             : $query
                 ->where('category_id', $this->categoryQuery);
     }
-    // protected function applyStatusFilter($query)
-    // {
-    //     switch ($this->statusQuery) {
-    //         case 'Draft':
-    //           $temp = '';
-    //           break;
-    //         case 'Published':
-    //           $temp = '"<=" , now()';
-    //           break;
-    //         case 'Pending Publication':
-    //           $temp = '> now()';
-    //           break;
-    //         default:
-
-    //       }
-
-    //     return $this->statusQuery === ''
-    //         ? $query
-    //         : $query
-    //             ->where('published_at', $temp);
-    // }
 
     public function render()
     {
@@ -227,8 +183,4 @@ class Table extends Component
             'posts' => $query->paginate(10),
         ]);
     }
-
-    //     ->when($this->statusQuery != '', function ($query) {
-    //         $query->where('published_at', $this->statusQuery);
-    //     })
 }

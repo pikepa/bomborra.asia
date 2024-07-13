@@ -28,8 +28,8 @@ test('when the post title is changed the slug changes', function () {
         'title' => 'this-is-a-fake-title', ]);
 
     Livewire::test(EditPost::class, ['slug' => $post->slug, 'origin' => 'P'])
-        ->set('title', 'this is a new title')
-        ->call('update', $post->id);
+        ->set('form.title', 'this is a new title')
+        ->call('update');
 
     $this->assertDatabaseHas('posts', ['slug' => 'this-is-a-new-title']);
 });
