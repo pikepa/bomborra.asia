@@ -1,11 +1,9 @@
 <div>
     <menus class="grid grid-cols-1 border-b-2 ">
 
-        <livewire:menus.menu-top />
 
         <x-menus.menu-middle />
 
-        <livewire:menus.menu-bottom />
 
     </menus>
     <div>
