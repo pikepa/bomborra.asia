@@ -30,7 +30,7 @@
     <div class="my-2 overflow-x-auto ">
       <div class="flex flex-row justify-left items-center py-2 ">
         <div class="">
-          <x-input wire:model.debounce.250ms="search" class="p-2 border-2 border-gray-600 " placeholder="Search Title"></x-input>
+          <x-input wire:model.live="search" class="p-2 border-2 border-gray-600 " placeholder="Search Title"></x-input>
         </div>
         <div class="ml-4">
           <x-button.link wire:click="$toggle('showFilters')">
