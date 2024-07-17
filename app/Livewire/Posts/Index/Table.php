@@ -112,21 +112,6 @@ class Table extends Component
         return redirect()->to(route('create.post'));
     }
 
-    public function save()
-    {
-        $this->form->store();
-        // $data = $this->validate();
-
-        // $post = Post::create($data);
-
-        $this->resetExcept(['author_id']);
-
-        return redirect()->to('/posts/edit/'.$this->form->post->slug.'/O');
-
-        session()->flash('message', 'Post Successfully added.');
-        session()->flash('alertType', 'success');
-    }
-
     public function delete($id)
     {
         $post = Post::findOrFail($id);
