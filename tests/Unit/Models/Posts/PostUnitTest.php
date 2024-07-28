@@ -1,7 +1,7 @@
 <?php
 
+use App\Livewire\CreatePost;
 use App\Livewire\Posts\EditPost;
-use App\Livewire\Posts\Index\Table;
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
@@ -14,7 +14,7 @@ beforeEach(function () {
 });
 
 test('Post Validation rules on save', function ($field, $value, $rule) {
-    Livewire::test(Table::class)
+    Livewire::test(CreatePost::class)
         ->set($field, $value)
         ->call('save')
         ->assertHasErrors([$field => $rule]);
@@ -28,8 +28,8 @@ test('when the post title is changed the slug changes', function () {
         'title' => 'this-is-a-fake-title', ]);
 
     Livewire::test(EditPost::class, ['slug' => $post->slug, 'origin' => 'P'])
-        ->set('title', 'this is a new title')
-        ->call('update', $post->id);
+        ->set('form.title', 'this is a new title')
+        ->call('update');
 
     $this->assertDatabaseHas('posts', ['slug' => 'this-is-a-new-title']);
 });

@@ -33,9 +33,9 @@ test('an authorised user can edit a post page', function () {
 
     //Act and Assert
     Livewire::test(EditPost::class, ['origin' => 'D', 'slug' => $post->slug])
-        ->set('title', 'This title needs to be over ten characters')
-        ->set('body', 'This body needs to be over ten characters')
-        ->set('meta_description', 'This meta_description needs to be over ten characters')
+        ->set('form.title', 'This title needs to be over ten characters')
+        ->set('form.body', 'This body needs to be over ten characters')
+        ->set('form.meta_description', 'This meta_description needs to be over ten characters')
         ->call('update', $post->id)
         ->assertSuccessful();
 

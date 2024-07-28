@@ -26,7 +26,7 @@ class ShowPost extends Component
                 return redirect('/login')->with('status', 'Not Authorized!');
             }
         }
-        $this->post = Post::find($post->id);
+        $this->post = $post;
     }
 
     public function render()

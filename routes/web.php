@@ -5,6 +5,7 @@ use App\Http\Controllers\ManageSubscriberController;
 use App\Http\Controllers\UnsubscribeController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\WpApiController;
+use App\Livewire\CreatePost;
 use App\Livewire\Emails\CreateUpdateEmail;
 use App\Livewire\Links\ManageLinks;
 use App\Livewire\Pages\DashStandardPage;
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard/{page?}', DashStandardPage::class)->name('dashboard');
     Route::get('siteupdates', ShowPostUpdates::class)->name('site-updates');
     Route::get('manage/subscribers', ManageSubscribers::class)->name('manage.subscribers');
+    Route::get('/post/create', CreatePost::class)->name('create.post');
     Route::get('posts/edit/{slug}/{origin}', EditPost::class)->name('edit.post');
     Route::get('manage/links', ManageLinks::class)->name('manage.links');
     Route::get('email/composeandsendupdate', CreateUpdateEmail::class)->name('email.compose');
