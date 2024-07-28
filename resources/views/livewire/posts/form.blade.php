@@ -1,5 +1,5 @@
 <div >
-    <div class="flex justify-between border-2 rounded-lg p-4">
+    <div wire:ignore class="flex justify-between border-2 rounded-lg p-4">
         <div  class="flex-1 mr-4 space-y-6">
             <!-- Post Title -->
             <x-input.group for="title" label="Title" width="full">

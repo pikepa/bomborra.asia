@@ -38,14 +38,12 @@ class CreatePost extends Component
 
         session()->flash('message', 'Post Successfully added.');
         session()->flash('alertType', 'success');
-
     }
 
     public function mount()
     {
         $this->form->post = new Post;
         $this->form->author_id = Auth::id();
-
     }
 
     public function render()

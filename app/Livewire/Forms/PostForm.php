@@ -87,8 +87,11 @@ class PostForm extends Form
     {
         $this->slug = Str::slug($this->title);
 
-        $this->validate();
+        $data = $this->validate();
 
-        $this->post->update($this->all());
+        $this->post->update($data);
+
+        $this->setpost($this->post);
+        //  $this->post->update($this->all());
     }
 }
