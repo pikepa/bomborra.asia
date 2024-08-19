@@ -29,12 +29,12 @@ Route::get('home', HomeController::class)->name('home');
 Route::resource('/subscribers', ManageSubscriberController::class)->only(['create', 'store']);
 Route::Any('/subscribers/{id}/unsubscribe', UnsubscribeController::class)->middleware('signed')->name('unsubscribe');
 
+Route::get('latest', ShowLatestPosts::class)->name('posts.latest');
 Route::Any('verifyOTP/{id}/{otp}', VerifySubscriber::class);
 Route::get('posts/{slug}', ShowPost::class)->name('showpost');
 Route::get('category/posts/{cat_slug}', ShowCategoryPosts::class)->name('categoryposts');
 Route::get('channel/posts/{chan_slug}', ShowChannelPosts::class)->name('channelposts');
-Route::get('vault/', ShowVaultPosts::class)->name('posts.vault');
-Route::get('latest/', ShowLatestPosts::class)->name('posts.latest');
+Route::get('vault', ShowVaultPosts::class)->name('posts.vault');
 
 /*
 * App Routes

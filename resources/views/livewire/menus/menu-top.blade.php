@@ -40,16 +40,16 @@
     </div>
 
     <div class="hidden uppercase sm:flex flex-col justify-left sm:flex-row sm:justify-between sm:items-center p-2 ">
-        <a href="/home">
+        <a href="{{route('home')}}">
             <div>Home</div>
         </a>
-        <a href="/latest">
+        <a href="{{route('posts.latest')}}">
             <div>Recent Posts</div>
         </a>
         @foreach($m_categories as $category)
 
         <a wire:key="'main'.{{ $category->id }}"
-            href="/category/posts/{{$category->slug}}">
+            href="{{ route('categoryposts',[$category->slug ]) }}">
             <div>{{$category->name}}</div>
         </a>
         @endforeach
