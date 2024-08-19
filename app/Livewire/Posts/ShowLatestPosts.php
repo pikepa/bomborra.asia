@@ -11,7 +11,7 @@ class ShowLatestPosts extends Component
 {
     use WithPagination;
 
-    public $period = 3;
+    public $period = 6;
 
     public function updatedPeriod()
     {
