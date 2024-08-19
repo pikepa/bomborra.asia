@@ -15,7 +15,7 @@ class ShowLatestPosts extends Component
 
     public function updatedPeriod()
     {
-        $this->refresh();
+        $this->resetPage();
     }
 
     public function render()

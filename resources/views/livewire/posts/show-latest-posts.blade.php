@@ -43,10 +43,15 @@
 </div>
                     <div class=" overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-2 bg-cyan-100 border-b border-gray-200">
+                            @if($posts->count() > 0 )
                             @foreach($posts as $post)
+
                             <x-listings.image-text-combo :post="$post" />
 
                             @endforeach
+                            @else
+                            <div class="p-2">Sorry, there are no Articles within this time period</div>
+                            @endif()
                         </div>
                     </div>
                 </div>
