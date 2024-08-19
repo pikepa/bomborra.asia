@@ -29,7 +29,7 @@
     <div class="ml-4 text-base flex items-center space-x-4 ">
         <div>Our offerings for the last </div>
         <div class="flex justify-start items-center space-x-2">
-            <x-input.select wire:model='period' class="rounded-2xl">
+            <x-input.select wire:model='period' class="rounded-2xl border-0">
                 <option wire:key="months.{{ 3 }}" value="3">3</option>
                 <option wire:key="months.{{ 6 }}" value="6">6</option>
                 <option wire:key="months.{{ 9 }}" value="9">9</option>
