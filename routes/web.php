@@ -12,6 +12,7 @@ use App\Livewire\Pages\DashStandardPage;
 use App\Livewire\Posts\EditPost;
 use App\Livewire\Posts\ShowCategoryPosts;
 use App\Livewire\Posts\ShowChannelPosts;
+use App\Livewire\Posts\ShowLatestPosts;
 use App\Livewire\Posts\ShowPost;
 use App\Livewire\Posts\ShowPostUpdates;
 use App\Livewire\Posts\ShowVaultPosts;
@@ -33,6 +34,7 @@ Route::get('posts/{slug}', ShowPost::class)->name('showpost');
 Route::get('category/posts/{cat_slug}', ShowCategoryPosts::class)->name('categoryposts');
 Route::get('channel/posts/{chan_slug}', ShowChannelPosts::class)->name('channelposts');
 Route::get('vault/', ShowVaultPosts::class)->name('posts.vault');
+Route::get('latest/', ShowLatestPosts::class)->name('posts.latest');
 
 /*
 * App Routes

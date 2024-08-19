@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Livewire\Posts;
+
+use App\Models\Post;
+use Carbon\Carbon;
+use Livewire\Component;
+use Livewire\WithPagination;
+
+class ShowLatestPosts extends Component
+{
+    use WithPagination;
+
+    public $period = 3;
+
+    public function updatedPeriod()
+    {
+        $this->refresh();
+    }
+
+    public function render()
+    {
+        return view(
+            'livewire.posts.show-latest-posts',
+            ['posts' => Post::where('published_at', '>', Carbon::now()->subMonth($this->period))
+                ->orderBy('published_at', 'desc')->paginate(12), ]
+        );
+    }
+}

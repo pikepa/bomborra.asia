@@ -43,6 +43,9 @@
         <a href="/home">
             <div>Home</div>
         </a>
+        <a href="/latest">
+            <div>Recent Posts</div>
+        </a>
         @foreach($m_categories as $category)
 
         <a wire:key="'main'.{{ $category->id }}"
