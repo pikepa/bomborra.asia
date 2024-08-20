@@ -16,7 +16,7 @@
                         <a wire:key="mobile-{{ $category->id }}"
                         href="{{ url('/category/posts/'. $category->slug ) }}" 
                         class="hover:font-bold">
-                        {{$category->name }}>
+                        {{$category->name }}
                      </a>
                      </li>
                     @endforeach
@@ -31,7 +31,7 @@
                     <a wire:key="sub-{{ $category->id }}" 
                         href="{{ url('/category/posts/'. $category->slug ) }}" 
                         class="hover:font-bold">
-                        {{$category->name }}> </a>
+                        {{$category->name }} </a>
                     </li>
                     @endforeach
                 </ul>
