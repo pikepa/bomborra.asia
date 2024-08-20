@@ -22,7 +22,7 @@
 
     @stack('childstyles')
     <title>{{  $title ?? 'Bomborra Studio' }}</title>
-
+    @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
