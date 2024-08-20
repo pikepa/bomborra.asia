@@ -24,15 +24,11 @@
                         </div>
                     </div>
 <div class="flex items-center justify-between">
-    <div class="ml-4 text-base flex items-center space-x-4 ">
-        <div>Our offerings for the last </div>
+    <div class="ml-4 text-lg flex items-center space-x-4 ">
+        <div>Our offerings for the last 6 months</div>
         <div class="flex justify-start items-center space-x-2">
-            <x-input.select wire:model.change='period' id="period" class="rounded-2xl border-0">
-                <!-- <option  value="3">3</option> -->
-                <option  value="6">6</option>
-                <!-- <option  value="9">9</option> -->
-            </x-input.select>
-            <div>months</div>
+
+            <!-- <div>months</div> -->
         </div>
     </div>
     <div class="mr-2 pb-2 pt-4">
