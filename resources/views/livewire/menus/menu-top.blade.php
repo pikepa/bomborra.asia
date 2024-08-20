@@ -13,7 +13,7 @@
                     <x-menus.item routename='home'>Home</x-menus.item>
                     @foreach($m_categories as $category)
                     <li >
-                        <a wire:key="'mobile'.{{ $category->id }}"
+                        <a wire:key="mobile-{{ $category->id }}"
                         href="{{ url('/category/posts/'. $category->slug ) }}" 
                         class="hover:font-bold">
                         {{$category->name }}>
@@ -28,7 +28,7 @@
                     <x-menus.item routename='welcome'>About</x-menus.item>
                     @foreach($s_categories as $category)
                     <li >
-                    <a wire:key="{{ $category->id }}" 
+                    <a wire:key="sub-{{ $category->id }}" 
                         href="{{ url('/category/posts/'. $category->slug ) }}" 
                         class="hover:font-bold">
                         {{$category->name }}> </a>
@@ -48,7 +48,7 @@
         </a>
         @foreach($m_categories as $category)
 
-        <a wire:key="'main'.{{ $category->id }}"
+        <a wire:key="main-{{ $category->id }}"
             href="{{ route('categoryposts',[$category->slug ]) }}">
             <div>{{$category->name}}</div>
         </a>
