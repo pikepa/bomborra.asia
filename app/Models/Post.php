@@ -11,8 +11,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Sitemap\Contracts\Sitemapable;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 
-class Post extends Model implements HasMedia
+class Post extends Model implements HasMedia, Sitemapable
 {
     use HasFactory;
     use InteractsWithMedia;
@@ -117,5 +120,20 @@ class Post extends Model implements HasMedia
     public function tags(): HasMany
     {
         return $this->HasMany(Tag::class, 'post_tag');
+    }
+
+    public function toSitemapTag(): Url
+    {
+        return Url::create(route('posts.show', $this->slug))
+            ->setLastModificationDate($this->updated_at)
+            ->setChangeFrequency('yearly')
+            ->setPriority(0.8);
+    }
+
+    public function CreateSitemap()
+    {
+        Sitemap::create()
+            ->add(Post::all()
+                ->writeToFile(public_path('sitemap.xml')));
     }
 }

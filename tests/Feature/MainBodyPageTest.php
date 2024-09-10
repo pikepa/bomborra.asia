@@ -7,6 +7,8 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
+use function Spatie\RouteTesting\routeTesting;
+
 it('can load the home page', function () {
     $this->get('/home')
         ->assertStatus(200)
@@ -61,3 +63,5 @@ test(' A guest can see a subscribe link on the home page', function () {
     //Act and Assert
     expect($this->get('/home'))->assertSee('Subscribe');
 });
+routeTesting('all routes')
+    ->assertSuccessful();
