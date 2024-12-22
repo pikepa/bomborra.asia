@@ -69,18 +69,18 @@ class EditPost extends Component
     ];
 
     protected $rules =
-    [
-        'title' => 'required|min:10|max:250',
-        'slug' => 'required',
-        'body' => 'required|min:20',
-        'meta_description' => 'required|min:20|max:500',
-        'is_in_vault' => 'required|boolean',
-        'author_id' => 'required|integer',
-        'category_id' => 'required|integer',
-        'channel_id' => 'required|integer',
-        'published_at' => '',
-        'cover_image' => 'nullable|url',
-    ];
+        [
+            'title' => 'required|min:10|max:250',
+            'slug' => 'required',
+            'body' => 'required|min:20',
+            'meta_description' => 'required|min:20|max:500',
+            'is_in_vault' => 'required|boolean',
+            'author_id' => 'required|integer',
+            'category_id' => 'required|integer',
+            'channel_id' => 'required|integer',
+            'published_at' => '',
+            'cover_image' => 'nullable|url',
+        ];
 
     public function populate()
     {
@@ -162,8 +162,8 @@ class EditPost extends Component
         // $deletepost = Post::find($this->post->id);
         // $deletepost->unpublish();
         // $this->post->refresh();
-        $this->published_at = Carbon::make(null);
-        $this->update($this->post->id);
+        $this->post->published_at = Carbon::make(null);
+        $this->post->update();
         $this->post->siteUpdate()->delete();
     }
 }
