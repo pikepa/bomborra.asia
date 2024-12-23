@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Pages;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('Dashboard')]
 class DashStandardPage extends Component
 {
     public $show = 'dash';

@@ -3,32 +3,31 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Channel;
+use Illuminate\Support\Facades\Cache;
+use Livewire\Attributes\Modelable;
 use Livewire\Component;
 
 class ChannelSelect extends Component
 {
-    public $channels;
+    public $queryChannels;   // all channels for select dropdown
 
-    public $chan_id;
-
-    public $channel_id = 0;
+    #[Modelable]
+    public $channel_id;
 
     public function mount($chan_id = null)
     {
         if ($chan_id != null) {
             $this->channel_id = $chan_id;
         }
-        //  dd($chan_id);
-        $this->channels = Channel::get();
+        $this->queryChannels = Channel::whereStatus(1)->orderBy('name', 'asc')->get();
+
+        // $this->queryChannels = Cache::rememberForever('quertChannels', function () {
+        //     return Channel::orderBy('name', 'desc')->get();
+        // });
     }
 
     public function render()
     {
-        return view('livewire.forms.channel-select', $this->channels);
-    }
-
-    public function updatedChannelId()
-    {
-        $this->dispatch('channel_selected', $this->channel_id);
+        return view('livewire.forms.channel-select', $this->queryChannels);
     }
 }
