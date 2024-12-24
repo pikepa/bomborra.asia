@@ -51,7 +51,7 @@ class ManageSubscribers extends Component
 
     public function validateSelected()
     {
-        $this->selectedRowsQuery->update(['validated_at' => Carbon::now()]);
+        $this->selectedRowsQuery->where('validated_at', null)->update(['validated_at' => Carbon::now()]);
 
         $recs = count($this->selected);
         $this->selected = [];
