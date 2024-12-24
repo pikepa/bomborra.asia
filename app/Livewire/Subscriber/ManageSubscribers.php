@@ -20,6 +20,8 @@ class ManageSubscribers extends Component
 
     public $showFilters = false;
 
+    public $showBulkActions = false;
+
     public $filters = [
         'search' => '',
         'status' => '',
@@ -44,6 +46,17 @@ class ManageSubscribers extends Component
         $this->selected = [];
 
         session()->flash('message', $recs.' Subscribers successfully deleted.');
+        session()->flash('alertType', 'success');
+    }
+
+    public function validateSelected()
+    {
+        $this->selectedRowsQuery->where('validated_at', null)->update(['validated_at' => Carbon::now()]);
+
+        $recs = count($this->selected);
+        $this->selected = [];
+
+        session()->flash('message', $recs.' Subscribers successfully validated.');
         session()->flash('alertType', 'success');
     }
 
@@ -88,7 +101,7 @@ class ManageSubscribers extends Component
     {
         $query = Subscriber::query()
             ->when($this->filters['status'], fn ($query, $status) => $status == 'VAL' ? $query->where('validated_at', '<>', null) : $query->whereNull('validated_at'))
-            ->when($this->filters['search'], fn ($query, $search) => $query->where('name', 'like', '%'.$search.'%'))
+            ->when($this->filters['search'], fn ($query, $search) => $query->where('name', 'like', '%'.$search.'%')->orWhere('email', 'like', '%'.$search.'%'))
             ->when($this->filters['val-date-min'], fn ($query, $date) => $query->where('validated_at', '>=', Carbon::parse($date)))
             ->when($this->filters['val-date-max'], fn ($query, $date) => $query->where('validated_at', '<=', Carbon::parse($date)))
             ->when($this->filters['create-date-min'], fn ($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))

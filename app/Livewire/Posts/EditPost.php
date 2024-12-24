@@ -35,7 +35,21 @@ class EditPost extends Component
         'editPost' => 'render',
     ];
 
-    public function body_value_updated($value)
+    // protected $rules =
+    //     [
+    //         'title' => 'required|min:10|max:250',
+    //         'slug' => 'required',
+    //         'body' => 'required|min:20',
+    //         'meta_description' => 'required|min:20|max:500',
+    //         'is_in_vault' => 'required|boolean',
+    //         'author_id' => 'required|integer',
+    //         'category_id' => 'required|integer',
+    //         'channel_id' => 'required|integer',
+    //         'published_at' => '',
+    //         'cover_image' => 'nullable|url',
+    //     ];
+
+    public function populate()
     {
         $this->form->body = $value;
     }
@@ -85,8 +99,6 @@ class EditPost extends Component
             $this->form->published_at = Carbon::parse($this->form->temp_published_at);
         }
         $this->update();
-        //Event
-        // $this->post->publish();
         $postfound = $this->form->post->refresh();
         PostPublished::dispatch($postfound, Carbon::now());
         // $this->dispatch('refreshcomponent');
@@ -94,8 +106,10 @@ class EditPost extends Component
 
     public function unpublishPost()
     {
-        $this->form->published_at = Carbon::make(null);
-        $this->update();
-        // $this->post->siteUpdate()->delete();
+        $this->form->post->published_at = Carbon::make(null);
+        $this->form->post->update();
+        $this->form->post->siteUpdate()->delete();
+
+        return redirect()->to('/posts/'.$this->form->post->slug);
     }
 }

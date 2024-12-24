@@ -34,6 +34,7 @@ test('a guest user can see the create subscriber page', function () {
         ->assertSee('Email Address')
         ->assertSee('Submit');
 });
+
 test('the create subscriber page contains the livewire menu components', function () {
     $this->get('/subscribers/create')
         ->assertSeeLivewire('menus.menu-bottom')
@@ -47,7 +48,10 @@ test('an authorised user can see a list of subscribers', function () {
     $subsc2 = Subscriber::factory()->create();
 
     Livewire::test(ManageSubscribers::class)
-        ->assertSeeInOrder([$subsc1->name, $subsc2->name]);
+        ->assertSeeInOrder([$subsc1->name, $subsc2->name])
+        ->assertSee('Search subscriber name')
+        ->assertSee('Advanced Search')
+        ->assertSee('Bulk Actions');
 });
 
 test('a subscriber can unsubscribe and remove themselves from the list', function () {
@@ -75,7 +79,20 @@ test('a signed in user can filter records via subscriber name', function () {
         ->assertDontSee($subscr2->name)
         ->assertDontSee($subscr3->name);
 });
+test('an authorised user may select multiple subscribers and validate them', function () {
+    $subscr2 = Subscriber::factory()->create();
+    $subscr3 = Subscriber::factory()->create();
 
+    Livewire::test(ManageSubscribers::class)
+        ->set('selected', [$subscr2->id, $subscr3->id])
+        ->assertSee($subscr2->name)
+        ->assertSee($subscr3->name)
+        ->assertSee('Bulk Actions')
+        ->call('validateSelected')
+        ->assertSee('Subscribers successfully validated.')
+        ->assertSee($subscr2->validated_at)
+        ->assertSee($subscr3->validated_at);
+});
 test('a User can select an multiple displayed rows and delete', function () {
     $this->signIn();
 

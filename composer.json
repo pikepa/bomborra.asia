@@ -9,6 +9,7 @@
         "aws/aws-sdk-php": "^3.262",
         "doctrine/dbal": "^3.6",
         "guzzlehttp/guzzle": "^7.2",
+        "hirethunk/verbs": "^0.6.4",
         "laravel/framework": "^10.0",
         "laravel/horizon": "^5.14",
         "laravel/sanctum": "^3.2",
@@ -33,7 +34,6 @@
         "pestphp/pest-plugin-laravel": "^2.0",
         "pestphp/pest-plugin-livewire": "^2.0",
         "spatie/laravel-ignition": "^2.0",
-        "spatie/pest-plugin-route-testing": "^1.0",
         "tightenco/duster": "^1.0"
     },
     "autoload": {
