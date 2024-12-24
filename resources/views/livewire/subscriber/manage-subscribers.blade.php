@@ -39,30 +39,29 @@
     <!-- Advanced Search -->
     <div>
       @if ($showFilters)
-      <div class="bg-cool-gray-200 p-4 rounded shadow-inner ">
-        <div class="flex relative">
+      <div class="bg-cool-gray-800 p-4 rounded shadow-inner ">
+        <div class="flex relative items-start">
           <div class="w-1/3 pr-2 space-y-4">
             <x-input.group inline for="filter-status" label="Status">
-              <x-input.select class='rounded' wire:model="filters.status" id="filter-status">
+              <x-input.select class='rounded' wire:model.live="filters.status" id="filter-status">
                 <option value="" >Select Status...</option>
                  <option value='VAL'>VALIDATED</option>
                  <option value=NULL>UNVALIDATED</option>
               </x-input.select>
             </x-input.group>
-  {{ $filters['status'] }}
           </div>
 
-          <div class="w-1/3 pl-2 space-y-4 invisible">
-            <x-input.group inline for="filter-val-date-min" label="Minimum Validation Date">
+          <div class="w-1/3 pl-2 space-y-4 hidden ">
+            <x-input.group inline  for="filter-val-date-min" label="Minimum Validation Date">
               <x-input.date class="py-2" wire:model="filters.val-date-min" id="filter-val-date-min" placeholder="MM/DD/YYYY" />
             </x-input.group>
 
-            <x-input.group inline for="filter-val-date-max" label="Maximum Validation Date">
+            <x-input.group inline hidden for="filter-val-date-max" label="Maximum Validation Date">
               <x-input.date class="py-2" wire:model="filters.val-date-max" id="filter-val-date-max" placeholder="MM/DD/YYYY" />
             </x-input.group>
           </div>
 
-          <div class="w-1/3 pl-2 space-y-4 invisible">
+          <div class="w-1/3 pl-2 space-y-4 hidden ">
             <x-input.group inline for="filter-create-date-min" label="Minimum Date Created">
               <x-input.date class="py-2" wire:model="filters.create-date-min" id="filter-create-date-min" placeholder="MM/DD/YYYY" />
             </x-input.group>
@@ -72,7 +71,7 @@
             </x-input.group>
           </div>
           <div>
-            <x-button.link wire:click="resetFilters" class="absolute right-0 bottom-0 p-4">Reset Filters</x-button.link>
+            <x-button.link wire:click="resetFilters" class="absolute right-0 top-0 w-32 p-4">Reset Filters</x-button.link>
           </div>
         </div>
 

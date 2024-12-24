@@ -80,7 +80,6 @@ test('a signed in user can filter records via subscriber name', function () {
         ->assertDontSee($subscr3->name);
 });
 test('an authorised user may select multiple subscribers and validate them', function () {
-
     $subscr2 = Subscriber::factory()->create();
     $subscr3 = Subscriber::factory()->create();
 
