@@ -80,10 +80,10 @@
       @endif
     </div>
 
-    <x-table wire:loading.class="opacity-50">
+    <x-table wire:loading class="opacity-50">
       <x-slot name="head">
         <x-table.heading class="pr-0 w-8">
-          <x-input.checkbox wire:model="selectPage" />
+          <x-input.checkbox wire:model.live="selectPage" />
         </x-table.heading>
         <x-table.heading sortable wire:click="sortBy('name')"
           :direction="$sortField === 'name' ? $sortDirection :null">Name</x-table.heading>
@@ -115,7 +115,7 @@
         @forElse($subscribers as $subscriber)
         <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $subscriber->id }}">
           <x-table.cell class="pr-0">
-            <x-input.checkbox wire:model='selected' value="{{ $subscriber->id }}"></x-input.checkbox>
+            <x-input.checkbox wire:model.live='selected' value="{{ $subscriber->id }}"></x-input.checkbox>
           </x-table.cell>
           <x-table.cell class="font-bold"> {{$subscriber->name}}</x-table.cell>
           <x-table.cell>{{$subscriber->email}}</x-table.cell>

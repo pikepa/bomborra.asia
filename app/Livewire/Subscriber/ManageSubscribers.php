@@ -94,7 +94,7 @@ class ManageSubscribers extends Component
 
     public function resetFilters()
     {
-        $this->reset('filters');
+        $this->reset(['filters', 'selected']);
     }
 
     public function getRowsQueryProperty()
