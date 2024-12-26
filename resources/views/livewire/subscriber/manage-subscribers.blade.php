@@ -103,7 +103,7 @@
             @unless($selectAll)
             <div>
             <span>You have selected <strong>{{ $subscribers->count() }}</strong> subscribers, do you want to select all <strong>{{ $subscribers->total() }}</strong>?</span>
-            <x-button.link wire:click='selectAll' class="ml-1  text-blue-600">Select All</x-button.link>
+            <x-button.link wire:click.live='selectAll()' class="ml-1  text-blue-600">Select All</x-button.link>
             </div>
             @else
             <span>You are currently selecting all <strong>{{ $subscribers->total() }}</strong> subscribers.</span>

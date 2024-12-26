@@ -10,17 +10,22 @@ trait WithBulkActions
 
     public $selected = [];
 
-    public function updatedSelectPage($value)
-    {
-        $this->selected = $value
-            ? $this->rows->pluck('id')->map(fn ($id) => (string) $id)
-            : [];
-    }
-
     public function updatedSelected()
     {
         $this->selectAll = false;
         $this->selectPage = false;
+    }
+
+    public function updatedSelectPage($value)
+    {
+        $this->selected = $value
+            ? $this->selectPage
+            : [];
+    }
+
+    public function selectPage()
+    {
+        $this->selected = $this->rows->pluck('id')->map(fn ($id) => (string) $id);
     }
 
     public function selectAll()

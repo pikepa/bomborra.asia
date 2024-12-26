@@ -14,13 +14,13 @@ class ManageSubscribers extends Component
 {
     use WithBulkActions, WithPagination, WithSorting;
 
-    public $searchField = 'name';
+    public $showBulkActions = false;
 
-    public $showAlert = false;
+    public $searchField = 'name';      // check
 
     public $showFilters = false;
 
-    public $showBulkActions = false;
+    public $showAlert = false;
 
     public $filters = [
         'search' => '',
@@ -123,7 +123,7 @@ class ManageSubscribers extends Component
     public function render()
     {
         if ($this->selectAll) {
-            $this->selected = $this->rows->pluck('id')->map(fn ($id) => (string) $id);
+            $this->selectPage();
         }
 
         return view('livewire.subscriber.manage-subscribers', [
