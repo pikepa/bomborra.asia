@@ -23,7 +23,7 @@
     </div>
     <div class="flex justify-between items-center">
       <div class="ml-2 w-1/4">
-        <x-input.text wire:model="search" class="rounded-md p-2 border-2 border-gray-300"
+        <x-input.text wire:model.live="search" class="rounded-md p-2 border-2 border-gray-300"
           placeholder="Search title .."></x-input.text>
       </div>
 

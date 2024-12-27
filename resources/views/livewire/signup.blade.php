@@ -29,7 +29,7 @@
 
             <span>I agree to the</span>
 
-            <x-modal wire:model="showModal">
+            <x-modal wire:model.live="showModal">
                 <x-modal.panel>
 
                     <div class="mt-5 text-gray-600">

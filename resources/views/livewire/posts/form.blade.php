@@ -4,7 +4,7 @@
             <!-- Post Title -->
             <x-input.group for="title" label="Title" width="full">
                 <x-input.text 
-                    wire:model='form.title' 
+                    wire:model.live='form.title' 
                     type="text" 
                     class="form-input w-full rounded" >
                 </x-input.text>
@@ -13,7 +13,7 @@
             <!-- Post Body -->
             <x-input.group  wire:ignore for="body" label="Body" width="full">
                 <x-input.rich-text 
-                    wire:model='form.body' 
+                    wire:model.live='form.body' 
                     :initial-value='$form->body'
                     unique="body" 
                     type="text" />
@@ -22,7 +22,7 @@
             <!-- Meta Description -->
             <x-input.group for="meta_description" label="Meta Description" width="full">
                 <x-input.textarea 
-                    wire:model='form.meta_description' 
+                    wire:model.live='form.meta_description' 
                     type="text" 
                     class="form-input w-full rounded" >
                 </x-input.textarea>
@@ -33,21 +33,21 @@
             <!-- Post Channel -->
             <div>
                 <x-input.group for="Channel_id" label="Channel" width="full">
-                    <livewire:forms.channel-select wire:key="channel_select" wire:model="form.channel_id"/>
+                    <livewire:forms.channel-select wire:key="channel_select" wire:model.live="form.channel_id"/>
                 </x-input.group>
             </div>
 
             <!-- Post Category -->
             <div>
                 <x-input.group for="category" label="Category" width="full">
-                    <livewire:forms.category-select wire:key="category_select" wire:model="form.category_id"/>
+                    <livewire:forms.category-select wire:key="category_select" wire:model.live="form.category_id"/>
                 </x-input.group>
             </div>
 
             <!-- Post is in the Vault -->
             <div>
                 <x-input.group for="is_in_vault" label="Post is in our Vault" width="full">
-                    <input wire:model='form.is_in_vault' type="checkbox" class="ml-2">
+                    <input wire:model.live='form.is_in_vault' type="checkbox" class="ml-2">
                 </x-input.group>
             </div>
 
@@ -71,7 +71,7 @@
                     </label>
                     @if(! $form->published_at)
                         <div>
-                            <input wire:model='form.temp_published_at' type="text" placeholder="DD-MM-YYYY" name="published_at"
+                            <input wire:model.live='form.temp_published_at' type="text" placeholder="DD-MM-YYYY" name="published_at"
                                 format="DD-MM-YYYY" class="form-input rounded mt-1 block w-full">
                         </div>
                     @endif

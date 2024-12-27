@@ -10,6 +10,13 @@ trait WithBulkActions
 
     public $selected = [];
 
+    // public function initializeWithBulkActions()
+    // {
+    //     $this->beforeRender(function () {
+    //         if ($this->selectAll) $this->selectPageRows();
+    //     });
+    // }
+
     public function updatedSelected()
     {
         $this->selectAll = false;
@@ -18,12 +25,13 @@ trait WithBulkActions
 
     public function updatedSelectPage($value)
     {
-        $this->selected = $value
-            ? $this->selectPage
-            : [];
+        if ($value) {
+            return $this->selectPageRows();
+        }
+        $this->selected = [];
     }
 
-    public function selectPage()
+    public function selectPageRows()
     {
         $this->selected = $this->rows->pluck('id')->map(fn ($id) => (string) $id);
     }

@@ -45,13 +45,13 @@
 
 
         <div class="mb-4 mt-2">
-            <form wire:submit.prevent="save">
+            <form wire:submit="save">
                 <div class="font-semibold text-xl pb-4">
                     <label for="load_image">Choose an image to Upload:</label><br>
                 </div>
                 <div class="flex justify-left items-center">
                     <div>
-                        <input type="file" name="load_image" wire:model='photo'>
+                        <input type="file" name="load_image" wire:model.live='photo'>
                         @error('photo') <span class="error">{{ $message }}</span> @enderror
                     </div>
 
