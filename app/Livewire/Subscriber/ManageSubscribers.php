@@ -44,6 +44,7 @@ class ManageSubscribers extends Component
 
         $recs = count($this->selected);
         $this->selected = [];
+        $this->selectPage = false;
 
         session()->flash('message', $recs.' Subscribers successfully deleted.');
         session()->flash('alertType', 'success');
@@ -55,6 +56,7 @@ class ManageSubscribers extends Component
 
         $recs = count($this->selected);
         $this->selected = [];
+        $this->selectPage = false;
 
         session()->flash('message', $recs.' Subscribers successfully validated.');
         session()->flash('alertType', 'success');
@@ -64,7 +66,7 @@ class ManageSubscribers extends Component
     {
         foreach ($this->selected as $value) {
             $subscriber = Subscriber::find($value);
-            dispatch(new SendWebUpdate($subscriber));  //this is a job....
+            dispatch(new SendWebUpdate($subscriber));  // this is a job....
         }
 
         $recs = count($this->selected);
@@ -89,6 +91,7 @@ class ManageSubscribers extends Component
 
     public function updatedFilters()
     {
+        $this->showFilters = false;
         $this->resetPage();
     }
 

@@ -20,7 +20,7 @@ beforeEach(function () {
 
 test('that a post is created with null valued published_at', function () {
     $this->signIn($this->user);
-    //given that we have created a new post
+    // given that we have created a new post
     $post = Post::factory()->create([
         'published_at' => null,
     ]);
@@ -28,7 +28,7 @@ test('that a post is created with null valued published_at', function () {
         ->assertOk()
         ->assertSee('Published :')
         ->assertSee('Publish');
-    //assert that the published_at date is null
+    // assert that the published_at date is null
     $this->assertDatabaseHas('posts', ['published_at' => null]);
 });
 

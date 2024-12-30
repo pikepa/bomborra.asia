@@ -36,8 +36,10 @@ trait WithBulkActions
         $this->selected = $this->rows->pluck('id')->map(fn ($id) => (string) $id);
     }
 
-    public function selectAll()
+    public function selectAll($value)
     {
+        $test = $value;
+        dd('im here');
         $this->selectAll = true;
     }
 

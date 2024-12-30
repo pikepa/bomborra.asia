@@ -16,10 +16,10 @@ beforeEach(function () {
 });
 
 test('an authorised user can see the edit a post page', function () {
-    //Setup
+    // Setup
     $this->signIn($this->user);
     $post = Post::factory()->create();
-    //Act and Assert
+    // Act and Assert
     get('/posts/edit/'.$post->slug.'/P')
         ->assertSuccessful()
         ->assertSee($post->title)
@@ -27,11 +27,11 @@ test('an authorised user can see the edit a post page', function () {
 });
 
 test('an authorised user can edit a post page', function () {
-    //Setup
+    // Setup
     $this->signIn($this->user);
     $post = Post::factory()->create();
 
-    //Act and Assert
+    // Act and Assert
     Livewire::test(EditPost::class, ['origin' => 'D', 'slug' => $post->slug])
         ->set('form.title', 'This title needs to be over ten characters')
         ->set('form.body', 'This body needs to be over ten characters')
