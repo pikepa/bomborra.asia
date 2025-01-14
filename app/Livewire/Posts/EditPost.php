@@ -35,6 +35,10 @@ class EditPost extends Component
         'editPost' => 'render',
     ];
 
+    public function body_value_updated($value)
+    {
+        $this->form->body = $value;
+    }
     // protected $rules =
     //     [
     //         'title' => 'required|min:10|max:250',
