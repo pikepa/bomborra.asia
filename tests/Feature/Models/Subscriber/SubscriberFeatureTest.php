@@ -16,9 +16,7 @@ test('a newsletter subscribe button appears on the welcome screen', function () 
     $channel = Channel::factory()->create(['slug' => 'no-channel']);
 
     $post = Post::factory()->create([
-        'published_at' => now()->subMonth(),
-        'channel_id' => $channel->id,
-        'category_id' => $category->id,
+        'slug' => 'studio-bomborra',
     ]);
     $this->get('/')->assertSuccessful()
         ->assertSee($post->title)
