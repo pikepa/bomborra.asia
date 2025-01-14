@@ -1,0 +1,23 @@
+{
+    "preset": "laravel",
+    "ignore": {
+        "words": [
+            "php",
+            "throwable",
+            "psr",
+            "uuid",
+            "trix",
+            "csrf",
+            "dont",
+            "signup",
+            "youre",
+            "tagless",
+            "searchfield",
+            "unpublish",
+            "wordcount",
+            "filtertitle",
+            "siteupdates"
+        ],
+        "paths": []
+    }
+}
