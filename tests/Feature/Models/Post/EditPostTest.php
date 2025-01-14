@@ -30,23 +30,21 @@ test('an authorised user can edit a post page', function () {
     // Setup
     $this->signIn($this->user);
     $post = Post::factory()->create();
-
+    $body = 'Some string to test the body';
     // Act and Assert
     Livewire::test(EditPost::class, ['origin' => 'D', 'slug' => $post->slug])
+        ->assertSee($post->body)
         ->set('form.title', 'This title needs to be over ten characters')
-        ->set('form.body', 'This body needs to be over ten characters')
+        ->set('form.body', $body)
         ->set('form.meta_description', 'This meta_description needs to be over ten characters')
         ->call('update', $post->id)
+        ->assertSet('form.body', $body)
         ->assertSuccessful();
-
-    $newPost = Post::find($post->id);
-    expect($newPost->title)->toBe('This title needs to be over ten characters');
-    expect($newPost->body)->toBe('This body needs to be over ten characters');
-    expect($newPost->meta_description)->toBe('This meta_description needs to be over ten characters');
 
     $this->assertDatabaseHas('posts', [
         'title' => 'This title needs to be over ten characters',
-        'body' => 'This body needs to be over ten characters',
+        'slug' => 'this-title-needs-to-be-over-ten-characters',
+        'body' => $body,
         'meta_description' => 'This meta_description needs to be over ten characters',
         'is_in_vault' => 0,
     ]);
