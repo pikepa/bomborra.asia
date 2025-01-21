@@ -3,7 +3,7 @@
 use App\Livewire\Links\ManageLinks;
 use Livewire\Livewire;
 
-test('Link Validation rules on save', function ($field, $value, $rule) {
+test('Link Validation rules on save', function ($field, $value, $rule): void {
     $this->signIn();
 
     Livewire::test(ManageLinks::class)

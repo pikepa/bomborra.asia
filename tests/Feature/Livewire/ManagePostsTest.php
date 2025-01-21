@@ -9,25 +9,25 @@ use App\Models\Post;
 use App\Models\User;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->category = Category::factory()->create();
     $this->channel = Channel::factory()->create();
 });
 
-test('it renders successfully', function () {
+test('it renders successfully', function (): void {
     $this->signIn();
     Livewire::test(Table::class)
         ->assertStatus(200);
 });
 
-test('An authorised user sees the Manage Posts page', function () {
+test('An authorised user sees the Manage Posts page', function (): void {
     $this->signIn();
     Livewire::test(Table::class)
         ->assertSee('Posts')
         ->assertSee('A list of all the posts in your account.');
 });
 
-test('A guest can view a published post', function () {
+test('A guest can view a published post', function (): void {
     User::factory()->create();
 
     $post = Post::factory()->create();
@@ -40,7 +40,7 @@ test('A guest can view a published post', function () {
         ->assertSee($post->body);
 });
 
-test('An authorised user can see a list of all posts', function () {
+test('An authorised user can see a list of all posts', function (): void {
     $this->signIn();
 
     $post1 = Post::factory()->create();
@@ -55,7 +55,7 @@ test('An authorised user can see a list of all posts', function () {
         ->assertSee($post2->author->name);
 });
 
-test('When a user hits the edit button the published date is shown', function () {
+test('When a user hits the edit button the published date is shown', function (): void {
     $this->actingAs(User::factory()->create());
 
     $post = Post::factory()->create();
@@ -64,7 +64,7 @@ test('When a user hits the edit button the published date is shown', function ()
         ->assertSee('Published');
 });
 
-test('An authorised user can delete a post', function () {
+test('An authorised user can delete a post', function (): void {
     $this->actingAs(User::factory()->create());
 
     $post = Post::factory()->create();
@@ -78,7 +78,7 @@ test('An authorised user can delete a post', function () {
     $this->assertDatabaseCount('posts', 0);
 });
 
-test('A message is displayed when a user deletes a post', function () {
+test('A message is displayed when a user deletes a post', function (): void {
     $this->signIn();
 
     $post = Post::factory()->create();
@@ -89,7 +89,7 @@ test('A message is displayed when a user deletes a post', function () {
         ->assertSee('Post Successfully deleted');
 });
 
-test('When a user hits the add button the create form is shown', function () {
+test('When a user hits the add button the create form is shown', function (): void {
     $this->signIn();
 
     Livewire::test(Table::class)
@@ -97,7 +97,7 @@ test('When a user hits the add button the create form is shown', function () {
         ->assertSee('Add Post');
 });
 
-test('When a user hits the show table button the main table is shown', function () {
+test('When a user hits the show table button the main table is shown', function (): void {
     $this->signIn();
 
     Livewire::test(Table::class)
@@ -107,7 +107,7 @@ test('When a user hits the show table button the main table is shown', function 
         ->assertSee('Add Post');
 });
 
-test('An authorised user can filter posts by category in the dashboard', function () {
+test('An authorised user can filter posts by category in the dashboard', function (): void {
     $this->signIn();
     $category2 = Category::factory()->create();
     $post = Post::factory()->create(['category_id' => $this->category->id]);
@@ -127,7 +127,7 @@ test('An authorised user can filter posts by category in the dashboard', functio
         ->assertDontSee($post2->title);
 });
 
-test('An authorised user can filter posts by channel in the dashboard', function () {
+test('An authorised user can filter posts by channel in the dashboard', function (): void {
     $this->signIn();
     $channel2 = Channel::factory()->create();
     $post = Post::factory()->create(['channel_id' => $this->channel->id]);
@@ -147,7 +147,7 @@ test('An authorised user can filter posts by channel in the dashboard', function
         ->assertDontSee($post2->title);
 });
 
-test('The posts dashboard page has a clear button which clears filters', function () {
+test('The posts dashboard page has a clear button which clears filters', function (): void {
     $this->signIn();
 
     Livewire::test(Table::class)

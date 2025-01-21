@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Mail;
 
 use function Pest\Laravel\post;
 
-test('an email is sent when a subscriber is created', function () {
+test('an email is sent when a subscriber is created', function (): void {
     Mail::fake();
 
     $email = fake()->email;
@@ -16,7 +16,7 @@ test('an email is sent when a subscriber is created', function () {
     Mail::AssertQueued(SubscribedEmail::class);
 });
 
-test('an email is not sent if subscriber is not created', function () {
+test('an email is not sent if subscriber is not created', function (): void {
     Mail::fake();
 
     $email = fake()->email;
@@ -26,7 +26,7 @@ test('an email is not sent if subscriber is not created', function () {
     Mail::AssertNotSent(SubscribedEmail::class);
 });
 
-test('an OTP is stored in Cache for the subscriber', function () {
+test('an OTP is stored in Cache for the subscriber', function (): void {
     Mail::fake();
 
     $email = fake()->email;

@@ -7,7 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use Livewire\Livewire;
 
-test('any user can view published posts by category', function () {
+test('any user can view published posts by category', function (): void {
     $this->withoutExceptionHandling();
 
     $user = User::factory()->create();
@@ -30,7 +30,7 @@ test('any user can view published posts by category', function () {
         ->assertSee($post->body);
 });
 
-test('a signed in user can view published posts by category', function () {
+test('a signed in user can view published posts by category', function (): void {
     $user = User::factory()->create();
     $category = $category = Category::factory()->create();
     $channel = Channel::factory()->create();
@@ -52,7 +52,7 @@ test('a signed in user can view published posts by category', function () {
         ->assertSee($post->body);
 });
 
-test('a signed in user can view unpublished future posts by category', function () {
+test('a signed in user can view unpublished future posts by category', function (): void {
     $user = User::factory()->create();
     $category = $category = Category::factory()->create();
     $channel = Channel::factory()->create();
@@ -74,7 +74,7 @@ test('a signed in user can view unpublished future posts by category', function 
         ->assertSee($post->body);
 });
 
-test('a signed in user can view unpublished posts by category', function () {
+test('a signed in user can view unpublished posts by category', function (): void {
     $user = User::factory()->create();
     $category = $category = Category::factory()->create();
     $channel = Channel::factory()->create();
@@ -96,7 +96,7 @@ test('a signed in user can view unpublished posts by category', function () {
         ->assertSee($post->body);
 });
 
-test('displays "No Posts within this Category" if colllection is empty', function () {
+test('displays "No Posts within this Category" if colllection is empty', function (): void {
     // Set up
     $user = User::factory()->create();
     $category = Category::factory()->create();

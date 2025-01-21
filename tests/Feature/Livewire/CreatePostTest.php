@@ -6,7 +6,7 @@ use App\Models\Channel;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 
-it('renders successfully', function () {
+it('renders successfully', function (): void {
     Livewire::test(CreatePost::class)
         ->assertStatus(200)
         ->assertSee('Add Post')
@@ -15,7 +15,7 @@ it('renders successfully', function () {
         ->assertSee('Meta Description');
 });
 
-it('creates a post successfully', function () {
+it('creates a post successfully', function (): void {
     $category = Category::factory()->create();
     $channel = Channel::factory()->create();
     $this->signIn();
@@ -37,7 +37,7 @@ it('creates a post successfully', function () {
     //  ->assertRedirect('/posts');
 });
 
-test('When a user hits the add button the published date is not shown', function () {
+test('When a user hits the add button the published date is not shown', function (): void {
     $this->signIn();
     Livewire::test(CreatePost::class)
         ->assertDontSee('Published');

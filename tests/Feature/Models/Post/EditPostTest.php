@@ -9,13 +9,13 @@ use Livewire\Livewire;
 
 use function Pest\Laravel\get;
 
-beforeEach(function () {
+beforeEach(function (): void {
     Category::factory()->create();
     Channel::factory()->create();
     $this->user = User::factory()->create();
 });
 
-test('an authorised user can see the edit a post page', function () {
+test('an authorised user can see the edit a post page', function (): void {
     // Setup
     $this->signIn($this->user);
     $post = Post::factory()->create();
@@ -26,7 +26,7 @@ test('an authorised user can see the edit a post page', function () {
         ->assertSee('Submit');
 });
 
-test('an authorised user can edit a post page', function () {
+test('an authorised user can edit a post page', function (): void {
     // Setup
     $this->signIn($this->user);
     $post = Post::factory()->create();

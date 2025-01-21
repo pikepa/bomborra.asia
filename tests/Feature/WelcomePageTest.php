@@ -5,7 +5,7 @@ use App\Models\User;
 
 use function Pest\Laravel\get;
 
-it('can load the welcome page', function () {
+it('can load the welcome page', function (): void {
     User::factory()->create();
     $post = Post::factory()->create([
         'slug' => 'studio-bomborra',

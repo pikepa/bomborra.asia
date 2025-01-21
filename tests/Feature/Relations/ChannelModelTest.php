@@ -4,7 +4,7 @@ use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
 
-it('has many posts', function () {
+it('has many posts', function (): void {
     // Set up
     $this->signIn();
     Category::factory()->create();

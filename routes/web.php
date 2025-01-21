@@ -39,7 +39,7 @@ Route::get('vault', ShowVaultPosts::class)->name('posts.vault');
 /*
 * App Routes
 */
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function (): void {
     Route::get('dashboard/{page?}', DashStandardPage::class)->name('dashboard');
     Route::get('siteupdates', ShowPostUpdates::class)->name('site-updates');
     Route::get('manage/subscribers', ManageSubscribers::class)->name('manage.subscribers');

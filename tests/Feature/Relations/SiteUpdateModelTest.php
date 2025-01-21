@@ -8,13 +8,13 @@ use App\Models\User;
 
 uses()->group('models');
 
-beforeEach(function () {
+beforeEach(function (): void {
     User::factory()->create();
     Category::factory()->create();
     Channel::factory()->create();
 });
 
-test('a belongs to a post', function () {
+test('a belongs to a post', function (): void {
     //  $this->withoutExceptionHandling();
     $siteupdate = Siteupdate::factory()
         ->has(Post::factory())
@@ -22,7 +22,7 @@ test('a belongs to a post', function () {
     expect($siteupdate->post)
         ->toBeInstanceOf(Post::class);
 });
-test('a user owns a siteupdate', function () {
+test('a user owns a siteupdate', function (): void {
     $user = User::factory()->create();
     $siteupdate = Siteupdate::factory()
         ->create(['user_id' => $user->id]);
@@ -32,7 +32,7 @@ test('a user owns a siteupdate', function () {
     expect($siteupdate->owner->name)
         ->toBe($user->name);
 });
-test('A site update can be filtered via its associate Post title a Filter ', function () {
+test('A site update can be filtered via its associate Post title a Filter ', function (): void {
     $post1 = Post::factory()->create(['title' => 'peter']);
     $post2 = Post::factory()->create(['title' => 'paul']);
 

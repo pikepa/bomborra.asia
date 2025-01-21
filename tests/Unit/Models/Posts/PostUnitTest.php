@@ -8,19 +8,19 @@ use App\Models\Post;
 use App\Models\User;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->user = User::factory()->create();
     $this->signIn($this->user);
 });
 
-test('Post Validation rules on save', function ($field, $value, $rule) {
+test('Post Validation rules on save', function ($field, $value, $rule): void {
     Livewire::test(CreatePost::class)
         ->set($field, $value)
         ->call('save')
         ->assertHasErrors([$field => $rule]);
 })->with('post_validation');
 
-test('when the post title is changed the slug changes', function () {
+test('when the post title is changed the slug changes', function (): void {
     Category::factory()->create();
     Channel::factory()->create();
 

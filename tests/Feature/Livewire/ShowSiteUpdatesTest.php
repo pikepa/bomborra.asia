@@ -6,17 +6,17 @@ use App\Models\SiteUpdate;
 use Carbon\Carbon;
 use Livewire\Livewire;
 
-test('an authorised user can see the Notification link on the dashboard', function () {
+test('an authorised user can see the Notification link on the dashboard', function (): void {
     $this->signIn();
     $this->get('/dashboard')->assertStatus(200)
         ->assertSee('Notifications');
 });
-test('a guest can not see the Notification link on the dashboard', function () {
+test('a guest can not see the Notification link on the dashboard', function (): void {
     $this->get('/dashboard')->assertStatus(302)
         ->assertRedirect('/login');
 });
 
-test('an authorised user can load the SiteUpdate page', function () {
+test('an authorised user can load the SiteUpdate page', function (): void {
     $this->signIn();
     $this->get('/siteupdates')->assertStatus(200)
         ->assertSeeLivewire(ShowPostUpdates::class)
@@ -28,7 +28,7 @@ test('an authorised user can load the SiteUpdate page', function () {
         ->assertSee('Status');
 });
 
-test('a User can see a table of SiteUpdates', function () {
+test('a User can see a table of SiteUpdates', function (): void {
     $this->signIn();
     $siteupdate1 = SiteUpdate::factory()->create(['user_id' => auth()->id()]);
     $siteupdate2 = SiteUpdate::factory()->create(['user_id' => auth()->id()]);
@@ -39,7 +39,7 @@ test('a User can see a table of SiteUpdates', function () {
         ->assertSee($siteupdate2->owner->name);
 });
 
-test('a User can select an individual displayed row and delete', function () {
+test('a User can select an individual displayed row and delete', function (): void {
     $this->signIn();
 
     $siteupdate1 = SiteUpdate::factory()->create();
@@ -57,7 +57,7 @@ test('a User can select an individual displayed row and delete', function () {
         ->assertDontSee($siteupdate3->subject);
 });
 
-test('a User can select multiple displayed rows and delete', function () {
+test('a User can select multiple displayed rows and delete', function (): void {
     $this->signIn();
 
     $siteupdate1 = SiteUpdate::factory()->create();
@@ -76,7 +76,7 @@ test('a User can select multiple displayed rows and delete', function () {
         ->assertDontSee($siteupdate3->subject);
 });
 
-test('a signed in user can filter records via the search field', function () {
+test('a signed in user can filter records via the search field', function (): void {
     $this->signIn();
     // $this->withoutExceptionErrors();
     $post1 = Post::factory()->create(['title' => 'Peter']);
@@ -113,7 +113,7 @@ test('a signed in user can filter records via the search field', function () {
 //         ->assertSeeInOrder([$siteupdate1->subject, $siteupdate2->subject]);
 // });
 
-test('a signed in user can sort records by date', function () {
+test('a signed in user can sort records by date', function (): void {
     $this->signIn();
 
     $siteupdate1 = SiteUpdate::factory()->create(['update_date' => Carbon::now()]);
@@ -129,7 +129,7 @@ test('a signed in user can sort records by date', function () {
         ->assertSeeInOrder([$siteupdate1->post->title, $siteupdate2->post->title]);
 });
 
-test('a signed in user can sort records by status', function () {
+test('a signed in user can sort records by status', function (): void {
     $this->signIn();
 
     $siteupdate1 = SiteUpdate::factory()->create(['status' => 'draft']);

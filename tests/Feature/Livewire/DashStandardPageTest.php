@@ -4,23 +4,23 @@ use App\Livewire\Pages\DashStandardPage;
 use App\Models\User;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->user = User::factory()->create();
 });
 
-test('an authorised user can access the dashboard page', function () {
+test('an authorised user can access the dashboard page', function (): void {
     $this->actingAs($this->user);
 
     $response = $this->get('/dashboard');
     $response->assertStatus(200);
 });
 
-test('a guest can not access the dashboard page', function () {
+test('a guest can not access the dashboard page', function (): void {
     $response = $this->get('/dashboard');
     $response->AssertRedirect('/login');
 });
 
-test('an authorised user can see the manage-categories page', function () {
+test('an authorised user can see the manage-categories page', function (): void {
     $this->actingAs($this->user);
 
     Livewire::test(DashStandardPage::class)
@@ -28,7 +28,7 @@ test('an authorised user can see the manage-categories page', function () {
         ->assertSeeLivewire('category.manage-categories');
 });
 
-test('an authorised user can see the manage-posts page', function () {
+test('an authorised user can see the manage-posts page', function (): void {
     $this->actingAs($this->user);
 
     Livewire::test(DashStandardPage::class)
@@ -37,7 +37,7 @@ test('an authorised user can see the manage-posts page', function () {
         ->assertSeeLivewire('posts.index.table');
 });
 
-test('an authorised user can see the dashboaard page', function () {
+test('an authorised user can see the dashboaard page', function (): void {
     $this->actingAs($this->user);
 
     Livewire::test(DashStandardPage::class)
@@ -45,7 +45,7 @@ test('an authorised user can see the dashboaard page', function () {
         ->assertSee('Dashboard:-');
 });
 
-test('an authorised user can see the channels page', function () {
+test('an authorised user can see the channels page', function (): void {
     $this->actingAs($this->user);
 
     Livewire::test(DashStandardPage::class)
@@ -53,7 +53,7 @@ test('an authorised user can see the channels page', function () {
         ->assertSeeLivewire('channel.manage-channels');
 });
 
-test('an authorised user can see the home link', function () {
+test('an authorised user can see the home link', function (): void {
     $this->actingAs($this->user);
 
     Livewire::test(DashStandardPage::class)

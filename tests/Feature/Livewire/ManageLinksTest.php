@@ -4,16 +4,16 @@ use App\Livewire\Links\ManageLinks;
 use App\Models\Link;
 use Livewire\Livewire;
 
-it('has a links listing page', function () {
+it('has a links listing page', function (): void {
     $this->signin();
     $this->get(route('manage.links'))->assertStatus(200);
 });
 
-test('a guest gets redirected when trying to access links listing page', function () {
+test('a guest gets redirected when trying to access links listing page', function (): void {
     $this->get(route('manage.links'))->assertRedirect('/login', 403);
 });
 
-test('a User can see a table of links', function () {
+test('a User can see a table of links', function (): void {
     $this->signin();
 
     $link1 = Link::factory()->create();
@@ -24,7 +24,7 @@ test('a User can see a table of links', function () {
         ->assertSee($link2->title);
 });
 
-test('an authorised user can create a Link', function () {
+test('an authorised user can create a Link', function (): void {
     $this->signIn();
     $this->withoutExceptionHandling();
 
@@ -45,7 +45,7 @@ test('an authorised user can create a Link', function () {
     expect(Link::latest()->first()->title)->toBe('My Link');
 });
 
-test('an authorised user can update a link', function () {
+test('an authorised user can update a link', function (): void {
     $this->signIn();
     $link = Link::factory()->create();
 
@@ -60,7 +60,7 @@ test('an authorised user can update a link', function () {
     expect(Link::latest()->first()->title)->toBe('My Link has changed');
 });
 
-test('an authorised user can delete a link', function () {
+test('an authorised user can delete a link', function (): void {
     $this->signIn();
     $link = Link::factory()->create();
 
@@ -72,7 +72,7 @@ test('an authorised user can delete a link', function () {
     $this->assertDatabaseCount('links', 0);
 });
 
-test('a signed in user can filter links via title', function () {
+test('a signed in user can filter links via title', function (): void {
     $this->signIn();
 
     $link1 = Link::factory()->create(['title' => 'Peter']);

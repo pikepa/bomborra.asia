@@ -22,7 +22,7 @@ class SiteUpdate extends Model
 
     public function scopeFiltertitle($query, $text = '')
     {
-        return $query->whereHas('post', function ($q) use ($text) {
+        return $query->whereHas('post', function ($q) use ($text): void {
             $q->where('title', 'LIKE', '%'.$text.'%');
         });
     }

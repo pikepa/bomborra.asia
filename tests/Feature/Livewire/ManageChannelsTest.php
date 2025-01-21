@@ -5,16 +5,16 @@ use App\Models\Channel;
 use App\Models\User;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->user = User::factory()->create();
 });
 
-test('a guest cannot access the category index', function () {
+test('a guest cannot access the category index', function (): void {
     $this->get('/dashboard')
         ->assertRedirect('/login');
 });
 
-test('an authorised user can see a channel listing', function () {
+test('an authorised user can see a channel listing', function (): void {
     $this->signIn($this->user);
     $channel = Channel::factory()->create(['status' => true]);
 
@@ -25,7 +25,7 @@ test('an authorised user can see a channel listing', function () {
     $this->assertDatabaseCount('channels', 1);
 });
 
-test('an authorised user can create a channel', function () {
+test('an authorised user can create a channel', function (): void {
     $this->signIn($this->user);
 
     Livewire::test(ManageChannels::class)
@@ -43,7 +43,7 @@ test('an authorised user can create a channel', function () {
     expect(Channel::latest()->first()->slug)->toBe('my-channel');
 });
 
-test('an authorised user can update a channel', function () {
+test('an authorised user can update a channel', function (): void {
     $this->signIn($this->user);
     $channel = Channel::factory()->create();
 
@@ -58,7 +58,7 @@ test('an authorised user can update a channel', function () {
     expect(Channel::latest()->first()->name)->toBe('My Channel');
 });
 
-test('an authorised user can delete a channel', function () {
+test('an authorised user can delete a channel', function (): void {
     $this->signIn($this->user);
     $channel = Channel::factory()->create();
 
