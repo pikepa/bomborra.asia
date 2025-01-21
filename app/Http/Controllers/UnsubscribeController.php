@@ -15,7 +15,7 @@ class UnsubscribeController extends Controller
         $subscriber = Subscriber::findOrFail($request->id);
         $subscriber->delete();
 
-        //Send confirmation email
+        // Send confirmation email
 
         return view('livewire.subscriber.sorry-youre-leaving');
     }

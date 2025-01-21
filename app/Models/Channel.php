@@ -27,7 +27,7 @@ class Channel extends Model
         }
     }
 
-    //Model Relationships
+    // Model Relationships
     public function posts(): HasMany
     {
         return $this->HasMany(Post::class);

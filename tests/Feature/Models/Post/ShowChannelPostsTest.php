@@ -99,13 +99,13 @@ test('a signed in user can view unpublished posts by channel', function () {
 });
 
 test('displays "No Posts within this Channel" if colllection is empty', function () {
-    //Set up
+    // Set up
     $user = User::factory()->create();
     $category = Category::factory()->create();
     $channel = Channel::factory()->create();
 
     // $post=Post::factory()->create(['published_at'=>now()]);
-    //act and Assert
+    // act and Assert
     Livewire::test(ShowChannelPosts::class, ['chan_slug' => $channel->slug])
         ->assertStatus(200)
         ->assertSee('Sorry, there are currently no Articles within this Channel');

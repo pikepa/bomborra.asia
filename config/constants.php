@@ -1,7 +1,7 @@
 <?php
 
 return [
-    //Sample
+    // Sample
     'pagination' => ['items_per_page' => 1],
 
     'publisher' => 'Luke Hunt',
