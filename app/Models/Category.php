@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,11 +27,17 @@ class Category extends Model
 
     protected $fillable = ['name', 'slug', 'description', 'status', 'type', 'parent_id'];
 
-    public function setNameAttribute($value)
+    /**
+     * @return void
+     */
+    public function setNameAttribute(string $value)
     {
         $this->attributes['name'] = ucfirst($value);
     }
 
+    /**
+     * set the attibute to a slug from a Text string
+     */
     public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = Str::slug($value);

@@ -11,18 +11,18 @@ class SubscribedEmail extends Mailable
     use Queueable;
     use SerializesModels;
 
-    public $OTP;
+    public string $OTP;
 
-    public $ID;
+    public int $ID;
 
-    public $subj = 'Please confirm your subscription to Bomborra Media';
+    public string $subj = 'Please confirm your subscription to Bomborra Media';
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($OTP, $ID)
+    public function __construct(string $OTP, int $ID)
     {
         $this->OTP = $OTP;
         $this->ID = $ID;
@@ -30,8 +30,6 @@ class SubscribedEmail extends Mailable
 
     /**
      * Build the message.
-     *
-     * @return $this
      */
     public function build()
     {
