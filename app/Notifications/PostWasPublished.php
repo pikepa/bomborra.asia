@@ -48,8 +48,6 @@ class PostWasPublished extends Notification
      */
     public function toArray(object $notifiable): array
     {
-        dd($post);
-
         return [
             'message' => 'Temporary Placeholder',
         ];

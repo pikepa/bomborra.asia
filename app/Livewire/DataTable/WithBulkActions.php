@@ -39,7 +39,6 @@ trait WithBulkActions
     public function selectAll($value)
     {
         $test = $value;
-        dd('im here');
         $this->selectAll = true;
     }
 

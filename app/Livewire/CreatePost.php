@@ -34,10 +34,11 @@ class CreatePost extends Component
     {
         $this->form->store();
 
-        return redirect()->to('/posts/edit/'.$this->form->slug.'/P');
-
         session()->flash('message', 'Post Successfully added.');
         session()->flash('alertType', 'success');
+
+        return redirect()->to('/posts/edit/'.$this->form->slug.'/P');
+
     }
 
     public function mount()

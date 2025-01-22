@@ -105,7 +105,7 @@ class ShowPostUpdates extends Component
 
     public function makeBlankTransaction()
     {
-        return SiteUpdate::make(['date' => Carbon::now(), 'status' => 'Draft', 'from' => 'pikepeter@gmail.com']);
+        return new SiteUpdate(['date' => Carbon::now(), 'status' => 'Draft', 'from' => 'pikepeter@gmail.com']);
     }
 
     // public function create()

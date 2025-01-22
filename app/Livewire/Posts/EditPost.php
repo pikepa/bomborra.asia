@@ -53,7 +53,7 @@ class EditPost extends Component
     //         'cover_image' => 'nullable|url',
     //     ];
 
-    public function populate()
+    public function populate($value)
     {
         $this->form->body = $value;
     }

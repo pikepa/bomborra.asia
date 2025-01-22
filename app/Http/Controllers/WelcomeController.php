@@ -9,7 +9,7 @@ class WelcomeController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $post = Post::with('author')->whereSlug('studio-bomborra')->get()->first();
+        $post = Post::with('author')->whereSlug('studio-bomborra')->first();
 
         return view('welcome', compact('post'));
     }

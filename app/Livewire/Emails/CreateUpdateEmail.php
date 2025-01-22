@@ -26,7 +26,7 @@ class CreateUpdateEmail extends Component
         $date = Carbon::now()->format('D M d, Y');
         $this->subject = 'Updates from '.env('APP_NAME').' as at '.$date;
         $this->from_email = auth()->user()->email;
-        $this->createdEmail = EmailUpdate::make();
+        $this->createdEmail = new EmailUpdate;
     }
 
     public function render()

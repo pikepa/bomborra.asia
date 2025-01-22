@@ -13,7 +13,7 @@ class CreateSiteUpdate
     public function handle(PostPublished $event): void
     {
         // create a record in the site_update for when a post is updated
-        $siteupdate = SiteUpdate::wherePostId($event->post->id)->get()->first();
+        $siteupdate = SiteUpdate::wherePostId($event->post->id)->first();
         if (! $siteupdate) {
             $event->post->siteupdate()->create([
                 'post_id' => $event->post->id,

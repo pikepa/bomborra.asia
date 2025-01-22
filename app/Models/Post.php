@@ -12,7 +12,6 @@ use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sitemap\Contracts\Sitemapable;
-use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
 class Post extends Model implements HasMedia, Sitemapable
@@ -90,12 +89,12 @@ class Post extends Model implements HasMedia, Sitemapable
         $this->attributes['slug'] = Str::slug($value);
     }
 
-    public function featuredUrl()
-    {
-        return $this->featured_image
-        ? Storage::disk('s3')->url($this->featured_image)
-        : '';
-    }
+    // public function featuredUrl()
+    // {
+    //     return $this->featured_image
+    //     ? Storage::disk('s3')->url($this->featured_image)
+    //     : '';
+    // }
 
     public function author(): BelongsTo
     {
@@ -128,12 +127,5 @@ class Post extends Model implements HasMedia, Sitemapable
             ->setLastModificationDate($this->updated_at)
             ->setChangeFrequency('yearly')
             ->setPriority(0.8);
-    }
-
-    public function CreateSitemap()
-    {
-        Sitemap::create()
-            ->add(Post::all()
-                ->writeToFile(public_path('sitemap.xml')));
     }
 }
