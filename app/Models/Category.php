@@ -36,7 +36,7 @@ class Category extends Model
     }
 
     /**
-     * set the attibute to a slug from a Text string
+     * set the attribute to a slug from a Text string
      */
     public function setSlugAttribute($value)
     {
