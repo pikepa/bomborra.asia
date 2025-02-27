@@ -17,9 +17,6 @@ export default defineConfig({
     server: {
         host,
         hmr: { host },
-        https: {
-            key: fs.readFileSync(`/Users/peterpike/Library/Application Support/Herd/config/valet/Certificates/${host}.key`),
-            cert: fs.readFileSync(`/Users/peterpike/Library/Application Support/Herd/config/valet/Certificates/${host}.crt`),
-        }
+
     }
 });
