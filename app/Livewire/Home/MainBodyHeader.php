@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Home;
 
 use App\Models\Category;
 use Livewire\Component;
 
-class MainBodyHeader extends Component
+final class MainBodyHeader extends Component
 {
     public $category;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Posts\Index;
 
 use App\Livewire\Forms\PostForm;
@@ -12,11 +14,11 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 #[Title('Manage Posts')]
-class Table extends Component
+final class Table extends Component
 {
-    public PostForm $form;
-
     use Searchable, WithFileUploads, WithPagination;
+
+    public PostForm $form;
 
     public $post_id;
 
@@ -140,6 +142,19 @@ class Table extends Component
         session()->flash('alertType', '');
     }
 
+    public function render()
+    {
+        $query = Post::query()->orderBy('published_at', 'desc');
+        $this->applySearch($query); // (Defined within the Searchable Trait)
+        $this->applyChannelFilter($query);
+        $this->applyCategoryFilter($query);
+        // $this->applyStatusFilter($query);
+
+        return view('livewire.posts.index.table', [
+            'posts' => $query->paginate(10),
+        ]);
+    }
+
     protected function applyChannelFilter($query)
     {
         return $this->channelQuery === ''
@@ -154,18 +169,5 @@ class Table extends Component
             ? $query
             : $query
                 ->where('category_id', $this->categoryQuery);
-    }
-
-    public function render()
-    {
-        $query = Post::query()->orderBy('published_at', 'desc');
-        $this->applySearch($query); // (Defined within the Searchable Trait)
-        $this->applyChannelFilter($query);
-        $this->applyCategoryFilter($query);
-        // $this->applyStatusFilter($query);
-
-        return view('livewire.posts.index.table', [
-            'posts' => $query->paginate(10),
-        ]);
     }
 }

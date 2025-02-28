@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
@@ -16,7 +18,7 @@ beforeEach(function (): void {
 
 test('a belongs to a post', function (): void {
     //  $this->withoutExceptionHandling();
-    $siteupdate = Siteupdate::factory()
+    $siteupdate = SiteUpdate::factory()
         ->has(Post::factory())
         ->create();
     expect($siteupdate->post)
@@ -24,7 +26,7 @@ test('a belongs to a post', function (): void {
 });
 test('a user owns a siteupdate', function (): void {
     $user = User::factory()->create();
-    $siteupdate = Siteupdate::factory()
+    $siteupdate = SiteUpdate::factory()
         ->create(['user_id' => $user->id]);
 
     expect($siteupdate->owner)

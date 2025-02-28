@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Livewire\CreatePost;
 use App\Livewire\Posts\EditPost;
 use App\Models\Category;

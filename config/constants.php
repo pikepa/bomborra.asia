@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     // Sample
     'pagination' => ['items_per_page' => 1],

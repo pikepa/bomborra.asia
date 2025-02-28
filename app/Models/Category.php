@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
-class Category extends Model
+final class Category extends Model
 {
     use HasFactory;
 
@@ -45,16 +45,16 @@ class Category extends Model
 
     public function getDisplayStatusAttribute($status)
     {
-        if ($this->status == true) {
+        if ($this->status === true) {
             return 'Active';
-        } else {
-            return 'Inactive';
         }
+
+        return 'Inactive';
     }
 
     public function getDisplayTypeAttribute()
     {
-        $types = Category::TYPES;
+        $types = self::TYPES;
 
         return $types[$this->type];
     }

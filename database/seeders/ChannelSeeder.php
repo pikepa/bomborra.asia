@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ChannelSeeder extends Seeder
+final class ChannelSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Posts\Index;
 
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Title('Posts')]
-class Page extends Component
+final class Page extends Component
 {
     public function render()
     {

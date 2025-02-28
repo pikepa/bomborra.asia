@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+final class CategoryController
 {
     public function __construct()
     {

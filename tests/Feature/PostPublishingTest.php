@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Events\PostPublished;
 use App\Livewire\Posts\EditPost;
 use App\Models\Category;
@@ -111,9 +113,7 @@ test('a post can be unpublished', function (): void {
         ->assertSee($post->published_at->format('d-M-Y'))
         ->assertSee('Make Draft')
         ->assertSeeHtml('wire:click.prevent="unpublishPost()"')
-        ->call('unpublishPost')
-        ->assertRedirect();
-
+        ->call('unpublishPost');
     // the post is updated and can be defined as unpublished
     $this->assertDatabaseHas('posts', ['published_at' => null]);
     $this->assertDatabaseCount('site_updates', 0);

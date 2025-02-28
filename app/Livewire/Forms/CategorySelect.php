@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Forms;
 
 use App\Models\Category;
@@ -7,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Modelable;
 use Livewire\Component;
 
-class CategorySelect extends Component
+final class CategorySelect extends Component
 {
     public $queryCategories;
 
@@ -16,7 +18,7 @@ class CategorySelect extends Component
 
     public function mount($cat_id = null)
     {
-        if ($cat_id != null) {
+        if ($cat_id !== null) {
             $this->category_id = $cat_id;
         }
         $this->queryCategories = Category::whereStatus(1)->orderBy('name', 'asc')->get();

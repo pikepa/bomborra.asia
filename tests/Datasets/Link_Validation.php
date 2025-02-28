@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 dataset('link_validation', [
     'A link title is required' => ['title', null, 'required'],
     'A link title is Min 6 ' => ['title', str_repeat('*', 5), 'min'],
@@ -14,7 +16,7 @@ dataset('link_validation', [
     'A status is required' => ['status', null, 'required'],
     'A status must be a boolean' => ['status', '23.1', 'boolean'],
 
-    'A position is required' => ['position', null, 'required'],
+    'A position is required' => ['position', '', 'required'],
     'A position must be within a range' => ['position', 'wrong', 'in:LEFT,CENTER,RIGHT'],
 
     'A sort is required' => ['sort', null, 'required'],

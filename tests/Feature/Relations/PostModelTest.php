@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
@@ -23,8 +25,8 @@ it('a post belongs to a channel', function (): void {
 
 test('a post can have a SiteUpdate', function (): void {
     $post = Post::factory()
-        ->has(Siteupdate::factory())
+        ->has(SiteUpdate::factory())
         ->create();
     expect($post->siteupdate)
-        ->toBeInstanceOf(Siteupdate::class);
+        ->toBeInstanceOf(SiteUpdate::class);
 });

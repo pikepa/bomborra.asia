@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Links;
 
 use App\Livewire\DataTable\WithSorting;
@@ -7,11 +9,9 @@ use App\Models\Link;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ManageLinks extends Component
+final class ManageLinks extends Component
 {
     use WithPagination, WithSorting;
-
-    protected $queryString = ['sortField', 'sortDirection'];
 
     public $selected = [];
 
@@ -42,6 +42,8 @@ class ManageLinks extends Component
     public $filters = [
         'search' => '',
     ];
+
+    protected $queryString = ['sortField', 'sortDirection'];
 
     protected $rules = [
         'title' => 'required|min:6|max:50',
@@ -74,7 +76,7 @@ class ManageLinks extends Component
 
     public function updatedPosition($value)
     {
-        $this->position = strtoupper($value);
+        $this->position = mb_strtoupper($value);
     }
 
     /*

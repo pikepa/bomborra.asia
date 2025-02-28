@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Images;
 
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class Upload extends Component
+final class Upload extends Component
 {
     use WithFileUploads;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Livewire\Posts\EditPost;
 use App\Livewire\Posts\Index\Table;
 use App\Livewire\Posts\ShowPost;

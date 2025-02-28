@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Home;
 
 use App\Models\Link;
 use Livewire\Component;
 
-class DisplayLinks extends Component
+final class DisplayLinks extends Component
 {
     public $links = [];
 

@@ -1,14 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire;
 
 use App\Models\EmailUpdate;
 use Carbon\Carbon;
 use Livewire\Component;
 
-class EmailEditor extends Component
+final class EmailEditor extends Component
 {
     public EmailUpdate $createdEmail;
+
+    public $from_email;
+
+    public $selected = [];
+
+    public $content;
+
+    public $subject;
 
     public function mount($selected = null)
     {
@@ -18,14 +28,6 @@ class EmailEditor extends Component
         $this->from_email = auth()->user()->email;
         $this->createdEmail = new EmailUpdate;
     }
-
-    public $from_email;
-
-    public $selected = [];
-
-    public $content;
-
-    public $subject;
 
     public function render()
     {

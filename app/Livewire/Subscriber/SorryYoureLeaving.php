@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Subscriber;
 
 use Livewire\Component;
 
-class SorryYoureLeaving extends Component
+final class SorryYoureLeaving extends Component
 {
     public function render()
     {

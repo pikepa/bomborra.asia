@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Post;
@@ -11,7 +13,7 @@ use Illuminate\Support\Arr;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\SiteUpdate>
  */
-class SiteUpdateFactory extends Factory
+final class SiteUpdateFactory extends Factory
 {
     public function definition(): array
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Posts;
 
 use App\Models\Post;
@@ -7,7 +9,7 @@ use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ShowLatestPosts extends Component
+final class ShowLatestPosts extends Component
 {
     use WithPagination;
 

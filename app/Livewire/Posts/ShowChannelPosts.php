@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Posts;
 
 use App\Models\Channel;
@@ -8,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ShowChannelPosts extends Component
+final class ShowChannelPosts extends Component
 {
     use WithPagination;
 
@@ -27,12 +29,12 @@ class ShowChannelPosts extends Component
                 ['posts' => Post::with('author')->where('channel_id', $this->channel->id)
                     ->orderBy('published_at', 'desc')->paginate(5), ]
             );
-        } else {
-            return view(
-                'livewire.posts.show-channel-posts',
-                ['posts' => Post::published()->with('author')->where('channel_id', $this->channel->id)
-                    ->orderBy('published_at', 'desc')->paginate(5), ]
-            );
         }
+
+        return view(
+            'livewire.posts.show-channel-posts',
+            ['posts' => Post::published()->with('author')->where('channel_id', $this->channel->id)
+                ->orderBy('published_at', 'desc')->paginate(5), ]
+        );
     }
 }

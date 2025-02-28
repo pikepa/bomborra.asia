@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Mail\SubscribedEmail;
@@ -10,15 +12,15 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-class Subscriber extends Model
+final class Subscriber extends Model
 {
     use HasFactory, Notifiable;
-
-    protected $table = 'subscribers';
 
     public $casts = [
         'validated_at' => 'datetime:format("yyyy-mm-dd")',
     ];
+
+    protected $table = 'subscribers';
 
     protected $fillable = ['name', 'email', 'validation_key', 'validated_at'];
 
