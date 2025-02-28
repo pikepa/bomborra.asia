@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Livewire\Subscriber\ManageSubscribers;
 use App\Models\Subscriber;
 use Livewire\Livewire;
 
-test('An authorised User can search for a subscriber in the dashboard', function () {
+test('An authorised User can search for a subscriber in the dashboard', function (): void {
     $this->signIn();
     $subsc1 = Subscriber::factory()->create();
     $subsc = Subscriber::factory()->create(['name' => 'my name']);
@@ -15,7 +17,7 @@ test('An authorised User can search for a subscriber in the dashboard', function
         ->assertDontSee($subsc1->name);
 });
 
-test('An authorised User sees no Subscriber found when too many chars in the search', function () {
+test('An authorised User sees no Subscriber found when too many chars in the search', function (): void {
     $this->signIn();
     $subsc1 = Subscriber::factory()->create();
     $subsc = Subscriber::factory()->create(['name' => 'my name']);

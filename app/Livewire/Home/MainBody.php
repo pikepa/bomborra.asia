@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Home;
 
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class MainBody extends Component
+final class MainBody extends Component
 {
     use WithPagination;
 
@@ -16,12 +18,12 @@ class MainBody extends Component
 
     public $posts;
 
+    public $taglessBody;
+
     public function mount($channel)
     {
         $this->channel = $channel;
     }
-
-    public $taglessBody;
 
     public function render()
     {

@@ -1,0 +1,71 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#1 \\$user of class Illuminate\\\\Auth\\\\Events\\\\Verified constructor expects Illuminate\\\\Contracts\\\\Auth\\\\MustVerifyEmail, App\\\\Models\\\\User\\|null given\\.$#"
+			count: 1
+			path: app/Http/Controllers/Auth/VerifyEmailController.php
+
+		-
+			message: "#^Static method Illuminate\\\\Database\\\\Query\\\\Builder\\:\\:search\\(\\) invoked with 1 parameter, 2 required\\.$#"
+			count: 1
+			path: app/Http/Controllers/TextSearchController.php
+
+		-
+			message: "#^Method Carbon\\\\Carbon\\:\\:subMonth\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: app/Livewire/Posts/ShowLatestPosts.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\Subscriber\\\\ManageSubscribers\\:\\:\\$rows\\.$#"
+			count: 2
+			path: app/Livewire/Subscriber/ManageSubscribers.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\Subscriber\\\\ManageSubscribers\\:\\:\\$rowsQuery\\.$#"
+			count: 2
+			path: app/Livewire/Subscriber/ManageSubscribers.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\Subscriber\\\\ManageSubscribers\\:\\:\\$selectedRowsQuery\\.$#"
+			count: 2
+			path: app/Livewire/Subscriber/ManageSubscribers.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Livewire\\\\Subscriber\\\\ManageSubscribers\\:\\:selectPage\\(\\)\\.$#"
+			count: 1
+			path: app/Livewire/Subscriber/ManageSubscribers.php
+
+		-
+			message: "#^Relation 'categories' is not found in App\\\\Models\\\\Category model\\.$#"
+			count: 1
+			path: app/Models/Category.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$uuid\\.$#"
+			count: 1
+			path: app/Models/Profile.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Post\\:\\:\\$temp_url\\.$#"
+			count: 1
+			path: app/Models/WpApi.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Models\\\\Post\\:\\:setTags\\(\\)\\.$#"
+			count: 1
+			path: app/Models/WpApi.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/Models/WpApi.php
+
+		-
+			message: "#^Method App\\\\Models\\\\WpApi\\:\\:syncTags\\(\\) is unused\\.$#"
+			count: 1
+			path: app/Models/WpApi.php
+
+		-
+			message: "#^Cannot call method getAttributes\\(\\) on stdClass\\.$#"
+			count: 1
+			path: app/Providers/AppServiceProvider.php

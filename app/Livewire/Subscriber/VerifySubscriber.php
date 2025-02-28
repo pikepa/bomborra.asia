@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Subscriber;
 
 use App\Models\Subscriber;
 use Livewire\Component;
 
-class VerifySubscriber extends Component
+final class VerifySubscriber extends Component
 {
     public $subscriber_id;
 

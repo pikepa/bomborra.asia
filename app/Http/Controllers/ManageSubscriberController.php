@@ -1,19 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Actions\Subscriber\RegisterSubscriber;
 use App\Models\Subscriber;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
-class ManageSubscriberController extends Controller
+final class ManageSubscriberController
 {
     /**
      * Show the form for creating a new subscriber.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
         return view('livewire.subscriber.create-subscriber');
     }

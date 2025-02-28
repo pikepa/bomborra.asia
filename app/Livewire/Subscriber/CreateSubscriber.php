@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Subscriber;
 
 use Livewire\Component;
 
-class CreateSubscriber extends Component
+final class CreateSubscriber extends Component
 {
     public function render()
     {

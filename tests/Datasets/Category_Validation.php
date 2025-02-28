@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 dataset('category_validation', [
     'A category name is required' => ['name', null, 'required'],
     'A category name is Min 6 ' => ['name', 'uuuuu', 'min'],

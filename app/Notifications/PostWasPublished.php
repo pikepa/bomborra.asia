@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PostWasPublished extends Notification
+final class PostWasPublished extends Notification
 {
     use Queueable;
 
@@ -27,7 +29,7 @@ class PostWasPublished extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];   //mail
+        return ['database'];   // mail
     }
 
     // /**
@@ -48,8 +50,6 @@ class PostWasPublished extends Notification
      */
     public function toArray(object $notifiable): array
     {
-        dd($post);
-
         return [
             'message' => 'Temporary Placeholder',
         ];

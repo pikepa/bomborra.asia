@@ -1,20 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Livewire\Category\ManageCategories;
 use App\Models\Category;
 use App\Models\User;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->user = User::factory()->create();
 });
 
-test('a guest cannot access the category index', function () {
+test('a guest cannot access the category index', function (): void {
     $this->get('/dashboard')
         ->assertRedirect('/login');
 });
 
-test('an authorised user can create a category', function () {
+test('an authorised user can create a category', function (): void {
     $this->signIn($this->user);
 
     Livewire::test(ManageCategories::class)
@@ -35,7 +37,7 @@ test('an authorised user can create a category', function () {
     expect(Category::latest()->first()->slug)->toBe('foobar');
 });
 
-test('an authorised user can update a category', function () {
+test('an authorised user can update a category', function (): void {
     $this->signIn($this->user);
     $category = Category::factory()->create();
 
@@ -51,7 +53,7 @@ test('an authorised user can update a category', function () {
     expect(Category::latest()->first()->name)->toBe('FOOBAR');
 });
 
-test('an authorised user can delete a category', function () {
+test('an authorised user can delete a category', function (): void {
     $this->signIn($this->user);
     $category = Category::factory()->create();
 
@@ -63,7 +65,7 @@ test('an authorised user can delete a category', function () {
     $this->assertDatabaseCount('categories', 0);
 });
 
-test('an authorised user can see a category listing', function () {
+test('an authorised user can see a category listing', function (): void {
     $this->signIn($this->user);
     $category = Category::factory()->create(['status' => true]);
 

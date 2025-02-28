@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\DataTable;
 
 trait WithBulkActions
@@ -10,12 +12,12 @@ trait WithBulkActions
 
     public $selected = [];
 
-    public function updatedSelectPage($value)
-    {
-        $this->selected = $value
-            ? $this->rows->pluck('id')->map(fn ($id) => (string) $id)
-            : [];
-    }
+    // public function initializeWithBulkActions()
+    // {
+    //     $this->beforeRender(function () {
+    //         if ($this->selectAll) $this->selectPageRows();
+    //     });
+    // }
 
     public function updatedSelected()
     {
@@ -23,8 +25,22 @@ trait WithBulkActions
         $this->selectPage = false;
     }
 
-    public function selectAll()
+    public function updatedSelectPage($value)
     {
+        if ($value) {
+            return $this->selectPageRows();
+        }
+        $this->selected = [];
+    }
+
+    public function selectPageRows()
+    {
+        $this->selected = $this->rows->pluck('id')->map(fn ($id) => (string) $id);
+    }
+
+    public function selectAll($value)
+    {
+        $test = $value;
         $this->selectAll = true;
     }
 

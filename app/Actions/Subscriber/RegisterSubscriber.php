@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Subscriber;
 
 use App\Data\SubscriberData;
 use App\Models\Subscriber;
 use Illuminate\Support\Facades\Validator;
 
-class RegisterSubscriber
+final class RegisterSubscriber
 {
     public function __invoke(array $data): Subscriber
     {

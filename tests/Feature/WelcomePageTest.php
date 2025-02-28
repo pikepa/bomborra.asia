@@ -1,18 +1,16 @@
 <?php
 
-use App\Models\Category;
-use App\Models\Channel;
+declare(strict_types=1);
+
 use App\Models\Post;
 use App\Models\User;
 
 use function Pest\Laravel\get;
 
-it('can load the welcome page', function () {
+it('can load the welcome page', function (): void {
     User::factory()->create();
-    Channel::factory()->create();
-    $category = Category::factory()->create(['slug' => 'welcome']);
     $post = Post::factory()->create([
-        'category_id' => $category->id,
+        'slug' => 'studio-bomborra',
     ]);
 
     get('/')

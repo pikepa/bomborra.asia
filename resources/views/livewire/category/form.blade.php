@@ -2,19 +2,19 @@
 
     <!-- Post Name -->
     <x-input.group for="name" label="Category" width="full">
-        <x-input.text wire:model='name' type="text" class="form-input w-full rounded">
+        <x-input.text wire:model.live='name' type="text" class="form-input w-full rounded">
         </x-input.text>
     </x-input.group>
 
     <!-- Post Slug -->
     <x-input.group for="slug" label="Slug" width="full">
-        <x-input.text wire:model='slug' type="text" readonly class="form-input w-full rounded" value="{{$slug}}">
+        <x-input.text wire:model.live='slug' type="text" readonly class="form-input w-full rounded" value="{{$slug}}">
         </x-input.text>
     </x-input.group>
 
 
     <x-input.group for="description" label="Description" width="full">
-        <x-input.rich-text wire:model.lazy='description' :initial-value=$description unique="body" type="text" />
+        <x-input.rich-text wire:model.blur='description' :initial-value=$description unique="body" type="text" />
     </x-input.group>
 
 
@@ -22,7 +22,7 @@
 
     <div>
         <x-input.group for="type" label="Type" width="full">
-            <select wire:model="type" class="w-full text-lg rounded">
+            <select wire:model.live="type" class="w-full text-lg rounded">
                 <option value=''>Select Type</option>
                 @foreach($types as $key => $type)
                 <option value="{{$key}}">{{$type}}</option>
@@ -34,7 +34,7 @@
     <!-- Category Status -->
     <div>
         <x-input.group for="status" label="Active Status" width="full">
-            <input wire:model='status' type="checkbox" class="ml-2">
+            <input wire:model.live='status' type="checkbox" class="ml-2">
         </x-input.group>
     </div>
 

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\Subscriber;
 
 use function Pest\Laravel\post;
 
-test('a subscriber can submit an OTP and be verified', function () {
+test('a subscriber can submit an OTP and be verified', function (): void {
     $subscriber = Subscriber::factory()->create();
 
     $OTP = $subscriber->cacheTheOTP();
@@ -22,7 +24,7 @@ test('a subscriber can submit an OTP and be verified', function () {
     $this->assertNotNull($subscriber->validated_at);
 });
 
-test('a successful validation is shown to the user.', function () {
+test('a successful validation is shown to the user.', function (): void {
     $subscriber = Subscriber::factory()->create();
 
     $OTP = $subscriber->cacheTheOTP();
@@ -32,7 +34,7 @@ test('a successful validation is shown to the user.', function () {
         ->assertSee('Thank you, your subscription has been verified.');
 });
 
-test('an unsuccessful or duplicate validation is shown to the user.', function () {
+test('an unsuccessful or duplicate validation is shown to the user.', function (): void {
     $subscriber = Subscriber::factory()->create();
 
     $OTP = $subscriber->cacheTheOTP();

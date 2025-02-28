@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -28,7 +30,7 @@ trait HasManageableDate
         $query->whereBetween($column, [now()->startOfMonth(), now()]);
     }
 
-    public function scopeCurrentQurter(Builder $query, string $column = 'created_at'): void
+    public function scopeCurrentQuarter(Builder $query, string $column = 'created_at'): void
     {
         $query->whereBetween($column, [now()->startOfQuarter(), now()]);
     }

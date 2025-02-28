@@ -1,7 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 return [
-    //Sample
+    // Sample
     'pagination' => ['items_per_page' => 1],
 
     'publisher' => 'Luke Hunt',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 dataset('post_validation', [
     'A post title is required' => ['form.title', null, 'required'],
     'A post title is Min 10 ' => ['form.title', str_repeat('*', 9), 'min'],

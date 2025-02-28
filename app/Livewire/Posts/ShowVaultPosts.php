@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Posts;
 
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ShowVaultPosts extends Component
+final class ShowVaultPosts extends Component
 {
     use WithPagination;
 

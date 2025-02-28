@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Subscriber;
 
 use App\Jobs\Subscribers\SendWebUpdate;
@@ -10,17 +12,17 @@ use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ManageSubscribers extends Component
+final class ManageSubscribers extends Component
 {
     use WithBulkActions, WithPagination, WithSorting;
 
-    public $searchField = 'name';
+    public $showBulkActions = false;
 
-    public $showAlert = false;
+    public $searchField = 'name';      // check
 
     public $showFilters = false;
 
-    public $showBulkActions = false;
+    public $showAlert = false;
 
     public $filters = [
         'search' => '',
@@ -44,6 +46,7 @@ class ManageSubscribers extends Component
 
         $recs = count($this->selected);
         $this->selected = [];
+        $this->selectPage = false;
 
         session()->flash('message', $recs.' Subscribers successfully deleted.');
         session()->flash('alertType', 'success');
@@ -55,6 +58,7 @@ class ManageSubscribers extends Component
 
         $recs = count($this->selected);
         $this->selected = [];
+        $this->selectPage = false;
 
         session()->flash('message', $recs.' Subscribers successfully validated.');
         session()->flash('alertType', 'success');
@@ -64,7 +68,7 @@ class ManageSubscribers extends Component
     {
         foreach ($this->selected as $value) {
             $subscriber = Subscriber::find($value);
-            dispatch(new SendWebUpdate($subscriber));  //this is a job....
+            dispatch(new SendWebUpdate($subscriber));  // this is a job....
         }
 
         $recs = count($this->selected);
@@ -89,18 +93,19 @@ class ManageSubscribers extends Component
 
     public function updatedFilters()
     {
+        $this->showFilters = false;
         $this->resetPage();
     }
 
     public function resetFilters()
     {
-        $this->reset('filters');
+        $this->reset(['filters', 'selected']);
     }
 
     public function getRowsQueryProperty()
     {
         $query = Subscriber::query()
-            ->when($this->filters['status'], fn ($query, $status) => $status == 'VAL' ? $query->where('validated_at', '<>', null) : $query->whereNull('validated_at'))
+            ->when($this->filters['status'], fn ($query, $status) => $status === 'VAL' ? $query->where('validated_at', '<>', null) : $query->whereNull('validated_at'))
             ->when($this->filters['search'], fn ($query, $search) => $query->where('name', 'like', '%'.$search.'%')->orWhere('email', 'like', '%'.$search.'%'))
             ->when($this->filters['val-date-min'], fn ($query, $date) => $query->where('validated_at', '>=', Carbon::parse($date)))
             ->when($this->filters['val-date-max'], fn ($query, $date) => $query->where('validated_at', '<=', Carbon::parse($date)))
@@ -123,7 +128,7 @@ class ManageSubscribers extends Component
     public function render()
     {
         if ($this->selectAll) {
-            $this->selected = $this->rows->pluck('id')->map(fn ($id) => (string) $id);
+            $this->selectPage();
         }
 
         return view('livewire.subscriber.manage-subscribers', [

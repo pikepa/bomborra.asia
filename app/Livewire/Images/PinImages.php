@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Images;
 
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class PinImages extends Component
+final class PinImages extends Component
 {
     public $image_id;
 

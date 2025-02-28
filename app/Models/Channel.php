@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Channel extends Model
+final class Channel extends Model
 {
     use HasFactory;
 
@@ -20,14 +22,14 @@ class Channel extends Model
 
     public function getDisplayStatusAttribute($status)
     {
-        if ($this->status == true) {
+        if ($this->status === true) {
             return 'Active';
-        } else {
-            return 'Inactive';
         }
+
+        return 'Inactive';
     }
 
-    //Model Relationships
+    // Model Relationships
     public function posts(): HasMany
     {
         return $this->HasMany(Post::class);

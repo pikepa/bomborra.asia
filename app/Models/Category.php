@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -7,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
-class Category extends Model
+final class Category extends Model
 {
     use HasFactory;
 
@@ -25,11 +27,17 @@ class Category extends Model
 
     protected $fillable = ['name', 'slug', 'description', 'status', 'type', 'parent_id'];
 
-    public function setNameAttribute($value)
+    /**
+     * @return void
+     */
+    public function setNameAttribute(string $value)
     {
         $this->attributes['name'] = ucfirst($value);
     }
 
+    /**
+     * set the attribute to a slug from a Text string
+     */
     public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = Str::slug($value);
@@ -37,16 +45,16 @@ class Category extends Model
 
     public function getDisplayStatusAttribute($status)
     {
-        if ($this->status == true) {
+        if ($this->status === true) {
             return 'Active';
-        } else {
-            return 'Inactive';
         }
+
+        return 'Inactive';
     }
 
     public function getDisplayTypeAttribute()
     {
-        $types = Category::TYPES;
+        $types = self::TYPES;
 
         return $types[$this->type];
     }

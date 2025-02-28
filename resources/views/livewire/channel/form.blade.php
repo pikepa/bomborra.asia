@@ -1,20 +1,20 @@
 <div class="p-4 space-y-6 rounded-lg border-2">
     <!-- channel Name -->
     <x-input.group for="name" label="Channel" width="full">
-        <x-input.text wire:model='name' type="text" class="form-input w-full rounded">
+        <x-input.text wire:model.live='name' type="text" class="form-input w-full rounded">
         </x-input.text>
     </x-input.group>
 
     <!-- channel Sort -->
     <x-input.group for="sort" label="Sort" width="full">
-        <x-input.text wire:model='sort' type="text" class="form-input w-full rounded" value="{{$sort}}">
+        <x-input.text wire:model.live='sort' type="text" class="form-input w-full rounded" value="{{$sort}}">
         </x-input.text>
     </x-input.group>
 
     <!-- channel Status -->
     <div>
         <x-input.group for="status" label="Active Status" width="full">
-            <input type="checkbox" wire:model="status"  class="ml-2">
+            <input type="checkbox" wire:model.live="status"  class="ml-2">
         </x-input.group>
     </div>
 

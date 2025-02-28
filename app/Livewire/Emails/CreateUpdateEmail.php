@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Emails;
 
 use App\Livewire\Posts\ShowPostUpdates;
@@ -8,7 +10,7 @@ use App\Models\SiteUpdate;
 use Carbon\Carbon;
 use Livewire\Component;
 
-class CreateUpdateEmail extends Component
+final class CreateUpdateEmail extends Component
 {
     public $selected = [];
 
@@ -26,7 +28,7 @@ class CreateUpdateEmail extends Component
         $date = Carbon::now()->format('D M d, Y');
         $this->subject = 'Updates from '.env('APP_NAME').' as at '.$date;
         $this->from_email = auth()->user()->email;
-        $this->createdEmail = EmailUpdate::make();
+        $this->createdEmail = new EmailUpdate;
     }
 
     public function render()

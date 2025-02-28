@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Events\PostPublished;
 use App\Livewire\Posts\EditPost;
 use App\Models\Category;
@@ -12,15 +14,15 @@ use Livewire\Livewire;
 
 use function Pest\Laravel\get;
 
-beforeEach(function () {
+beforeEach(function (): void {
     Category::factory()->create();
     Channel::factory()->create();
     $this->user = User::factory()->create();
 });
 
-test('that a post is created with null valued published_at', function () {
+test('that a post is created with null valued published_at', function (): void {
     $this->signIn($this->user);
-    //given that we have created a new post
+    // given that we have created a new post
     $post = Post::factory()->create([
         'published_at' => null,
     ]);
@@ -28,11 +30,11 @@ test('that a post is created with null valued published_at', function () {
         ->assertOk()
         ->assertSee('Published :')
         ->assertSee('Publish');
-    //assert that the published_at date is null
+    // assert that the published_at date is null
     $this->assertDatabaseHas('posts', ['published_at' => null]);
 });
 
-test('that a published post displays a draft button ', function () {
+test('that a published post displays a draft button ', function (): void {
     $this->signIn($this->user);
 
     $post = Post::factory()->create();
@@ -52,7 +54,7 @@ test('that a published post displays a draft button ', function () {
     // $this->assertEquals(null, $post->published_at);
 });
 
-test('that an upublished post displays a publish button ', function () {
+test('that an upublished post displays a publish button ', function (): void {
     $this->signIn($this->user);
     $post = Post::factory()->create(['published_at' => null]);
     Livewire::test(EditPost::class, ['origin' => 'P', 'slug' => $post->slug])
@@ -63,7 +65,7 @@ test('that an upublished post displays a publish button ', function () {
         ->assertSeeHtml('wire:click.prevent="publishPost()"');
 });
 
-test('a post can be published and Post published event fired', function () {
+test('a post can be published and Post published event fired', function (): void {
     Event::fake();
     // given we have an unpublished post
     $post = Post::factory()->create(['published_at' => Carbon::make(null)]);
@@ -82,7 +84,7 @@ test('a post can be published and Post published event fired', function () {
     expect($post->published_status)->toBe('Published');
 });
 
-test('a post can be published in the future and has a site_update record', function () {
+test('a post can be published in the future and has a site_update record', function (): void {
     $this->signIn($this->user);
     // given we have an unpublished post
     $post = Post::factory()->create(['published_at' => null]);
@@ -100,7 +102,7 @@ test('a post can be published in the future and has a site_update record', funct
     expect($post->published_status)->toBe('Publication Pending');
 });
 
-test('a post can be unpublished', function () {
+test('a post can be unpublished', function (): void {
     $this->signIn($this->user);
     // given we have an published post
     $post = Post::factory()->create(['published_at' => Carbon::now()]);

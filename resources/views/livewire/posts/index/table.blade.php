@@ -44,18 +44,18 @@
             <div class="flex flex-row justify-start items-center  space-x-4">
               <div class="w-1/4">
                 <x-input.group inline for="channel" label="Channel Filter">
-                  <livewire:forms.channel-select wire:model="channelQuery"/>
+                  <livewire:forms.channel-select wire:model.live="channelQuery"/>
                 </x-input.group>
               </div>
               <div class="w-1/4">
                 <x-input.group inline for="filter-category" label="Category Filter">
-                  <livewire:forms.category-select wire:model="categoryQuery"/>
+                  <livewire:forms.category-select wire:model.live="categoryQuery"/>
                 </x-input.group>
               </div>
               <div class="mt-2 hidden">
                 <x-input.group inline for="filter-status" label="Status Filter">
                   <div class="mb-2 ">
-                    <select wire:model='statusQuery' class=" rounded-lg p-1 border-2 border-gray-600 "
+                    <select wire:model.live='statusQuery' class=" rounded-lg p-1 border-2 border-gray-600 "
                       placeholder="Select Status">
                       <option value="">Select Status</option>
                       @foreach($queryStatuses as $status_item)

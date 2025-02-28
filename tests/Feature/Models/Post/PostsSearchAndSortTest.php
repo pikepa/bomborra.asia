@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Livewire\Posts\Index\Table;
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->category = Category::factory()->create();
     $this->channel = Channel::factory()->create();
 });
 
-test('An authorised User can search for a post in the dashboard', function () {
+test('An authorised User can search for a post in the dashboard', function (): void {
     $this->signIn();
     $post1 = Post::factory()->create();
     $post = Post::factory()->create(['title' => 'My Title']);
@@ -22,7 +24,7 @@ test('An authorised User can search for a post in the dashboard', function () {
         ->assertDontSee($post1->title);
 });
 
-test('An authorised User sees no Post found when too many chars in the search', function () {
+test('An authorised User sees no Post found when too many chars in the search', function (): void {
     $this->signIn();
     $post1 = Post::factory()->create();
     $post = Post::factory()->create(['title' => 'My Title']);

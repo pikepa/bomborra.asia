@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
 
-it('has many posts', function () {
-    //Set up
+it('has many posts', function (): void {
+    // Set up
     $this->signIn();
     Category::factory()->create();
 

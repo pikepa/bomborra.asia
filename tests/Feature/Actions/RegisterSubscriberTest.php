@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Actions\Subscriber\RegisterSubscriber;
 use App\Models\Subscriber;
 
 use function Pest\Laravel\post;
 
-test('anyone can subscribe to the Newsletter', function () {
+test('anyone can subscribe to the Newsletter', function (): void {
     $action = app(RegisterSubscriber::class);
 
     $subscriber = $action([
@@ -18,7 +20,7 @@ test('anyone can subscribe to the Newsletter', function () {
         ->name->toBe('Peter Piper');
 });
 
-test('an new email must be unique on the subscribers table', function () {
+test('an new email must be unique on the subscribers table', function (): void {
     $email = fake()->email;
 
     Subscriber::create(['email' => $email]);
@@ -28,7 +30,7 @@ test('an new email must be unique on the subscribers table', function () {
         ->assertInvalid(['email' => 'The email has already been taken.']);
 });
 
-test('an new email must be a valid email', function () {
+test('an new email must be a valid email', function (): void {
     $email = fake()->name;
 
     post('/subscribers', ['email' => $email])
@@ -36,13 +38,13 @@ test('an new email must be a valid email', function () {
         ->assertInvalid(['email' => 'The email must be a valid email address.']);
 });
 
-test('an email is required for a subscriber', function () {
+test('an email is required for a subscriber', function (): void {
     post('/subscribers', ['email' => ''])
 
         ->assertInvalid(['email' => 'The email field is required.']);
 });
 
-test('a name must be less than 255chars', function () {
+test('a name must be less than 255chars', function (): void {
     post('/subscribers', ['name' => str_repeat('*', 256)])
 
         ->assertInvalid(['name' => 'The name must not be greater than 255 characters.']);

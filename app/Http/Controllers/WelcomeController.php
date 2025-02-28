@@ -1,18 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class WelcomeController extends Controller
+final class WelcomeController
 {
     public function __invoke(Request $request)
     {
-        $category = Category::where('slug', 'welcome')->first();
-
-        $post = Post::with('author')->whereCategory_id($category->id)->first();
+        $post = Post::with('author')->whereSlug('studio-bomborra')->first();
 
         return view('welcome', compact('post'));
     }

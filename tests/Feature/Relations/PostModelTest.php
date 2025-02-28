@@ -1,18 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Post;
 use App\Models\SiteUpdate;
 use App\Models\User;
 
-beforeEach(function () {
+beforeEach(function (): void {
     User::factory()->create();
     Category::factory()->create();
     Channel::factory()->create();
 });
 
-it('a post belongs to a channel', function () {
+it('a post belongs to a channel', function (): void {
     $post = Post::factory()
         ->has(Channel::factory())
         ->create();
@@ -21,10 +23,10 @@ it('a post belongs to a channel', function () {
         ->toBeInstanceOf(Channel::class);
 });
 
-test('a post can have a SiteUpdate', function () {
+test('a post can have a SiteUpdate', function (): void {
     $post = Post::factory()
-        ->has(Siteupdate::factory())
+        ->has(SiteUpdate::factory())
         ->create();
     expect($post->siteupdate)
-        ->toBeInstanceOf(Siteupdate::class);
+        ->toBeInstanceOf(SiteUpdate::class);
 });

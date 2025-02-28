@@ -53,21 +53,21 @@
 
           <div class="w-1/3 pl-2 space-y-4 hidden ">
             <x-input.group inline  for="filter-val-date-min" label="Minimum Validation Date">
-              <x-input.date class="py-2" wire:model="filters.val-date-min" id="filter-val-date-min" placeholder="MM/DD/YYYY" />
+              <x-input.date class="py-2" wire:model.live="filters.val-date-min" id="filter-val-date-min" placeholder="MM/DD/YYYY" />
             </x-input.group>
 
             <x-input.group inline hidden for="filter-val-date-max" label="Maximum Validation Date">
-              <x-input.date class="py-2" wire:model="filters.val-date-max" id="filter-val-date-max" placeholder="MM/DD/YYYY" />
+              <x-input.date class="py-2" wire:model.live="filters.val-date-max" id="filter-val-date-max" placeholder="MM/DD/YYYY" />
             </x-input.group>
           </div>
 
           <div class="w-1/3 pl-2 space-y-4 hidden ">
             <x-input.group inline for="filter-create-date-min" label="Minimum Date Created">
-              <x-input.date class="py-2" wire:model="filters.create-date-min" id="filter-create-date-min" placeholder="MM/DD/YYYY" />
+              <x-input.date class="py-2" wire:model.live="filters.create-date-min" id="filter-create-date-min" placeholder="MM/DD/YYYY" />
             </x-input.group>
 
             <x-input.group inline for="filter-create-date-max" label="Maximum Date Created">
-              <x-input.date class="py-2" wire:model="filters.crdate-max" id="filter-create-date-max" placeholder="MM/DD/YYYY" />
+              <x-input.date class="py-2" wire:model.live="filters.crdate-max" id="filter-create-date-max" placeholder="MM/DD/YYYY" />
             </x-input.group>
           </div>
           <div>
@@ -80,10 +80,10 @@
       @endif
     </div>
 
-    <x-table wire:loading.class="opacity-50">
+    <x-table wire:loading class="opacity-50">
       <x-slot name="head">
         <x-table.heading class="pr-0 w-8">
-          <x-input.checkbox wire:model="selectPage" />
+          <x-input.checkbox wire:model.live="selectPage" />
         </x-table.heading>
         <x-table.heading sortable wire:click="sortBy('name')"
           :direction="$sortField === 'name' ? $sortDirection :null">Name</x-table.heading>
@@ -103,7 +103,8 @@
             @unless($selectAll)
             <div>
             <span>You have selected <strong>{{ $subscribers->count() }}</strong> subscribers, do you want to select all <strong>{{ $subscribers->total() }}</strong>?</span>
-            <x-button.link wire:click='selectAll' class="ml-1  text-blue-600">Select All</x-button.link>
+            <x-button.link wire:click.='selectAll'
+            class="ml-1  text-blue-600">Select All</x-button.link>
             </div>
             @else
             <span>You are currently selecting all <strong>{{ $subscribers->total() }}</strong> subscribers.</span>
@@ -115,7 +116,7 @@
         @forElse($subscribers as $subscriber)
         <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $subscriber->id }}">
           <x-table.cell class="pr-0">
-            <x-input.checkbox wire:model='selected' value="{{ $subscriber->id }}"></x-input.checkbox>
+            <x-input.checkbox wire:model.live='selected' value="{{ $subscriber->id }}"></x-input.checkbox>
           </x-table.cell>
           <x-table.cell class="font-bold"> {{$subscriber->name}}</x-table.cell>
           <x-table.cell>{{$subscriber->email}}</x-table.cell>

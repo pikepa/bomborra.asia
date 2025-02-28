@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Channel;
@@ -7,7 +9,7 @@ use Illuminate\Http\Request;
 use Livewire\Attributes\Title;
 
 #[Title('Home')]
-class HomeController extends Controller
+final class HomeController
 {
     public function __invoke(Request $request)
     {

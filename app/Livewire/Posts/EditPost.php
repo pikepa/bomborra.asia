@@ -10,9 +10,18 @@ use App\Models\Post;
 use Carbon\Carbon;
 use Livewire\Component;
 
-class EditPost extends Component
+final class EditPost extends Component
 {
     public PostForm $form;
+
+    protected $listeners = [
+        'refreshComponent' => '$refresh',
+        'category_selected',
+        'channel_selected',
+        'body_value_updated',
+        'photoAdded' => '$refresh',
+        'editPost' => 'render',
+    ];
 
     public function mount(string $slug, string $origin)
     {
@@ -26,15 +35,10 @@ class EditPost extends Component
         return view('livewire.posts.edit-post');
     }
 
-    protected $listeners = [
-        'refreshComponent' => '$refresh',
-        'category_selected',
-        'channel_selected',
-        'body_value_updated',
-        'photoAdded' => '$refresh',
-        'editPost' => 'render',
-    ];
-
+    public function body_value_updated($value)
+    {
+        $this->form->body = $value;
+    }
     // protected $rules =
     //     [
     //         'title' => 'required|min:10|max:250',
@@ -49,7 +53,7 @@ class EditPost extends Component
     //         'cover_image' => 'nullable|url',
     //     ];
 
-    public function populate()
+    public function populate($value)
     {
         $this->form->body = $value;
     }
@@ -77,18 +81,18 @@ class EditPost extends Component
         $this->form->update();
         if ($this->form->origin === 'P') {
             return redirect()->to('/posts/'.$this->form->post->slug);
-        } else {
-            return redirect()->to('/dashboard/posts');
         }
+
+        return redirect()->to('/dashboard/posts');
     }
 
     public function cancel()
     {
         if ($this->form->origin === 'P') {
             return redirect()->to('/posts/'.$this->form->post->slug);
-        } else {
-            return redirect()->to('/dashboard/posts');
         }
+
+        return redirect()->to('/dashboard/posts');
     }
 
     public function publishPost()

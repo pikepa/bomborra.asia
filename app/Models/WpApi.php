@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Carbon\Carbon;
 
-class WpApi
+final class WpApi
 {
-    protected $url = 'http://bomborra.asia/wp-json/wp/v2/';
+    private $url = 'http://bomborra.asia/wp-json/wp/v2/';
 
     public function importPosts($page = '1')
     {
@@ -62,14 +64,14 @@ class WpApi
         }
     }
 
-    protected function getJson($url)
+    private function getJson($url)
     {
         $response = file_get_contents($url, false);
 
         return json_decode($response);
     }
 
-    protected function syncPost($data)
+    private function syncPost($data)
     {
         $found = Post::where('id', $data->id)->first();
 
@@ -82,12 +84,12 @@ class WpApi
         }
     }
 
-    protected function carbonDate($date)
+    private function carbonDate($date)
     {
         return Carbon::parse($date);
     }
 
-    protected function createPost($data)
+    private function createPost($data)
     {
         $post = new Post;
         $post->id = $data->id;
@@ -118,7 +120,7 @@ class WpApi
         return $post;
     }
 
-    protected function updatePost($found, $data)
+    private function updatePost($found, $data)
     {
         $post = $found;
         if (! $this->featuredImage($data->_embedded)) {

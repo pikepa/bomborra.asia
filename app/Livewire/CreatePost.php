@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire;
 
 use App\Livewire\Forms\PostForm;
@@ -7,7 +9,7 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class CreatePost extends Component
+final class CreatePost extends Component
 {
     public PostForm $form;
 
@@ -34,10 +36,10 @@ class CreatePost extends Component
     {
         $this->form->store();
 
-        return redirect()->to('/posts/edit/'.$this->form->slug.'/P');
-
         session()->flash('message', 'Post Successfully added.');
         session()->flash('alertType', 'success');
+
+        return redirect()->to('/posts/edit/'.$this->form->slug.'/P');
     }
 
     public function mount()

@@ -1,24 +1,19 @@
 includes:
-    - ./vendor/nunomaduro/larastan/extension.neon
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+    - phpstan-baseline.neon
+
 
 parameters:
 
     paths:
-        - app
+        - app/
 
-    # The level 9 is the highest level
+    # Level 10 is the highest level
     level: 5
 
-    ignoreErrors:
-        - '#PHPDoc tag @var#'
-
-    excludePaths:
-        - ./*/*/FileToBeExcluded.php
-
-    checkMissingIterableValueType: false
-
-
-    bladestan:
-        template_paths:
-            # default
-            - resources/views
+#    ignoreErrors:
+#        - '#PHPDoc tag @var#'
+#
+#    excludePaths:
+#        - ./*/*/FileToBeExcluded.php

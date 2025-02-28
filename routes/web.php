@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ManageSubscriberController;
 use App\Http\Controllers\UnsubscribeController;
@@ -39,7 +41,7 @@ Route::get('vault', ShowVaultPosts::class)->name('posts.vault');
 /*
 * App Routes
 */
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function (): void {
     Route::get('dashboard/{page?}', DashStandardPage::class)->name('dashboard');
     Route::get('siteupdates', ShowPostUpdates::class)->name('site-updates');
     Route::get('manage/subscribers', ManageSubscribers::class)->name('manage.subscribers');
@@ -53,4 +55,4 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-//Route::get('importImages', WpApiController::class);
+// Route::get('importImages', WpApiController::class);

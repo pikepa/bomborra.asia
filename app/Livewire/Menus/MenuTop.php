@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Menus;
 
 use App\Models\Category;
 use Livewire\Component;
 
-class MenuTop extends Component
+final class MenuTop extends Component
 {
     public function render()
     {

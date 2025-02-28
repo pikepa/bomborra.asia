@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Livewire\Posts\ShowCategoryPosts;
 use App\Models\Category;
 use App\Models\Channel;
@@ -7,7 +9,7 @@ use App\Models\Post;
 use App\Models\User;
 use Livewire\Livewire;
 
-test('any user can view published posts by category', function () {
+test('any user can view published posts by category', function (): void {
     $this->withoutExceptionHandling();
 
     $user = User::factory()->create();
@@ -30,7 +32,7 @@ test('any user can view published posts by category', function () {
         ->assertSee($post->body);
 });
 
-test('a signed in user can view published posts by category', function () {
+test('a signed in user can view published posts by category', function (): void {
     $user = User::factory()->create();
     $category = $category = Category::factory()->create();
     $channel = Channel::factory()->create();
@@ -52,7 +54,7 @@ test('a signed in user can view published posts by category', function () {
         ->assertSee($post->body);
 });
 
-test('a signed in user can view unpublished future posts by category', function () {
+test('a signed in user can view unpublished future posts by category', function (): void {
     $user = User::factory()->create();
     $category = $category = Category::factory()->create();
     $channel = Channel::factory()->create();
@@ -74,7 +76,7 @@ test('a signed in user can view unpublished future posts by category', function 
         ->assertSee($post->body);
 });
 
-test('a signed in user can view unpublished posts by category', function () {
+test('a signed in user can view unpublished posts by category', function (): void {
     $user = User::factory()->create();
     $category = $category = Category::factory()->create();
     $channel = Channel::factory()->create();
@@ -96,15 +98,15 @@ test('a signed in user can view unpublished posts by category', function () {
         ->assertSee($post->body);
 });
 
-test('displays "No Posts within this Category" if colllection is empty', function () {
-    //Set up
+test('displays "No Posts within this Category" if colllection is empty', function (): void {
+    // Set up
     $user = User::factory()->create();
     $category = Category::factory()->create();
     Channel::factory()->create();
 
     // $post=Post::factory()->create(['published_at'=>now()]);
 
-    //act and Assert
+    // act and Assert
     Livewire::test(ShowCategoryPosts::class, ['cat_slug' => $category->slug])
         ->assertStatus(200)
         ->assertSee('Sorry, there are currently no Articles within this Category');

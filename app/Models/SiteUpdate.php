@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class SiteUpdate extends Model
+final class SiteUpdate extends Model
 {
     use HasFactory;
 
-    const STATUSES = [
+    public const STATUSES = [
         'Draft' => 'Draft',
         'Submitted' => 'Submitted',
         'Sent' => 'Sent',
@@ -22,7 +24,7 @@ class SiteUpdate extends Model
 
     public function scopeFiltertitle($query, $text = '')
     {
-        return $query->whereHas('post', function ($q) use ($text) {
+        return $query->whereHas('post', function ($q) use ($text): void {
             $q->where('title', 'LIKE', '%'.$text.'%');
         });
     }

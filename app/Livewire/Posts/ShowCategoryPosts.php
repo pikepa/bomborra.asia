@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Posts;
 
 use App\Models\Category;
@@ -8,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ShowCategoryPosts extends Component
+final class ShowCategoryPosts extends Component
 {
     use WithPagination;
 
@@ -27,12 +29,12 @@ class ShowCategoryPosts extends Component
                 ['posts' => Post::with('author')->where('category_id', $this->category->id)
                     ->orderBy('published_at', 'desc')->paginate(5), ]
             );
-        } else {
-            return view(
-                'livewire.posts.show-category-posts',
-                ['posts' => Post::published()->with('author')->where('category_id', $this->category->id)
-                    ->orderBy('published_at', 'desc')->paginate(5), ]
-            );
         }
+
+        return view(
+            'livewire.posts.show-category-posts',
+            ['posts' => Post::published()->with('author')->where('category_id', $this->category->id)
+                ->orderBy('published_at', 'desc')->paginate(5), ]
+        );
     }
 }
