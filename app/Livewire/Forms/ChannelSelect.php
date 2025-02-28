@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Forms;
 
 use App\Models\Channel;
@@ -7,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Modelable;
 use Livewire\Component;
 
-class ChannelSelect extends Component
+final class ChannelSelect extends Component
 {
     public $queryChannels;   // all channels for select dropdown
 
@@ -16,7 +18,7 @@ class ChannelSelect extends Component
 
     public function mount($chan_id = null)
     {
-        if ($chan_id != null) {
+        if ($chan_id !== null) {
             $this->channel_id = $chan_id;
         }
         $this->queryChannels = Channel::whereStatus(1)->orderBy('name', 'asc')->get();

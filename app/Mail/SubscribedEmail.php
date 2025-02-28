@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SubscribedEmail extends Mailable
+final class SubscribedEmail extends Mailable
 {
     use Queueable;
     use SerializesModels;

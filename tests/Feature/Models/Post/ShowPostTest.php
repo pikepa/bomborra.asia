@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Livewire\Posts\DisplayPostGallery;
 use App\Livewire\Posts\ShowPost;
 use App\Models\Category;

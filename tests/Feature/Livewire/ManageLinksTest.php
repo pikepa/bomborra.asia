@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Livewire\Links\ManageLinks;
 use App\Models\Link;
 use Livewire\Livewire;

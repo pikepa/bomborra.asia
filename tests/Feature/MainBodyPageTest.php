@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\Category;
 use App\Models\Channel;
 use App\Models\Link;
@@ -25,7 +27,7 @@ test('A guest can view a published post on the home page', function (): void {
         ->assertStatus(200)
        // ->assertSee($post->title)
         ->assertSee($category->title)
-        ->assertSee(substr($post->description. 0, 50));
+        ->assertSee(mb_substr($post->description. 0, 50));
 });
 
 test('A guest can not view an unpublished post on the home page', function (): void {

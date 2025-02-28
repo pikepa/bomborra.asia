@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Pages;
 
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Title('Dashboard')]
-class DashStandardPage extends Component
+final class DashStandardPage extends Component
 {
     public $show = 'dash';
 

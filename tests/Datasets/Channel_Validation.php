@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 dataset('channel_validation', [
     'A channel name is required' => ['name', null, 'required'],
     'A channel name is Min 6 ' => ['name', str_repeat('*', 5), 'min'],

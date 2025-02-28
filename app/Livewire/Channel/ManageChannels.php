@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Channel;
 
 use App\Models\Channel;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
-class ManageChannels extends Component
+final class ManageChannels extends Component
 {
     public $name = '';
 

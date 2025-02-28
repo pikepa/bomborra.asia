@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Subscriber;
 use Illuminate\Http\Request;
 
-class UnsubscribeController extends Controller
+final class UnsubscribeController
 {
     /**
      * Handle the incoming request.

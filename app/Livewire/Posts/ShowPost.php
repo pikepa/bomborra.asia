@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Posts;
 
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class ShowPost extends Component
+final class ShowPost extends Component
 {
     public $post;
 
@@ -22,7 +24,7 @@ class ShowPost extends Component
             $post = Post::where('slug', $slug)->first();
         } else {
             $post = Post::published()->where('slug', $slug)->first();
-            if ($post == null) {
+            if ($post === null) {
                 return redirect('/login')->with('status', 'Not Authorized!');
             }
         }

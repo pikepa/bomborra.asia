@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Category;
 
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
-class ManageCategories extends Component
+final class ManageCategories extends Component
 {
     public $name = '';
 

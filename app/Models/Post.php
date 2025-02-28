@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +16,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
 
-class Post extends Model implements HasMedia, Sitemapable
+final class Post extends Model implements HasMedia, Sitemapable
 {
     use HasFactory;
     use InteractsWithMedia;
@@ -65,7 +67,7 @@ class Post extends Model implements HasMedia, Sitemapable
 
     public function getDisplayPublishedAtAttribute($value)
     {
-        if ($this->published_at != null) {
+        if ($this->published_at !== null) {
             return $this->published_at->toFormattedDateString();
         }
 
@@ -79,9 +81,8 @@ class Post extends Model implements HasMedia, Sitemapable
         $fraction = $n - $whole;
         if (($whole + (round($fraction * 60) > 30 ? 1 : 0)) > 1) {
             return ' : '.($whole + (round($fraction * 60) > 30 ? 1 : 0)).' - min read.';
-        } else {
-            return;
         }
+
     }
 
     public function setSlugAttribute($value)

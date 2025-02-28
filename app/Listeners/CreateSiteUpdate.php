@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Listeners;
 
 use App\Events\PostPublished;
 use App\Models\SiteUpdate;
 
-class CreateSiteUpdate
+final class CreateSiteUpdate
 {
     /**
      * Handle the event.

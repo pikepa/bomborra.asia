@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Subscriber;
 
 use App\Jobs\Subscribers\SendWebUpdate;
@@ -10,7 +12,7 @@ use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ManageSubscribers extends Component
+final class ManageSubscribers extends Component
 {
     use WithBulkActions, WithPagination, WithSorting;
 
@@ -103,7 +105,7 @@ class ManageSubscribers extends Component
     public function getRowsQueryProperty()
     {
         $query = Subscriber::query()
-            ->when($this->filters['status'], fn ($query, $status) => $status == 'VAL' ? $query->where('validated_at', '<>', null) : $query->whereNull('validated_at'))
+            ->when($this->filters['status'], fn ($query, $status) => $status === 'VAL' ? $query->where('validated_at', '<>', null) : $query->whereNull('validated_at'))
             ->when($this->filters['search'], fn ($query, $search) => $query->where('name', 'like', '%'.$search.'%')->orWhere('email', 'like', '%'.$search.'%'))
             ->when($this->filters['val-date-min'], fn ($query, $date) => $query->where('validated_at', '>=', Carbon::parse($date)))
             ->when($this->filters['val-date-max'], fn ($query, $date) => $query->where('validated_at', '<=', Carbon::parse($date)))

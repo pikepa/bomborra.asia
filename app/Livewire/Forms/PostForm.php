@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Forms;
 
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Livewire\Form;
 
-class PostForm extends Form
+final class PostForm extends Form
 {
     public ?Post $post;
 
@@ -44,6 +46,20 @@ class PostForm extends Form
 
     public $temp_published_at = null;
 
+    protected $rules =
+        [
+            'title' => 'required|min:10|max:250',
+            'slug' => 'required',
+            'body' => 'required|min:20',
+            'meta_description' => 'required|min:10|max:500',
+            'is_in_vault' => 'required|boolean',
+            'author_id' => 'required|integer',
+            'category_id' => 'required|integer',
+            'channel_id' => 'required|integer',
+            'published_at' => '',
+            'cover_image' => 'nullable|url',
+        ];
+
     public function setPost(Post $post)
     {
         $this->post = $post;
@@ -61,20 +77,6 @@ class PostForm extends Form
         $this->author_id = $this->post->author_id;
         $this->published_at = $this->post->published_at;
     }
-
-    protected $rules =
-        [
-            'title' => 'required|min:10|max:250',
-            'slug' => 'required',
-            'body' => 'required|min:20',
-            'meta_description' => 'required|min:10|max:500',
-            'is_in_vault' => 'required|boolean',
-            'author_id' => 'required|integer',
-            'category_id' => 'required|integer',
-            'channel_id' => 'required|integer',
-            'published_at' => '',
-            'cover_image' => 'nullable|url',
-        ];
 
     public function store()
     {

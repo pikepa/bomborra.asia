@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class WelcomeController extends Controller
+final class WelcomeController
 {
     public function __invoke(Request $request)
     {

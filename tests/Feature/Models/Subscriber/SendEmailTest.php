@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Mail\SubscribedEmail;
 use App\Models\Subscriber;
 use Illuminate\Support\Facades\Mail;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Posts;
 
 use App\Models\SiteUpdate;
@@ -7,7 +9,7 @@ use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ShowPostUpdates extends Component
+final class ShowPostUpdates extends Component
 {
     use WithPagination;
 
@@ -61,7 +63,7 @@ class ShowPostUpdates extends Component
 
     public function updatedSearch(&$value)
     {
-        if ($value == '') {
+        if ($value === '') {
             $value = null;
         }
         $this->resetPage();
