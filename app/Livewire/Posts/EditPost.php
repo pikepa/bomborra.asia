@@ -103,6 +103,8 @@ final class EditPost extends Component
             $this->form->published_at = Carbon::parse($this->form->temp_published_at);
         }
         $this->update();
+        // Event
+        // $this->post->publish();
         $postfound = $this->form->post->refresh();
         PostPublished::dispatch($postfound, Carbon::now());
         // $this->dispatch('refreshcomponent');
@@ -110,10 +112,8 @@ final class EditPost extends Component
 
     public function unpublishPost()
     {
-        $this->form->post->published_at = Carbon::make(null);
-        $this->form->post->update();
-        $this->form->post->siteUpdate()->delete();
-
-        return redirect()->to('/posts/'.$this->form->post->slug);
+        $this->form->published_at = Carbon::make(null);
+        $this->update();
+        // $this->post->siteUpdate()->delete();
     }
 }

@@ -25,7 +25,7 @@ test('A guest can view a published post on the home page', function (): void {
 
     $this->get('/home')
         ->assertStatus(200)
-       // ->assertSee($post->title)
+        // ->assertSee($post->title)
         ->assertSee($category->title)
         ->assertSee(mb_substr($post->description. 0, 50));
 });
