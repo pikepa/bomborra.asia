@@ -22,7 +22,6 @@
 
     @stack('childstyles')
     <title>{{  $title ?? 'Bomborra Studio' }}</title>
-    @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
@@ -34,7 +33,6 @@
 
         </div>
     </div>
-    @livewireScripts()
  
     <!-- Scripts -->
     <script src="https://unpkg.com/trix@2.0.0-beta.0/dist/trix.umd.js"></script>
