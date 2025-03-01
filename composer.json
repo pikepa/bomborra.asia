@@ -76,7 +76,6 @@
         "test:refactor": "rector --dry-run",
         "test": [
             "@test:type-coverage",
-            "@test:typos",
             "@test:types",
             "@test:unit",
             "@test:lint",

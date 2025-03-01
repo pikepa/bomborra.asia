@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+// declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-final class TextSearchController extends Controller
+final class TextSearchController
 {
     public function index(Request $request)
     {
